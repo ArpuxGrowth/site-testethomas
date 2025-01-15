@@ -12,7 +12,7 @@ export default function Header1({ links }) {
                     If you use a PNG logo image, the image resolution must be equal 200% of the visible logo
                     image size for support of retina screens. See details in the template documentation. *) */}
       <div className="nav-logo-wrap local-scroll">
-        <Link href="/main-one-page" className="logo">
+        <Link href="/" className="logo">
           <Image
             src="/assets/images/logo-drthomas.png"
             alt="Your Company Logo"

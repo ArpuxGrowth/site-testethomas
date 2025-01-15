@@ -19,42 +19,46 @@ export default function BlogPostPage({ params }) {
     const fetchPost = async () => {
       const query = qs.stringify(
         {
-            filters: {
-              Url: { $eq: slug }, // Filtro pelo slug
-              Tipo: { $eq: "Blog" }, // Filtro para incluir apenas conteúdos do tipo "Blog"
-            },
+          filters: {
+            Url: { $eq: slug }, // Filtro pelo slug
+            Tipo: { $eq: "Blog" }, // Filtro para incluir apenas conteúdos do tipo "Blog"
           },
-          { encodeValuesOnly: true }
-        );
-
+          populate: ["FotoPrincipal", "Tipo", "Seo"], // Popula os campos desejados
+        },
+        { encodeValuesOnly: true }
+      );
+  
       const endpoint = `http://54.91.50.25:1337/api/noticias?${query}`;
-      const token = `ec6b2077b4d3d27723a211ea924a659effe0e6c4267aa7438abe9032fd87940a6098623ac2f747aa96de30d51bc50b597ff3b78306859c0422b1d44ff1af7d105c24fea69ca52c9566fdcb54cb30b8e6eedb6dcda923c77e7abbbfec80e5b9c5f61c09009bfbb1dc101709b20d79035b9e34a31fe94100a99581a2eabc5a1478`;
-
+      const token =
+        "ec6b2077b4d3d27723a211ea924a659effe0e6c4267aa7438abe9032fd87940a6098623ac2f747aa96de30d51bc50b597ff3b78306859c0422b1d44ff1af7d105c24fea69ca52c9566fdcb54cb30b8e6eedb6dcda923c77e7abbbfec80e5b9c5f61c09009bfbb1dc101709b20d79035b9e34a31fe94100a99581a2eabc5a1478";
+  
       try {
         const response = await fetch(endpoint, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
+  
         if (!response.ok) {
           throw new Error(`Erro ao buscar dados: ${response.status}`);
         }
-
+  
         const data = await response.json();
         if (data?.data?.length > 0) {
           setPost(data.data[0]); // Seleciona o primeiro resultado
+          console.log(data.data[0]); // Exibe os dados no console
         } else {
-          setError('Post não encontrado');
+          setError("Post não encontrado");
         }
       } catch (err) {
         console.error(err);
         setError(err.message);
       }
     };
-
+  
     fetchPost();
   }, [slug]);
+  
 
   if (error) {
     return <div className="error">Erro: {error}</div>;
@@ -63,6 +67,12 @@ export default function BlogPostPage({ params }) {
   if (!post) {
     return <div className="loading">Carregando...</div>;
   }
+
+  const apiBaseUrl = "http://54.91.50.25:1337"; // URL base da API
+  const imageUrl =
+    post?.attributes?.FotoPrincipal?.data?.attributes?.formats?.large?.url
+      ? `${apiBaseUrl}${post.attributes.FotoPrincipal.data.attributes.formats.large.url}`
+      : "/assets/images/full-width-images/default-image.jpg";
 
   const { Titulo, Conteudo, createdAt, updatedAt, Tipo, WpReference, Url, Destaque, HomePage, DataPublicacao } = post.attributes;
 
@@ -78,7 +88,7 @@ export default function BlogPostPage({ params }) {
               <ParallaxContainer
                 className="page-section bg-gray-light-1 bg-light-alpha-90 parallax-5"
                 style={{
-                  backgroundImage: "url(/assets/images/full-width-images/default-image.jpg)",
+                  backgroundImage: `url(${imageUrl})`,
                 }}
               >
                 {/* Section Content */}
@@ -129,6 +139,22 @@ export default function BlogPostPage({ params }) {
                 </div>
               </ParallaxContainer>
             </section>
+
+            {post?.attributes?.FotoPrincipal?.data?.attributes?.formats && (
+              <div className="image-debug-section">
+                <h2>Imagens Disponíveis (Debug)</h2>
+                {Object.entries(post.attributes.FotoPrincipal.data.attributes.formats).map(([key, format]) => (
+                  <div key={key} style={{ marginBottom: "20px" }}>
+                    <h3>{key.toUpperCase()}:</h3>
+                    <img
+                      src={`${process.env.NEXT_PUBLIC_API_URL || ""}${format.url}`}
+                      alt={`Formato ${key}`}
+                      style={{ maxWidth: "100%", border: "1px solid #ddd", borderRadius: "8px" }}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* Section */}
             <section className="page-section">

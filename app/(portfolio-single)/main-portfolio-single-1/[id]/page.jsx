@@ -70,7 +70,7 @@ export default function MainPortfolioSinglePage1({ params }) {
                       <div className="col-md-8 offset-md-2">
                         <div className="mb-20">
                           <a
-                            href="/main-one-page"
+                            href="/"
                             className="btn btn-mod btn-small btn-border btn-circle"
                             data-btn-animate="y"
                           >

@@ -71,7 +71,7 @@ export default function Home11({ onePage = false, dark = false }) {
                   <Image
                     width={810}
                     height={512}
-                    src="/assets/images/promo-thomas.jpg"
+                    src="/assets/images/promo-thomas4.jpg"
                     alt="Dr. Thomas Benson em seu consultório"
                     className="wow scaleOutIn"
                     data-wow-duration="1.2s"
@@ -89,18 +89,9 @@ export default function Home11({ onePage = false, dark = false }) {
                   <Image
                     width={810}
                     height={512}
-                    src="/assets/images/promo-thomas2.jpg"
-                    alt="Dr. Thomas Benson e paciente"
-                    className="wow scaleOutIn"
-                    data-wow-duration="1.2s"
-                    data-wow-offset={134}
-                  />
-                  <Image
-                    width={810}
-                    height={512}
                     src="/assets/images/promo-thomas3.jpg"
                     alt="Dr. Thomas Benson no Jardim"
-                    className="wow scaleOutIn pt-145p"
+                    className="wow scaleOutIn"
                     data-wow-duration="1.2s"
                     data-wow-offset={134}
                   />

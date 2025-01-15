@@ -18,7 +18,7 @@ export const metadata = {
   description:
     "Conheça o Dr. Thomas Benson, referência em cirurgia plástica facial e especialista em Deep Plane Facelift na América Latina. Excelência em técnicas inovadoras para resultados naturais, segurança e exclusividade.",
 };
-export default function Home1MainDemoOnepage() {
+export default function Home() {
   return (
     <>
       <div className="theme-main">

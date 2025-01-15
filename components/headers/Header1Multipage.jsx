@@ -71,7 +71,7 @@ export default function Header1Multipage({ links, defaultButtonColor = "white" }
   return (
     <div className="main-nav-sub full-wrapper">
       <div className="nav-logo-wrap local-scroll">
-        <Link href={`/main-one-page`} className="logo">
+        <Link href={`/`} className="logo">
           <Image
             src="/assets/images/logo-drthomas.png"
             alt="Logo do Dr. Thomas Benson"

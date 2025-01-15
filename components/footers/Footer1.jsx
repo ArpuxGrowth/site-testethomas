@@ -23,7 +23,7 @@ export default function Footer1({ dark = false }) {
       <div className="container">
         <div className="row pb-120 pb-sm-80 pb-xs-50">
           <div className="col-md-4 col-lg-3 text-gray mb-sm-50">
-            <Link href={"/main-one-page"} className="mb-30">
+            <Link href={"/"} className="mb-30">
               <Image
                 src="/assets/images/logo-drthomas.png"
                 width={105}

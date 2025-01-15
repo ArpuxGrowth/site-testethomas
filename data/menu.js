@@ -531,7 +531,7 @@ export const menuItems2 = [
     subMenu: [
       {
         links: [
-          { href: "/main-one-page", text: "Início" },
+          { href: "/", text: "Início" },
         ],
       },
     ],

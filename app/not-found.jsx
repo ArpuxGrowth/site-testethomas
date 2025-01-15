@@ -93,7 +93,7 @@ export default function MainAboutPage1() {
                             data-wow-delay=".3s"
                           >
                             <Link
-                              href={`/main-one-page`}
+                              href={`/`}
                               className="btn btn-mod btn-w btn-round btn-medium btn-hover-anim"
                             >
                               <i className="mi-arrow-left size-24 align-center" />

@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/(homes)/(home-1)/(main-demo)/main-one-page/page": [
+    "/(about)/about-2/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(homes)/(home-1)/(main-demo)/main-one-page/page.js"
+      "static/chunks/app/(about)/about-2/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -16,30 +16,30 @@
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
     ],
-    "/(portfolio)/before-after/page": [
+    "/(homes)/(home-1)/(main-demo)/main-one-page/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(portfolio)/before-after/page.js"
-    ],
-    "/(otherPages)/press/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(otherPages)/press/page.js"
+      "static/chunks/app/(homes)/(home-1)/(main-demo)/main-one-page/page.js"
     ],
     "/(otherPages)/patients-abroad/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(otherPages)/patients-abroad/page.js"
     ],
-    "/(otherPages)/surgeries/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(otherPages)/surgeries/page.js"
+      "static/chunks/app/page.js"
     ],
-    "/(about)/about-2/page": [
+    "/(portfolio)/before-after/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(about)/about-2/page.js"
+      "static/chunks/app/(portfolio)/before-after/page.js"
+    ],
+    "/(portfolio-single)/main-portfolio-single-1/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(portfolio-single)/main-portfolio-single-1/[id]/page.js"
     ],
     "/(otherPages)/main-pages-squad/page": [
       "static/chunks/webpack.js",
@@ -50,6 +50,21 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(blogs)/blog/page.js"
+    ],
+    "/(otherPages)/press/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(otherPages)/press/page.js"
+    ],
+    "/(otherPages)/surgeries/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(otherPages)/surgeries/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }
