@@ -6,7 +6,9 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Nav3({ links }) {
-  const [menuOpen, setMenuOpen] = useState([-1, -1]);
+  const [menuOpen, setMenuOpen] = useState([-1, -1]); // Menu aberto no mobile
+  const [isMobile, setIsMobile] = useState(false); // Verifica se é mobile
+
   const toggleParent1 = (i) => {
     const tempMenuOpen = [...menuOpen];
     if (menuOpen[0] === i) {
@@ -22,6 +24,17 @@ export default function Nav3({ links }) {
   // Lista de abas que não devem ter submenus
   const noSubMenuTitles = ["Início", "Imprensa", "Pacientes no Exterior", "Cirurgias", "Antes e Depois"];
 
+  // Detecta se é mobile (tela <= 1024px)
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 1024);
+    };
+
+    handleResize(); // Verificação inicial
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     setTimeout(() => {
       scrollToElement();
@@ -36,31 +49,40 @@ export default function Nav3({ links }) {
   return (
     <>
       {links.map((item, index) => (
-        <li key={index} className={menuOpen[0] === index ? "js-opened" : ""}>
+        <li
+          key={index}
+          className={`${menuOpen[0] === index && isMobile ? "js-opened" : ""}`.trim()}
+        >
           <Link
-            href={item.subMenu && noSubMenuTitles.includes(item.title) ? item.subMenu[0].links[0].href : "#"}
+            href={noSubMenuTitles.includes(item.title) ? item.subMenu[0].links[0].href : "#"}
             className={`mn-has-sub ${
               item.subMenu &&
-              Array.isArray(item.subMenu) &&
-              item.subMenu.some(
-                (e1) =>
-                  e1.links &&
-                  Array.isArray(e1.links) &&
-                  e1.links.some(
-                    (e2) =>
-                      e2.href && pathname.split("/")[1] === e2.href.split("/")[1]
-                  )
+              !noSubMenuTitles.includes(item.title) &&
+              item.subMenu.some((subItem) =>
+                subItem.links.some(
+                  (link) => pathname.split("/")[1] === link.href.split("/")[1]
+                )
               )
                 ? "active"
                 : ""
             }`}
+            onClick={(e) => {
+              if (isMobile && item.title === "Dr. Thomas") {
+                e.preventDefault(); // Evita redirecionamento no mobile
+                toggleParent1(index);
+              }
+            }}
           >
             {item.title}
+            {isMobile &&
+              item.title === "Dr. Thomas" && ( // Seta somente para "Dr. Thomas" no mobile
+                <i className="mi-chevron-down" />
+              )}
           </Link>
           {item.subMenu && !noSubMenuTitles.includes(item.title) && (
             <ul
               className={`mn-sub mn-has-multi ${
-                menuOpen[0] === index ? "mobile-sub-active" : ""
+                isMobile && menuOpen[0] === index ? "mobile-sub-active" : ""
               }`}
             >
               {item.subMenu.map((subItem, subIndex) => (

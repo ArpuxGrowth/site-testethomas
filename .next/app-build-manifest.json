@@ -16,10 +16,40 @@
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
     ],
+    "/(portfolio)/before-after/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(portfolio)/before-after/page.js"
+    ],
+    "/(otherPages)/press/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(otherPages)/press/page.js"
+    ],
+    "/(otherPages)/patients-abroad/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(otherPages)/patients-abroad/page.js"
+    ],
+    "/(otherPages)/surgeries/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(otherPages)/surgeries/page.js"
+    ],
     "/(about)/about-2/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(about)/about-2/page.js"
+    ],
+    "/(otherPages)/main-pages-squad/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(otherPages)/main-pages-squad/page.js"
+    ],
+    "/(blogs)/blog/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(blogs)/blog/page.js"
     ]
   }
 }

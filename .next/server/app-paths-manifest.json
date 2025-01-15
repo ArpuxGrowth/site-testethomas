@@ -1,4 +1,7 @@
 {
   "/(homes)/(home-1)/(main-demo)/main-one-page/page": "app/(homes)/(home-1)/(main-demo)/main-one-page/page.js",
-  "/(about)/about-2/page": "app/(about)/about-2/page.js"
+  "/(otherPages)/surgeries/page": "app/(otherPages)/surgeries/page.js",
+  "/(about)/about-2/page": "app/(about)/about-2/page.js",
+  "/(otherPages)/main-pages-squad/page": "app/(otherPages)/main-pages-squad/page.js",
+  "/(blogs)/blog/page": "app/(blogs)/blog/page.js"
 }
