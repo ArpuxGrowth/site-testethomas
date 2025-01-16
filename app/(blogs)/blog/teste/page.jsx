@@ -15,10 +15,8 @@ const ParallaxContainer = dynamic(
 import Header1Multipage from "@/components/headers/Header1Multipage";
 import AnimatedText from "@/components/common/AnimatedText";
 
-import BlogWidget from "@/components/blog/widgets/BlogWidget";
 import { menuItems2 } from "@/data/menu";
 import { allBlogs } from "@/data/blogs";
-import Image from "next/image";
 
 export default function MainBlogSinglePageSidebarRight({ params }) {
   const [apiData, setApiData] = useState(null); // Estado para armazenar os dados da API

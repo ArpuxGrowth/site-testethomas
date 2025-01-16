@@ -161,21 +161,6 @@ export default function MainBlogSinglePageSidebarRight({ params }) {
                     </div>
                     {/* End Post */}
 
-                    {/* Mostra dados da API */}
-                    {apiData && (
-                      <div className="api-data">
-                        <h2>Dados da API:</h2>
-                        <pre>{JSON.stringify(apiData, null, 2)}</pre>
-                      </div>
-                    )}
-
-                    {/* Mostra erro, se houver */}
-                    {error && (
-                      <div className="api-error">
-                        <p style={{ color: "red" }}>Erro: {error}</p>
-                      </div>
-                    )}
-
                     {/* Prev/Next Post */}
                     <div className="clearfix mt-40">
                       <a href={`/main-blog-single-sidebar-right/${blog.id - 1}`} className="blog-item-more left">

@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/(about)/about-2/page": [
+    "/(blogs)/blog/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(about)/about-2/page.js"
+      "static/chunks/app/(blogs)/blog/[slug]/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -16,30 +16,20 @@
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
     ],
-    "/(homes)/(home-1)/(main-demo)/main-one-page/page": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(homes)/(home-1)/(main-demo)/main-one-page/page.js"
+      "static/chunks/app/_not-found/page.js"
     ],
-    "/(otherPages)/patients-abroad/page": [
+    "/(blog-single)/main-blog-single-sidebar-right/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(otherPages)/patients-abroad/page.js"
+      "static/chunks/app/(blog-single)/main-blog-single-sidebar-right/[id]/page.js"
     ],
-    "/page": [
+    "/(otherPages)/press/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
-    "/(portfolio)/before-after/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(portfolio)/before-after/page.js"
-    ],
-    "/(portfolio-single)/main-portfolio-single-1/[id]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(portfolio-single)/main-portfolio-single-1/[id]/page.js"
+      "static/chunks/app/(otherPages)/press/page.js"
     ],
     "/(otherPages)/main-pages-squad/page": [
       "static/chunks/webpack.js",
@@ -51,20 +41,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(blogs)/blog/page.js"
     ],
-    "/(otherPages)/press/page": [
+    "/(portfolio)/before-after/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(otherPages)/press/page.js"
+      "static/chunks/app/(portfolio)/before-after/page.js"
     ],
-    "/(otherPages)/surgeries/page": [
+    "/(portfolio-single)/main-portfolio-single-1/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(otherPages)/surgeries/page.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/(portfolio-single)/main-portfolio-single-1/[id]/page.js"
     ]
   }
 }

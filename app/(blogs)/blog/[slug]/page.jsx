@@ -4,11 +4,14 @@ import { useEffect, useState } from 'react';
 import qs from 'qs';
 import Footer1 from '@/components/footers/Footer1';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 
 const ParallaxContainer = dynamic(() => import('@/components/common/ParallaxContainer'), { ssr: false });
 import Header1Multipage from '@/components/headers/Header1Multipage';
 import { menuItems2 } from '@/data/menu';
 import BlogWidget2 from '@/components/blog/widgets/BlogWidget2';
+import Image from 'next/image';
+import { notFound } from 'next/navigation';
 
 export default function BlogPostPage({ params }) {
   const { slug } = params; // Pega o slug da URL dinâmica
@@ -61,7 +64,7 @@ export default function BlogPostPage({ params }) {
   
 
   if (error) {
-    return <div className="error">Erro: {error}</div>;
+    return notFound(); // Ou <div className="error">Erro: {error}</div>;
   }
 
   if (!post) {
@@ -69,15 +72,27 @@ export default function BlogPostPage({ params }) {
   }
 
   const apiBaseUrl = "http://54.91.50.25:1337"; // URL base da API
-  const imageUrl =
-    post?.attributes?.FotoPrincipal?.data?.attributes?.formats?.large?.url
-      ? `${apiBaseUrl}${post.attributes.FotoPrincipal.data.attributes.formats.large.url}`
-      : "/assets/images/full-width-images/default-image.jpg";
+  const imageFormats = post?.attributes?.FotoPrincipal?.data?.attributes?.formats || {};
+  const defaultImage = "/assets/images/full-width-images/blog-bg-1.jpg";
 
-  const { Titulo, Conteudo, createdAt, updatedAt, Tipo, WpReference, Url, Destaque, HomePage, DataPublicacao } = post.attributes;
+  const images = Object.entries(imageFormats).reduce((acc, [key, format]) => {
+    acc[key] = `${apiBaseUrl}${format?.url || defaultImage}`;
+    return acc;
+  }, {});
+
+      
+  const { Titulo, Conteudo, DataPublicacao, Seo } = post.attributes;
+  const { metaTitle, metaDescription } = Seo || {}; // Dados de SEO
 
    return (
     <>
+      {/* Dinâmico Head para SEO */}
+      <Head>
+        <title>{metaTitle || Titulo}</title>
+        <meta name="description" content={metaDescription || Conteudo.substring(0, 150)} />
+        <meta name="keywords" content={`blog, ${Titulo}`} />
+      </Head>
+
       <div className="theme-main">
         <div className="page" id="top">
           <nav className="main-nav transparent stick-fixed wow-menubar">
@@ -88,7 +103,7 @@ export default function BlogPostPage({ params }) {
               <ParallaxContainer
                 className="page-section bg-gray-light-1 bg-light-alpha-90 parallax-5"
                 style={{
-                  backgroundImage: `url(${imageUrl})`,
+                  backgroundImage: `url(${images.large || defaultImage})`,
                 }}
               >
                 {/* Section Content */}
@@ -111,7 +126,7 @@ export default function BlogPostPage({ params }) {
                             {Titulo}
                         </h1>
 
-                        {/* <!-- Author, Categories, Comments --> */}
+                        {/* <!-- Author, Categories --> */}
                         <div
                           className="blog-item-data mt-30 mt-sm-10 mb-0 wow fadeInUp"
                           data-wow-delay="0.2s"
@@ -130,7 +145,7 @@ export default function BlogPostPage({ params }) {
                             </a>
                           </div>
                         </div>
-                        {/* <!-- End Author, Categories, Comments --> */}
+                        {/* <!-- End Author, Categories --> */}
                       </div>
                       {/* End Page Title */}
                     </div>
@@ -139,22 +154,6 @@ export default function BlogPostPage({ params }) {
                 </div>
               </ParallaxContainer>
             </section>
-
-            {post?.attributes?.FotoPrincipal?.data?.attributes?.formats && (
-              <div className="image-debug-section">
-                <h2>Imagens Disponíveis (Debug)</h2>
-                {Object.entries(post.attributes.FotoPrincipal.data.attributes.formats).map(([key, format]) => (
-                  <div key={key} style={{ marginBottom: "20px" }}>
-                    <h3>{key.toUpperCase()}:</h3>
-                    <img
-                      src={`${process.env.NEXT_PUBLIC_API_URL || ""}${format.url}`}
-                      alt={`Formato ${key}`}
-                      style={{ maxWidth: "100%", border: "1px solid #ddd", borderRadius: "8px" }}
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
 
             {/* Section */}
             <section className="page-section">
@@ -165,6 +164,17 @@ export default function BlogPostPage({ params }) {
                     {/* Post */}
                     <div className="blog-item mb-80 mb-xs-40">
                       <div className="blog-item-body">
+                        {/* Media Gallery */}
+                        <div className="blog-media mb-40 mb-xs-30">
+                          <div className="owl-item">
+                            <Image
+                              src={images.large || defaultImage}
+                              width={1350}
+                              height={865}
+                              alt={Titulo}
+                            />
+                          </div>
+                        </div>
                         {/* Conteúdo */}
                         <div 
                           dangerouslySetInnerHTML={{ __html: Conteudo }}
@@ -173,18 +183,6 @@ export default function BlogPostPage({ params }) {
                       </div>
                     </div>
                     {/* End Post */}
-
-                    {/* Prev/Next Post */}
-                    <div className="clearfix mt-40">
-                      <a href={`/blog/${Url - 1}`} className="blog-item-more left">
-                        <i className="mi-chevron-left" />
-                        &nbsp;Último post
-                      </a>
-                      <a href={`/blog/${Url + 1}`} className="blog-item-more right">
-                        Próximo post&nbsp;
-                        <i className="mi-chevron-right" />
-                      </a>
-                    </div>
                   </div>
 
                   {/* Sidebar */}

@@ -1,77 +1,84 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 
-export default function Pagination({ className }) {
-  const [activePage, setActivePage] = useState(1); // Initialize active page
+export default function Pagination({ className, activePage, onPageChange, totalPages }) {
+  const getPageNumbers = () => {
+    const maxVisiblePages = 5; // Total de páginas visíveis (central + 2 antes + 2 depois)
+    let startPage = Math.max(activePage - 2, 1);
+    let endPage = Math.min(activePage + 2, totalPages);
 
-  // Function to handle page change
-  const handlePageChange = (page) => {
-    setActivePage(page);
+    if (endPage - startPage < maxVisiblePages - 1) {
+      if (activePage < totalPages / 2) {
+        endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
+      } else {
+        startPage = Math.max(endPage - maxVisiblePages + 1, 1);
+      }
+    }
+
+    const pages = [];
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+
+    return pages;
   };
 
+  const pageNumbers = getPageNumbers();
+
   return (
-    <div
-      className={className ? className : "pagination justify-content-center"}
-    >
-      {/* Previous Page Button */}
+    <div className={className ? className : "pagination justify-content-center"}>
+      {/* Botão Página Anterior */}
       <a
-        onClick={() => activePage > 1 && handlePageChange(activePage - 1)}
+        onClick={() => activePage > 1 && onPageChange(activePage - 1)}
         className={activePage === 1 ? "disabled" : ""}
       >
         <i className="mi-chevron-left" />
-        <span className="visually-hidden">Previous page</span>
+        <span className="visually-hidden">Página anterior</span>
       </a>
 
-      {/* Page Number 1 */}
-      <a
-        onClick={() => handlePageChange(1)}
-        className={activePage === 1 ? "active" : ""}
-      >
-        1
-      </a>
-
-      {/* Page Number 2 */}
-      <a
-        onClick={() => handlePageChange(2)}
-        className={activePage === 2 ? "active" : ""}
-      >
-        2
-      </a>
-
-      {/* Page Number 3 */}
-      <a
-        onClick={() => handlePageChange(3)}
-        className={activePage === 3 ? "active" : ""}
-      >
-        3
-      </a>
-
-      {activePage > 4 && activePage < 8 && (
-        <span className="no-active">...</span>
+      {/* Primeira Página */}
+      {pageNumbers[0] > 1 && (
+        <>
+          <a onClick={() => onPageChange(1)} className={activePage === 1 ? "active" : ""}>
+            1
+          </a>
+          {pageNumbers[0] > 2 && <span className="pagination-ellipsis">...</span>}
+        </>
       )}
 
-      {activePage > 3 && activePage < 8 && (
-        <a className={"active"}>{activePage}</a>
+      {/* Botões de Páginas Dinâmicas */}
+      {pageNumbers.map((page) => (
+        <a
+          key={page}
+          onClick={() => onPageChange(page)}
+          className={activePage === page ? "active" : ""}
+        >
+          {page}
+        </a>
+      ))}
+
+      {/* Última Página */}
+      {pageNumbers[pageNumbers.length - 1] < totalPages && (
+        <>
+          {pageNumbers[pageNumbers.length - 1] < totalPages - 1 && (
+            <span className="pagination-ellipsis">...</span>
+          )}
+          <a
+            onClick={() => onPageChange(totalPages)}
+            className={activePage === totalPages ? "active" : ""}
+          >
+            {totalPages}
+          </a>
+        </>
       )}
 
-      {/* Ellipsis */}
-      <span className="no-active">...</span>
-      {activePage == 8 && <a className={"active"}>{8}</a>}
-      {/* Page Number 9 */}
+      {/* Botão Próxima Página */}
       <a
-        onClick={() => handlePageChange(9)}
-        className={activePage === 9 ? "active" : ""}
-      >
-        9
-      </a>
-
-      {/* Next Page Button */}
-      <a
-        onClick={() => activePage < 9 && handlePageChange(activePage + 1)}
-        className={activePage === 9 ? "disabled" : ""}
+        onClick={() => activePage < totalPages && onPageChange(activePage + 1)}
+        className={activePage === totalPages ? "disabled" : ""}
       >
         <i className="mi-chevron-right" />
-        <span className="visually-hidden">Next page</span>
+        <span className="visually-hidden">Próxima página</span>
       </a>
     </div>
   );

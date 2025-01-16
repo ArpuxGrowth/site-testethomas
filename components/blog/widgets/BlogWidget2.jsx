@@ -18,6 +18,7 @@ export default function BlogWidget2({ params,
           Tipo: { $eq: "Blog" }, // Apenas posts do tipo "Blog"
           ...queryParam, // Adiciona os filtros dinamicamente (termo de busca, etc.)
         },
+        populate: ["FotoPrincipal", "Tipo", "Seo"], // Popula os campos desejados
         sort: ["DataPublicacao:desc"], // Ordena por data de publicação mais recente
         pagination: {
           pageSize: 5, // Limite de resultados
@@ -61,6 +62,9 @@ export default function BlogWidget2({ params,
     }
   }, [searchTerm]);
 
+  const apiBaseUrl = "http://54.91.50.25:1337"; // URL base da API
+  const defaultImage = "/assets/images/full-width-images/blog-bg-1.jpg";
+
   return (
     <>
       <div className="widget">
@@ -92,15 +96,21 @@ export default function BlogWidget2({ params,
         <h3 className="widget-title">Últimas postagens</h3>
         <div className="widget-body">
           <ul className="clearlist widget-posts">
-            {posts.length > 0 ? (
-              posts.map((post) => (
+          {posts.length > 0 ? (
+            posts.map((post) => {
+              const imageFormats =
+                post?.attributes?.FotoPrincipal?.data?.attributes?.formats || {};
+              const imageUrl = imageFormats?.thumbnail
+                ? `${apiBaseUrl}${imageFormats.thumbnail.url}`
+                : defaultImage;
+
+              return (
                 <li key={post.id} className="clearfix">
                   <a href={`/blog/${post.attributes.Url}`}>
                     <Image
-                      src={post.attributes.ImgSrc || "/default-image.jpg"}
+                      src={imageUrl}
                       height={140}
                       width={100}
-                      style={{ height: "fit-content" }}
                       alt={post.attributes.Titulo}
                       className="widget-posts-img"
                     />
@@ -112,7 +122,8 @@ export default function BlogWidget2({ params,
                     <span>Postado em {post.attributes.DataPublicacao}</span>
                   </div>
                 </li>
-              ))
+              );
+             })
             ) : (
               <li>Nenhum resultado encontrado.</li>
             )}

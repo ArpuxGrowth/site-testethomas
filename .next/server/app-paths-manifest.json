@@ -1,7 +1,7 @@
 {
-  "/(about)/about-2/page": "app/(about)/about-2/page.js",
-  "/(homes)/(home-1)/(main-demo)/main-one-page/page": "app/(homes)/(home-1)/(main-demo)/main-one-page/page.js",
-  "/(otherPages)/patients-abroad/page": "app/(otherPages)/patients-abroad/page.js",
-  "/page": "app/page.js",
-  "/(portfolio-single)/main-portfolio-single-1/[id]/page": "app/(portfolio-single)/main-portfolio-single-1/[id]/page.js"
+  "/(blogs)/blog/[slug]/page": "app/(blogs)/blog/[slug]/page.js",
+  "/(portfolio)/before-after/page": "app/(portfolio)/before-after/page.js",
+  "/(blogs)/blog/page": "app/(blogs)/blog/page.js",
+  "/(portfolio-single)/main-portfolio-single-1/[id]/page": "app/(portfolio-single)/main-portfolio-single-1/[id]/page.js",
+  "/(blog-single)/main-blog-single-sidebar-right/[id]/page": "app/(blog-single)/main-blog-single-sidebar-right/[id]/page.js"
 }
