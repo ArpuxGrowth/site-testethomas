@@ -1,5 +1,7 @@
 {
+  "/(blogs)/blog/page": "app/(blogs)/blog/page.js",
   "/(blogs)/blog/[slug]/page": "app/(blogs)/blog/[slug]/page.js",
-  "/(portfolio)/antes-e-depois/page": "app/(portfolio)/antes-e-depois/page.js",
-  "/(blogs)/blog/page": "app/(blogs)/blog/page.js"
+  "/(about)/dr-thomas/page": "app/(about)/dr-thomas/page.js",
+  "/page": "app/page.js",
+  "/api/fetch-blogs/route": "app/api/fetch-blogs/route.js"
 }

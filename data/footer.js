@@ -49,13 +49,13 @@ export const socialMediaLinks = [
 ];
 
 export const navigationLinks = [
-  { href: "/about-2", text: "Sobre" },
-  { href: "/main-pages-squad", text: "Equipe" },
+  { href: "/dr-thomas", text: "Sobre" },
+  { href: "/equipe", text: "Equipe" },
   { href: "/blog", text: "Blog" },
-  { href: "/press", text: "Imprensa" },
-  { href: "/patients-abroad", text: "Pacientes no Exterior" },
-  { href: "/surgeries", text: "Cirurgias" },
-  { href: "/before-after", text: "Antes e Depois" },
+  { href: "/imprensa", text: "Imprensa" },
+  { href: "/pacientes-no-exterior", text: "Pacientes no Exterior" },
+  { href: "/cirurgias", text: "Cirurgias" },
+  { href: "/antes-e-depois", text: "Antes e Depois" },
   /* { href: "#blog", text: "Blog" }, */
   // { href: "/main-one-page/#contact", text: "Contato" },
 ];

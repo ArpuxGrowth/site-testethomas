@@ -74,7 +74,7 @@ export default function Promo() {
               <Image
                 width={633}
                 height={821}
-                src="/assets/images/livro-thomas.jpg"
+                src="/assets/images/livro-thomas-2.jpeg"
                 alt="Livro 'A beleza da face' do Dr. Thomas Benson"
                 className="wow scaleOutIn"
                 data-wow-duration="1.2s"

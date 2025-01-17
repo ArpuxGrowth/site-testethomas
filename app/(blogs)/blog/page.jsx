@@ -14,6 +14,7 @@ import AnimatedText from "@/components/common/AnimatedText";
 import Blogs1 from "@/components/blog/Blogs1";
 import { menuItems2 } from "@/data/menu";
 import Header1Multipage from "@/components/headers/Header1Multipage";
+import Blogs2 from "@/components/blog/Blogs2";
 
 export const metadata = {
   title:
@@ -67,7 +68,7 @@ export default function MainBlogPage() {
               </ParallaxContainer>
             </section>
             <section className="page-section">
-              <Blogs1 />
+              <Blogs2 />
             </section>
           </main>
           <Footer1 />

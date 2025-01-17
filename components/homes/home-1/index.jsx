@@ -58,12 +58,22 @@ export default function Home1({ onePage = false }) {
       </section>
 
       <section className="page-section container p-0">
-        <Image
-          width={1920}
-          height={500}
-          src="/assets/images/full-width-images/titulos-thomas3.jpg"
-          alt="Títulos do Dr. Thomas Benson"
-        />
+        <picture>
+          <source
+            media="(max-width: 768px)"
+            srcSet="/assets/images/full-width-images/titulos-thomas3-mobile.jpeg"
+          />
+          <source
+            media="(min-width: 769px)"
+            srcSet="/assets/images/full-width-images/titulos-thomas3.jpg"
+          />
+          <img
+            src="/assets/images/full-width-images/titulos-thomas3.jpg"
+            alt="Títulos do Dr. Thomas Benson"
+            width="1920"
+            height="500"
+          />
+        </picture>
       </section>
 
       <section

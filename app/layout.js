@@ -64,7 +64,7 @@ export default function RootLayout({ children }) {
   }, [isFormVisible]);
 
   return (
-    <html lang="en" className="no-mobile no-touch ">
+    <html lang="pt-br" className="no-mobile no-touch ">
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"

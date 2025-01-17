@@ -139,7 +139,7 @@ export default function Hero1() {
         channel="youtube"
         youtube={{ mute: 0, autoplay: 0 }}
         isOpen={isOpen}
-        videoId="M6n_LK1A4Wg"
+        videoId="0DT0mNTJ0_o"
         onClose={() => setOpen(false)}
       />
     </>

@@ -104,12 +104,22 @@ export default function Home11({ onePage = false}) {
       </section>
       
       <section className="page-section container p-0">
-        <Image
-          width={1920}
-          height={500}
-          src="/assets/images/full-width-images/titulos-thomas3.jpg"
-          alt="Títulos do Dr. Thomas Benson"
-        />
+        <picture>
+          <source
+            media="(max-width: 768px)"
+            srcSet="/assets/images/full-width-images/titulos-thomas3-mobile.jpeg"
+          />
+          <source
+            media="(min-width: 769px)"
+            srcSet="/assets/images/full-width-images/titulos-thomas3.jpg"
+          />
+          <img
+            src="/assets/images/full-width-images/titulos-thomas3.jpg"
+            alt="Títulos do Dr. Thomas Benson"
+            width="1920"
+            height="500"
+          />
+        </picture>
       </section>
 
       <section
@@ -250,7 +260,7 @@ export default function Home11({ onePage = false}) {
           <div className="row wow fadeInUp">
             <div className="col-md-7 offset-md-5 col-lg-6 offset-lg-6 col-xl-5 offset-xl-7">
               <h2 className="section-title mb-40 mb-sm-30">
-                Dr. Thomas possui sala fixa no único hospital 6 estrelas do país.
+                Dr. Thomas realiza cirurgias todos os dias no único hospital 6 estrelas do país.
               </h2>
               <p className="mb-50 mb-sm-40">
                 Dr. Thomas também é membro do corpo clínico de outros grandes 

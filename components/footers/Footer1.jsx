@@ -57,7 +57,7 @@ export default function Footer1({ dark = false }) {
             <div className="row mt-n30">
               {/* Footer Widget */}
               <div className="col-sm-4 mt-30">
-                <h3 className="fw-title">Sessões</h3>
+                <h3 className="fw-title">Páginas</h3>
                 <ul className="fw-menu clearlist local-scroll">
                   {navigationLinks.map((elm, i) => (
                     <li key={i}>
