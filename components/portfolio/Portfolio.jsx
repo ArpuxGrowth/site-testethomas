@@ -98,7 +98,7 @@ export default function Portfolio({ gridClass = "" }) {
                 </a>
               ) : (
                 <Link
-                  href={`/main-portfolio-single-1/${item.id}`}
+                  href={`/resultado/${item.id}`}
                   className={item.linkClassName}
                 >
                   <div className="work-img">

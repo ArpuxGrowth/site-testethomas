@@ -1,7 +1,5 @@
 {
   "/(blogs)/blog/[slug]/page": "app/(blogs)/blog/[slug]/page.js",
-  "/(portfolio)/before-after/page": "app/(portfolio)/before-after/page.js",
-  "/(blogs)/blog/page": "app/(blogs)/blog/page.js",
-  "/(portfolio-single)/main-portfolio-single-1/[id]/page": "app/(portfolio-single)/main-portfolio-single-1/[id]/page.js",
-  "/(blog-single)/main-blog-single-sidebar-right/[id]/page": "app/(blog-single)/main-blog-single-sidebar-right/[id]/page.js"
+  "/(portfolio)/antes-e-depois/page": "app/(portfolio)/antes-e-depois/page.js",
+  "/(blogs)/blog/page": "app/(blogs)/blog/page.js"
 }

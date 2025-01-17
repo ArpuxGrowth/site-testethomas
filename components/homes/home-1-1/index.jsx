@@ -21,12 +21,12 @@ const ParallaxContainer = dynamic(
     ssr: false, // Disable server-side rendering
   }
 );
-export default function Home11({ onePage = false, dark = false }) {
+export default function Home11({ onePage = false}) {
   return (
     <>
 
       <section
-        className={`page-section  ${dark ? "bg-dark-1 light-content" : " pb-0"}`}
+        className={`page-section pb-0`}
       >
         <div id="about" className="container position-relative">
           <div className="row">
@@ -113,18 +113,14 @@ export default function Home11({ onePage = false, dark = false }) {
       </section>
 
       <section
-        className={`page-section  scrollSpysection  ${
-          dark ? "bg-dark-2 light-content" : "bg-gray-light-1"
-        }`}
+        className={`page-section  scrollSpysection bg-gray-light-1`}
         id="Videotestimonial"
       >
         <VideoTestimonials2 />
       </section>
 
       <section
-        className={`page-section  scrollSpysection  ${
-          dark ? "bg-dark-1 light-content" : ""
-        }`}
+        className={`page-section  scrollSpysection`}
         id="services"
       >
         {" "}
@@ -137,9 +133,7 @@ export default function Home11({ onePage = false, dark = false }) {
           <div className="col-lg-6 mt-n30 mt-md-0 mb-30 mb-md-0">
             <div
               id="paddingRight"
-              className={`split-column-right ${
-                dark ? "bg-dark-2" : "bg-dark-1"
-              } light-content position-relative d-flex align-items-center`}
+              className={`split-column-right bg-dark-1 light-content position-relative d-flex align-items-center`}
               data-rellax-y=""
               data-rellax-speed="0.5"
               data-rellax-percentage="0.5"
@@ -224,23 +218,21 @@ export default function Home11({ onePage = false, dark = false }) {
         </div>
         
       <section
-        className={`page-section  scrollSpysection  ${
-          dark ? "bg-dark-1 light-content" : ""
-        }`}
+        className={`page-section  scrollSpysection`}
         id="portfolio"
       >
         <Portfolio2 />
       </section>
 
-      <hr className={`mt-0 mb-0 ${dark ? "white" : ""}`} />
+      <hr className={`mt-0 mb-0`} />
 
       <section
-        className={`page-section  ${dark ? "bg-dark-1 light-content" : ""}`}
+        className={`page-section`}
       >
         <Promo />{" "}
       </section>
 
-      <hr className={`mt-0 mb-0 ${dark ? "white" : ""}`} />
+      <hr className={`mt-0 mb-0`} />
 
       <section
         className="page-section bg-scroll light-content"
@@ -305,12 +297,10 @@ export default function Home11({ onePage = false, dark = false }) {
         </section>
         {/* End FAQ Section */}
 
-      <hr className={`mt-0 mb-0 ${dark ? "white" : ""}`} />
+      <hr className={`mt-0 mb-0`} />
 
       <section
-        className={`page-section  ${
-          dark ? "bg-dark-1 light-content z-index-1" : "bg-gray-light-1"
-        }`}
+        className={`page-section bg-gray-light-1`}
       >
         <div className="container position-relative">
           <div className="row text-center wow fadeInUp">
@@ -327,27 +317,24 @@ export default function Home11({ onePage = false, dark = false }) {
         </div>
       </section>
 
-      <hr className={`mt-0 mb-0 ${dark ? "white" : ""}`} />
+      <hr className={`mt-0 mb-0`} />
 
       <section
-        className={`page-section  ${dark ? "bg-dark-1 light-content" : ""}`}
+        className={`page-section`}
       >
         <Benefits />{" "}
       </section>
 
       <section
-        className={`page-section pt-0 pb-0  ${dark ? "light-content" : ""}`}
+        className={`page-section pt-0 pb-0`}
       >
-        {" "}
-        {dark ? <Testimonials2 /> : <Testimonials />}
+        <Testimonials />
       </section>
 
-      <hr className={`mt-0 mb-0 ${dark ? "white" : ""}`} />
+      <hr className={`mt-0 mb-0`} />
 
       <section
-        className={`page-section  scrollSpysection  ${
-          dark ? "bg-dark-1 light-content" : ""
-        }`}
+        className={`page-section  scrollSpysection`}
         id="contact"
       >
         <Contact />{" "}

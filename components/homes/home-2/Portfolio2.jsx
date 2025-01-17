@@ -43,7 +43,7 @@ export default function Portfolio2({ desc }) {
                 <>
                   <div className="col-md-8 mb-sm-30 order-md-first">
                     <div className="portfolio-2-image">
-                      <Link href={`/press-news/${item.id}`}>
+                      <Link href={`/imprensa/${item.id}`}>
                         <Image
                           width={1200}
                           height={819}
@@ -56,14 +56,14 @@ export default function Portfolio2({ desc }) {
                   <div className={`col-md-4  `}>
                     <hr className="black thick mt-0 mb-20 d-none d-md-block" />
                     <h3 className="portfolio-2-title font-alt mb-20">
-                      <Link href={`/press-news/${item.id}`}>
+                      <Link href={`/imprensa/${item.id}`}>
                         {item.title}
                       </Link>
                     </h3>
                     <p className="portfolio-2-descr">{item.descriptionInt}</p>
                     <div>
                       <Link
-                        href={`/press-news/${item.id}`}
+                        href={`/imprensa/${item.id}`}
                         className="link-hover-anim underline align-middle"
                         data-link-animate="y"
                       >
@@ -85,14 +85,14 @@ export default function Portfolio2({ desc }) {
                   <div className={`col-md-4`}>
                     <hr className="black thick mt-0 mb-20 d-none d-md-block" />
                     <h3 className="portfolio-2-title font-alt mb-20">
-                      <Link href={`/press-news/${item.id}`}>
+                      <Link href={`/imprensa/${item.id}`}>
                         {item.title}
                       </Link>
                     </h3>
                     <p className="portfolio-2-descr">{item.descriptionInt}</p>
                     <div>
                       <Link
-                        href={`/press-news/${item.id}`}
+                        href={`/imprensa/${item.id}`}
                         className="link-hover-anim underline align-middle"
                         data-link-animate="y"
                       >
@@ -114,7 +114,7 @@ export default function Portfolio2({ desc }) {
                     } `}
                   >
                     <div className="portfolio-2-image">
-                      <Link href={`/press-news/${item.id}`}>
+                      <Link href={`/imprensa/${item.id}`}>
                         <Image
                           width={1200}
                           height={819}

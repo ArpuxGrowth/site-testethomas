@@ -27,7 +27,7 @@ export default function Gallery2({
                       data-wow-duration="1s"
                     >
                       <a 
-                        href={`/press-news/${elm.id}`}
+                        href={`/imprensa/${elm.id}`}
                         className="lightbox-gallery-2 mfp-image">
                         <Image
                           ref={ref}

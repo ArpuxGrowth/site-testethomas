@@ -9,7 +9,7 @@ export default function Content1() {
       <div className="blog-item box-shadow round p-4 p-md-5">
         {/* Post Title */}
         <h2 className="blog-item-title">
-          <Link href={`/main-blog-single-sidebar-right/${1}`}>
+          <Link href={`/blog/${1}`}>
             Blog post with media gallery
           </Link>
         </h2>
@@ -47,7 +47,7 @@ export default function Content1() {
         {/* Read More Link */}
         <div className="blog-item-foot">
           <Link
-            href={`/main-blog-single-sidebar-right/${1}`}
+            href={`/blog/${1}`}
             className="btn btn-mod btn-round btn-medium btn-gray"
           >
             Read More
@@ -59,7 +59,7 @@ export default function Content1() {
       <div className="blog-item box-shadow round p-4 p-md-5">
         {/* Post Title */}
         <h2 className="blog-item-title">
-          <Link href={`/main-blog-single-sidebar-right/${2}`}>
+          <Link href={`/blog/${2}`}>
             Blog post with blockquote
           </Link>
         </h2>
@@ -83,7 +83,7 @@ export default function Content1() {
         {/* Blockquote */}
         <blockquote className="blog-item-q mb-30">
           <p className="mb-0">
-            <Link href={`/main-blog-single-sidebar-right/${1}`}>
+            <Link href={`/blog/${1}`}>
               Curabitur iaculis, ligula facilisis volutpat suscipit, sapien
               felis tempor, consequat vitae velit.
             </Link>
@@ -93,7 +93,7 @@ export default function Content1() {
         {/* Read More Link */}
         <div className="blog-item-foot">
           <Link
-            href={`/main-blog-single-sidebar-right/${1}`}
+            href={`/blog/${1}`}
             className="btn btn-mod btn-round btn-medium btn-gray"
           >
             Read More
@@ -105,7 +105,7 @@ export default function Content1() {
       <div className="blog-item box-shadow round p-4 p-md-5">
         {/* Post Title */}
         <h2 className="blog-item-title">
-          <Link href={`/main-blog-single-sidebar-right/${1}`}>
+          <Link href={`/blog/${1}`}>
             Blog post with video
           </Link>
         </h2>
@@ -146,7 +146,7 @@ export default function Content1() {
         {/* Read More Link */}
         <div className="blog-item-foot">
           <Link
-            href={`/main-blog-single-sidebar-right/${1}`}
+            href={`/blog/${1}`}
             className="btn btn-mod btn-round btn-medium btn-gray"
           >
             Read More
@@ -158,7 +158,7 @@ export default function Content1() {
       <div className="blog-item box-shadow round p-4 p-md-5">
         {/* Post Title */}
         <h2 className="blog-item-title">
-          <Link href={`/main-blog-single-sidebar-right/${1}`}>
+          <Link href={`/blog/${1}`}>
             Blog post with text
           </Link>
         </h2>
@@ -191,7 +191,7 @@ export default function Content1() {
         {/* Read More Link */}
         <div className="blog-item-foot">
           <Link
-            href={`/main-blog-single-sidebar-right/${1}`}
+            href={`/blog/${1}`}
             className="btn btn-mod btn-round btn-medium btn-gray"
           >
             Read More
@@ -203,7 +203,7 @@ export default function Content1() {
       <div className="blog-item box-shadow round p-4 p-md-5">
         {/* Post Title */}
         <h2 className="blog-item-title">
-          <Link href={`/main-blog-single-sidebar-right/${1}`}>
+          <Link href={`/blog/${1}`}>
             Blog post with image
           </Link>
         </h2>
@@ -226,7 +226,7 @@ export default function Content1() {
         </div>
         {/* Image */}
         <div className="blog-media">
-          <Link href={`/main-blog-single-sidebar-right/${1}`}>
+          <Link href={`/blog/${1}`}>
             <Image
               src="/assets/images/portfolio/full-project-4.jpg"
               width={1350}
@@ -246,7 +246,7 @@ export default function Content1() {
         {/* Read More Link */}
         <div className="blog-item-foot">
           <Link
-            href={`/main-blog-single-sidebar-right/${1}`}
+            href={`/blog/${1}`}
             className="btn btn-mod btn-round btn-medium btn-gray"
           >
             Read More

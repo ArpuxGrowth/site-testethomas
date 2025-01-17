@@ -517,7 +517,7 @@ export const menuItems = [
         title: "Single",
         links: [
           { href: "/main-blog-single-sidebar-left/1", label: "Sidebar Left" },
-          { href: "/main-blog-single-sidebar-right/1", label: "Sidebar Right" },
+          { href: "/blog/1", label: "Sidebar Right" },
           { href: "/main-blog-single-fullwidth/1", label: "Fullwidth" },
         ],
       },
@@ -541,8 +541,8 @@ export const menuItems2 = [
     subMenu: [
       {
         links: [
-          { href: "/about-2", text: "Sobre" },
-          { href: "/main-pages-squad", text: "Equipe" },
+          { href: "/dr-thomas", text: "Sobre" },
+          { href: "/equipe", text: "Equipe" },
           { href: "/blog", text: "Blog" },
         ],
       },
@@ -554,7 +554,7 @@ export const menuItems2 = [
       {
         links: [
           {
-            href: "/press", text: "Imprensa" },
+            href: "/imprensa", text: "Imprensa" },
         ],
       },
     ],
@@ -565,7 +565,7 @@ export const menuItems2 = [
       {
         links: [
           {
-            href: "/patients-abroad", text: "Pacientes no Exterior"},
+            href: "/pacientes-no-exterior", text: "Pacientes no Exterior"},
         ],
       },
     ],
@@ -576,7 +576,7 @@ export const menuItems2 = [
       {
         links: [
           {
-            href: "/surgeries", text: "Cirurgias"},
+            href: "/cirurgias", text: "Cirurgias"},
         ],
       },
     ],
@@ -587,7 +587,7 @@ export const menuItems2 = [
       {
         links: [
           {
-            href: "/before-after", text: "Antes e Depois"},
+            href: "/antes-e-depois", text: "Antes e Depois"},
         ],
       },
     ],
@@ -897,7 +897,7 @@ export const menuItemsDark = [
             label: "Sidebar Left",
           },
           {
-            href: "/main-blog-single-sidebar-right-dark/1",
+            href: "/blog-dark/1",
             label: "Sidebar Right",
           },
           { href: "/main-blog-single-fullwidth-dark/1", label: "Fullwidth" },

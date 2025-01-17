@@ -23801,6 +23801,12 @@ html:not(.mobile) .owl-animate-fadeInDown {
   line-height: 1.5 !important;
   letter-spacing: -0.005em !important;
 }
+
+.post-blog-prev-img img {
+  width: 100%; /* Garante que a largura ocupe o espaço disponível */
+  height: 200px; /* Altura padrão para todas as imagens */
+  object-fit: cover; /* Faz o "crop" automático para preencher o espaço */
+}
 /*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./public/assets/css/vertical-rhythm.min.css ***!
   \***************************************************************************************************************************************************************************************************************************************************************************************/

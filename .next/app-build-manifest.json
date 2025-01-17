@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/(blogs)/blog/[slug]/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(blogs)/blog/[slug]/page.js"
+      "static/chunks/app/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -16,40 +16,65 @@
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
     ],
-    "/_not-found/page": [
+    "/(blogs)/blog/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
-    ],
-    "/(blog-single)/main-blog-single-sidebar-right/[id]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(blog-single)/main-blog-single-sidebar-right/[id]/page.js"
-    ],
-    "/(otherPages)/press/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(otherPages)/press/page.js"
-    ],
-    "/(otherPages)/main-pages-squad/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(otherPages)/main-pages-squad/page.js"
+      "static/chunks/app/(blogs)/blog/[slug]/page.js"
     ],
     "/(blogs)/blog/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(blogs)/blog/page.js"
     ],
-    "/(portfolio)/before-after/page": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(portfolio)/before-after/page.js"
+      "static/chunks/app/_not-found/page.js"
     ],
-    "/(portfolio-single)/main-portfolio-single-1/[id]/page": [
+    "/(about)/dr-thomas/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(portfolio-single)/main-portfolio-single-1/[id]/page.js"
+      "static/chunks/app/(about)/dr-thomas/page.js"
+    ],
+    "/(otherPages)/equipe/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(otherPages)/equipe/page.js"
+    ],
+    "/(otherPages)/imprensa/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(otherPages)/imprensa/page.js"
+    ],
+    "/(otherPages)/imprensa/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(otherPages)/imprensa/[id]/page.js"
+    ],
+    "/(otherPages)/pacientes-no-exterior/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(otherPages)/pacientes-no-exterior/page.js"
+    ],
+    "/(otherPages)/cirurgias/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(otherPages)/cirurgias/page.js"
+    ],
+    "/(otherPages)/cirurgias/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(otherPages)/cirurgias/[id]/page.js"
+    ],
+    "/(portfolio)/antes-e-depois/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(portfolio)/antes-e-depois/page.js"
+    ],
+    "/(portfolio-single)/resultado/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(portfolio-single)/resultado/[id]/page.js"
     ]
   }
 }

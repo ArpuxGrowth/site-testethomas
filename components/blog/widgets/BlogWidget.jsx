@@ -58,7 +58,7 @@ export default function BlogWidget({ params,
           <ul className="clearlist widget-posts">
             {filteredPosts.map((post) => (
               <li key={post.id} className="clearfix">
-                <a href={`/main-blog-single-sidebar-right/${post.id}`}>
+                <a href={`/blog/${post.id}`}>
                   <Image
                     src={post.imgSrc}
                     height={140}
@@ -69,7 +69,7 @@ export default function BlogWidget({ params,
                   />
                 </a>
                 <div className="widget-posts-descr">
-                  <a href={`/main-blog-single-sidebar-right/${post.id}`} title={post.title}>
+                  <a href={`/blog/${post.id}`} title={post.title}>
                     {post.title}
                   </a>
                   <span>Postado por {post.authorName}</span>

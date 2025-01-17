@@ -99,7 +99,7 @@ export default function Portfolio2({ gridClass = "" }) {
                 </a>
               ) : (
                 <Link
-                  href={`/main-portfolio-single-1/${item.id}`}
+                  href={`/resultado/${item.id}`}
                   className={"work-lightbox-link mfp-image"}
                 >
                   <div className="work-img">

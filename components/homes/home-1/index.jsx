@@ -9,7 +9,6 @@ import Portfolio from "@/components/homes/home-1/Portfolio";
 import Promo from "@/components/homes/home-1/Promo";
 import Service from "@/components/homes/home-1/Service";
 import Testimonials from "@/components/homes/home-1/Testimonials";
-import Testimonials2 from "./Teatimonials2";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Portfolio2 from "../home-2/Portfolio2";
@@ -21,13 +20,11 @@ const ParallaxContainer = dynamic(
     ssr: false, // Disable server-side rendering
   }
 );
-export default function Home1({ onePage = false, dark = false }) {
+export default function Home1({ onePage = false }) {
   return (
     <>
       <section
-        className={`page-section scrollSpysection ${
-          dark ? "bg-dark-1 light-content" : "pb-0"
-        }`}
+        className={`page-section scrollSpysection pb-0`}
         id="about"
       >
         <div className="container position-relative">
@@ -70,7 +67,7 @@ export default function Home1({ onePage = false, dark = false }) {
       </section>
 
       <section
-        className={`page-section  ${dark ? "bg-dark-1 light-content" : "pt-0"}`}
+        className={`page-section pt-0`}
       >
         <div className="container position-relative">
           <div className="row">
@@ -120,9 +117,7 @@ export default function Home1({ onePage = false, dark = false }) {
       </section>
 
       <section
-        className={`page-section  scrollSpysection  ${
-          dark ? "bg-dark-1 light-content" : "bg-gray-light-2"
-        }`}
+        className={`page-section  scrollSpysection bg-gray-light-2`}
         id="services"
       >
         {" "}
@@ -161,31 +156,25 @@ export default function Home1({ onePage = false, dark = false }) {
         </div>
         
       <section
-        className={`page-section  scrollSpysection  ${
-          dark ? "bg-dark-1 light-content" : ""
-        }`}
+        className={`page-section  scrollSpysection`}
         id="pressnews"
       >
         <Portfolio2 />
       </section>
 
-      <hr className={`mt-0 mb-0 ${dark ? "white" : ""}`} />
+      <hr className={`mt-0 mb-0`} />
 
       <section
-        className={`page-section  scrollSpysection  ${
-          dark ? "bg-dark-1 light-content" : "bg-gray-light-2 "
-        }`}
+        className={`page-section  scrollSpysection bg-gray-light-2`}
         id="portfolio"
       >
         <Portfolio />
       </section>
 
-      <hr className={`mt-0 mb-0 ${dark ? "white" : ""}`} />
+      <hr className={`mt-0 mb-0`} />
 
       <section
-        className={`page-section  ${
-          dark ? "bg-dark-1 light-content z-index-1" : ""
-        }`}
+        className={`page-section`}
       >
         <div className="container position-relative">
           <div className="row text-center wow fadeInUp">
@@ -203,43 +192,38 @@ export default function Home1({ onePage = false, dark = false }) {
       </section>
 
       <section
-        className={`page-section  scrollSpysection dark-content  ${
-          dark ? "bg-dark-2 light-content" : "bg-gray-light-2"
-        }`}
+        className={`page-section  scrollSpysection dark-content bg-gray-light-2`}
         id="videocontainer"
       >
         <VideoContainer />
       </section>
 
-      <hr className={`mt-0 mb-0 ${dark ? "white" : ""}`} />
+      <hr className={`mt-0 mb-0`} />
 
       <section
-        className={`page-section  ${dark ? "bg-dark-1 light-content" : ""}`}
+        className={`page-section`}
       >
         <Benefits />{" "}
       </section>
 
       <section
-        className={`page-section pt-0 pb-0  ${dark ? "light-content" : ""}`}
+        className={`page-section pt-0 pb-0`}
       >
-        {" "}
-        {dark ? <Testimonials2 /> : <Testimonials />}
+        <Testimonials />
       </section>
       
-      <hr className={`mt-0 mb-0 ${dark ? "white" : ""}`} />]
+      <hr className={`mt-0 mb-0`} />
 
       <section
-        className={`page-section  ${dark ? "bg-dark-1 light-content" : ""}`}
+        className={`page-section`}
       >
         <Promo />{" "}
       </section>
 
-      <hr className={`mt-0 mb-0 ${dark ? "white" : ""}`} />
+      <hr className={`mt-0 mb-0`} />
 
       <section
-        className={`page-section  scrollSpysection  ${
-          dark ? "bg-dark-1 light-content" : ""
-        }`}
+        className={`page-section  scrollSpysection`}
         id="contact"
       >
         <Contact />{" "}

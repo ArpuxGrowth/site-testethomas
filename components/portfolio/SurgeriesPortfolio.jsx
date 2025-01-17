@@ -98,7 +98,7 @@ export default function SurgeriesPortfolio({ gridClass = "" }) {
                 </a>
               ) : (
                 <Link
-                  href={`/surgeries/${item.url}`}
+                  href={`/cirurgias/${item.url}`}
                   className={"work-lightbox-link mfp-image"}
                 >
                   <div className="work-img">

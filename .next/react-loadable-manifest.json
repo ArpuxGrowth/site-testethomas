@@ -1,10 +1,4 @@
 {
-  "app\\(blog-single)\\main-blog-single-sidebar-right\\[id]\\page.jsx -> @/components/common/ParallaxContainer": {
-    "id": "app\\(blog-single)\\main-blog-single-sidebar-right\\[id]\\page.jsx -> @/components/common/ParallaxContainer",
-    "files": [
-      "static/chunks/_app-pages-browser_components_common_ParallaxContainer_jsx.js"
-    ]
-  },
   "app\\(blogs)\\blog\\[slug]\\page.jsx -> @/components/common/ParallaxContainer": {
     "id": "app\\(blogs)\\blog\\[slug]\\page.jsx -> @/components/common/ParallaxContainer",
     "files": [
@@ -17,6 +11,18 @@
       "static/chunks/_app-pages-browser_node_modules_bootstrap_dist_js_bootstrap_esm_js.js"
     ]
   },
+  "components\\homes\\home-1\\Portfolio.jsx -> imagesloaded": {
+    "id": "components\\homes\\home-1\\Portfolio.jsx -> imagesloaded",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_imagesloaded_imagesloaded_js.js"
+    ]
+  },
+  "components\\homes\\home-1\\Portfolio.jsx -> isotope-layout": {
+    "id": "components\\homes\\home-1\\Portfolio.jsx -> isotope-layout",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_isotope-layout_js_isotope_js.js"
+    ]
+  },
   "components\\portfolio\\BeforeAfterMassonry.jsx -> imagesloaded": {
     "id": "components\\portfolio\\BeforeAfterMassonry.jsx -> imagesloaded",
     "files": [
@@ -25,6 +31,18 @@
   },
   "components\\portfolio\\BeforeAfterMassonry.jsx -> isotope-layout": {
     "id": "components\\portfolio\\BeforeAfterMassonry.jsx -> isotope-layout",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_isotope-layout_js_isotope_js.js"
+    ]
+  },
+  "components\\portfolio\\SurgeriesPortfolio.jsx -> imagesloaded": {
+    "id": "components\\portfolio\\SurgeriesPortfolio.jsx -> imagesloaded",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_imagesloaded_imagesloaded_js.js"
+    ]
+  },
+  "components\\portfolio\\SurgeriesPortfolio.jsx -> isotope-layout": {
+    "id": "components\\portfolio\\SurgeriesPortfolio.jsx -> isotope-layout",
     "files": [
       "static/chunks/_app-pages-browser_node_modules_isotope-layout_js_isotope_js.js"
     ]

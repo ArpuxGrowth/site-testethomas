@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react"; // Fazendo o 'Search' funcionar;
 import Pagination from "../common/Pagination";
-import { blogs19 } from "@/data/blogs";
 import Image from "next/image";
 import Link from "next/link";
 import qs from "qs";
@@ -35,9 +34,8 @@ export default function Blogs1({
         { encodeValuesOnly: true }
       );
 
-      const endpoint = `http://54.91.50.25:1337/api/noticias?${query}`;
-      const token =
-        "ec6b2077b4d3d27723a211ea924a659effe0e6c4267aa7438abe9032fd87940a6098623ac2f747aa96de30d51bc50b597ff3b78306859c0422b1d44ff1af7d105c24fea69ca52c9566fdcb54cb30b8e6eedb6dcda923c77e7abbbfec80e5b9c5f61c09009bfbb1dc101709b20d79035b9e34a31fe94100a99581a2eabc5a1478";
+      const endpoint = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/noticias?${query}`;
+      const token = process.env.NEXT_PUBLIC_API_TOKEN;
 
       try {
         const response = await fetch(endpoint, {
@@ -75,7 +73,13 @@ export default function Blogs1({
   }
 
   if (error) {
-    return <div className="error">{error}</div>;
+    return <div className="error"><div className="container"><h1>{error}</h1></div></div>;
+  }
+
+  function extractPlainText(html) {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = html; // Define o conteúdo HTML
+    return tempDiv.textContent || tempDiv.innerText || ""; // Retorna o texto limpo
   }
 
   return (
@@ -109,17 +113,17 @@ export default function Blogs1({
         {/* Post Item */}
         {filteredBlogs.map((elm, i) => {
           const { Titulo, Conteudo, Url, DataPublicacao, FotoPrincipal } = elm.attributes;
-          const apiBaseUrl = "http://54.91.50.25:1337";
+          const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
           const imageUrl = FotoPrincipal?.data?.attributes?.formats?.medium?.url
             ? `${apiBaseUrl}${FotoPrincipal.data.attributes.formats.medium.url}`
             : "/assets/images/full-width-images/blog-bg-1.jpg";
 
-          const truncatedContent = truncateHTML(Conteudo, 120);
+          const plainTextContent = extractPlainText(Conteudo).substring(0, 120); // Limita o texto a 120 caracteres
 
           return (
           <div key={i} className={itemClass}>
             <div className="post-prev-container">
-              <div className="post-prev-img">
+              <div className="post-blog-prev-img">
                 <Link href={`/blog/${Url}`}>
                   <Image
                     src={imageUrl}
@@ -134,13 +138,10 @@ export default function Blogs1({
                   {Titulo}
                 </Link>
               </h4>
-              {/* Renderiza o conteúdo como HTML */}
-              <div
-                className="post-prev-text"
-                dangerouslySetInnerHTML={{
-                  __html: truncatedContent + "...",
-                }}
-              />
+              {/* Prévia do conteúdo */}
+              <div className="post-prev-text">
+                <p>{plainTextContent}...</p>
+              </div>
               <div className="post-prev-info clearfix">
                 <div className="float-start">
                   <a href="#">

@@ -4,9 +4,9 @@ import React from "react";
 import Image from "next/image";
 export const metadata = {
   title:
-    "Page Not Found || Resonance &mdash; One & Multi Page React Nextjs Creative Template",
+    "Página não encontrada",
   description:
-    "Resonance &mdash; One & Multi Page React Nextjs Creative Template",
+    "A página que você procurava não foi encontrada.",
 };
 export default function MainAboutPage1() {
   return (
