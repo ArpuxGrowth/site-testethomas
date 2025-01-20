@@ -1,7 +1,7 @@
 {
-  "/(blogs)/blog/page": "app/(blogs)/blog/page.js",
   "/(blogs)/blog/[slug]/page": "app/(blogs)/blog/[slug]/page.js",
-  "/(about)/dr-thomas/page": "app/(about)/dr-thomas/page.js",
-  "/page": "app/page.js",
-  "/api/fetch-blogs/route": "app/api/fetch-blogs/route.js"
+  "/(blogs)/blog/page": "app/(blogs)/blog/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/fetch-all-blogs/route": "app/api/fetch-all-blogs/route.js"
 }

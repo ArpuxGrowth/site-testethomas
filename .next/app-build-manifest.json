@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/(blogs)/blog/page": [
+    "/(blogs)/blog/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(blogs)/blog/page.js"
+      "static/chunks/app/(blogs)/blog/[slug]/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -21,20 +21,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/_not-found/page.js"
     ],
-    "/page": [
+    "/(blogs)/blog/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
-    "/(blogs)/blog/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(blogs)/blog/[slug]/page.js"
-    ],
-    "/(about)/dr-thomas/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(about)/dr-thomas/page.js"
+      "static/chunks/app/(blogs)/blog/page.js"
     ]
   }
 }

@@ -3,6 +3,7 @@ import qs from "qs";
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const page = searchParams.get("page") || 1;
+  const pageSize = searchParams.get("pageSize") || 12;  // Obtemos o pageSize como parâmetro, com 12 como padrão
 
   const query = qs.stringify(
     {
@@ -12,7 +13,7 @@ export async function GET(req) {
       sort: ["DataPublicacao:desc"], // Ordena por data mais recente
       pagination: {
         page: parseInt(page, 10), // Página solicitada pelo cliente
-        pageSize: 12, // Limite de 12 posts por página
+        pageSize: parseInt(pageSize, 10), // Limite de 12 posts por página
       },
       populate: ["FotoPrincipal", "Tipo"], // Popula os campos necessários
     },

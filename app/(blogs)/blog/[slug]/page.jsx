@@ -1,77 +1,81 @@
-'use client';
+import qs from "qs";
+import { notFound } from "next/navigation";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import Footer1 from "@/components/footers/Footer1";
+import Header1Multipage from "@/components/headers/Header1Multipage";
+import { menuItems2 } from "@/data/menu";
+import BlogWidget2 from "@/components/blog/widgets/BlogWidget2";
 
-import { useEffect, useState } from 'react';
-import qs from 'qs';
-import Footer1 from '@/components/footers/Footer1';
-import dynamic from 'next/dynamic';
-import Head from 'next/head';
-
+// Carrega ParallaxContainer dinamicamente (client component)
 const ParallaxContainer = dynamic(() => import('@/components/common/ParallaxContainer'), { ssr: false });
-import Header1Multipage from '@/components/headers/Header1Multipage';
-import { menuItems2 } from '@/data/menu';
-import BlogWidget2 from '@/components/blog/widgets/BlogWidget2';
-import Image from 'next/image';
-import { notFound } from 'next/navigation';
 
-export default function BlogPostPage({ params }) {
-  const { slug } = params; // Pega o slug da URL dinâmica
-  const [post, setPost] = useState(null); // Estado para armazenar os dados do post
-  const [error, setError] = useState(null);
+// Função para buscar dados do post no lado do servidor
+async function fetchPost(slug) {
+  const query = qs.stringify(
+    {
+      filters: {
+        Url: { $eq: slug }, // Filtro pelo slug
+        Tipo: { $eq: "Blog" }, // Apenas posts do tipo Blog
+      },
+      populate: ["FotoPrincipal", "Tipo", "Seo"], // Popula os campos necessários
+    },
+    { encodeValuesOnly: true }
+  );
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      const query = qs.stringify(
-        {
-          filters: {
-            Url: { $eq: slug }, // Filtro pelo slug
-            Tipo: { $eq: "Blog" }, // Filtro para incluir apenas conteúdos do tipo "Blog"
-          },
-          populate: ["FotoPrincipal", "Tipo", "Seo"], // Popula os campos desejados
-        },
-        { encodeValuesOnly: true }
-      );
-  
-      const endpoint = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/noticias?${query}`;
-      const token = process.env.NEXT_PUBLIC_API_TOKEN;
-  
-      try {
-        const response = await fetch(endpoint, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-  
-        if (!response.ok) {
-          throw new Error(`Erro ao buscar dados: ${response.status}`);
-        }
-  
-        const data = await response.json();
-        if (data?.data?.length > 0) {
-          setPost(data.data[0]); // Seleciona o primeiro resultado
-          console.log(data.data[0]); // Exibe os dados no console
-        } else {
-          setError("Post não encontrado");
-        }
-      } catch (err) {
-        console.error(err);
-        setError(err.message);
-      }
-    };
-  
-    fetchPost();
-  }, [slug]);
-  
+  const endpoint = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/noticias?${query}`;
+  const token = process.env.API_TOKEN;
 
-  if (error) {
-    return notFound(); // Ou <div className="error">Erro: {error}</div>;
+  const response = await fetch(endpoint, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    cache: "no-store", // Evita cache para garantir dados atualizados
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao buscar os dados do post.");
   }
 
+  const data = await response.json();
+  return data?.data?.[0] || null; // Retorna o primeiro resultado ou null
+}
+
+// Função para metadados dinâmicos
+export async function generateMetadata({ params }) {
+  const { slug } = params;
+  const post = await fetchPost(slug);
+
   if (!post) {
-    return <div className="loading"><div className="container position-relative pt-30 pt-sm-50"><h1>Carregando publicação...</h1></div></div>;
+    return {
+      title: "Artigo não encontrado",
+      description: "O artigo solicitado não foi encontrado.",
+    };
+  }
+
+  const { Seo, Titulo } = post.attributes;
+  const { metaTitle, metaDescription } = Seo || {};
+
+  return {
+    title: metaTitle || Titulo || "Blog || Dr. Thomas Benson",
+    description: metaDescription || "Acompanhe o blog do Dr. Thomas Benson e explore artigos, publicações e insights exclusivos sobre cirurgia plástica facial, rejuvenescimento e as mais avançadas técnicas estéticas.",
+  };
+}
+
+// Função Server-side
+export default async function BlogPostPage({ params }) {
+  const { slug } = params;
+
+  // Busca os dados do post
+  const post = await fetchPost(slug);
+
+  if (!post) {
+    notFound();
   }
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL; // URL base da API
-  const imageFormats = post?.attributes?.FotoPrincipal?.data?.attributes?.formats || {};
+  const { Titulo, Conteudo, DataPublicacao, FotoPrincipal } = post.attributes;
+  const imageFormats = FotoPrincipal?.data?.attributes?.formats || {};
   const defaultImage = "/assets/images/full-width-images/blog-bg-1.jpg";
 
   const images = Object.entries(imageFormats).reduce((acc, [key, format]) => {
@@ -79,19 +83,8 @@ export default function BlogPostPage({ params }) {
     return acc;
   }, {});
 
-      
-  const { Titulo, Conteudo, DataPublicacao, Seo } = post.attributes;
-  const { metaTitle, metaDescription } = Seo || {}; // Dados de SEO
-
-   return (
+  return (
     <>
-      {/* Dinâmico Head para SEO */}
-      <Head>
-        <title>{metaTitle || Titulo}</title>
-        <meta name="description" content={metaDescription || Conteudo.substring(0, 150)} />
-        <meta name="keywords" content={`blog, ${Titulo}`} />
-      </Head>
-
       <div className="theme-main">
         <div className="page" id="top">
           <nav className="main-nav transparent stick-fixed wow-menubar">
@@ -109,7 +102,6 @@ export default function BlogPostPage({ params }) {
                 <div className="container position-relative pt-30 pt-sm-50">
                   <div className="text-center">
                     <div className="row">
-                      {/* Page Title */}
                       <div className="col-md-8 offset-md-2">
                         <div className="mb-20">
                           <a
@@ -121,11 +113,7 @@ export default function BlogPostPage({ params }) {
                             Voltar para a página do blog
                           </a>
                         </div>
-                        <h1 className="hs-title-1 mb-20">
-                            {Titulo}
-                        </h1>
-
-                        {/* <!-- Author, Categories --> */}
+                        <h1 className="hs-title-1 mb-20">{Titulo}</h1>
                         <div
                           className="blog-item-data mt-30 mt-sm-10 mb-0 wow fadeInUp"
                           data-wow-delay="0.2s"
@@ -139,56 +127,39 @@ export default function BlogPostPage({ params }) {
                           <div className="d-inline-block me-3">
                             <a href="#">
                               <i className="mi-user size-16"></i>
-                              <span className="visually-hidden">Autor:</span>{" "}
-                              Thomas Benson
+                              <span className="visually-hidden">Autor:</span> Thomas Benson
                             </a>
                           </div>
                         </div>
-                        {/* <!-- End Author, Categories --> */}
                       </div>
-                      {/* End Page Title */}
                     </div>
                   </div>
-                  {/* End Section Content */}
                 </div>
               </ParallaxContainer>
             </section>
 
-            {/* Section */}
+            {/* Conteúdo do Post */}
             <section className="page-section">
               <div className="container relative">
                 <div className="row">
-                  {/* Content */}
                   <div className="col-md-8 mb-sm-80">
-                    {/* Post */}
                     <div className="blog-item mb-80 mb-xs-40">
                       <div className="blog-item-body">
-                        {/* Media Gallery */}
                         <div className="blog-media mb-40 mb-xs-30">
-                          <div className="owl-item">
-                            <Image
-                              src={images.large || defaultImage}
-                              width={1350}
-                              height={865}
-                              alt={Titulo}
-                            />
-                          </div>
+                          <Image
+                            src={images.large || defaultImage}
+                            width={1350}
+                            height={865}
+                            alt={Titulo}
+                          />
                         </div>
-                        {/* Conteúdo */}
-                        <div 
-                          dangerouslySetInnerHTML={{ __html: Conteudo }}
-                        />
-                        {/* End Conteúdo */}
+                        <div dangerouslySetInnerHTML={{ __html: Conteudo }} />
                       </div>
                     </div>
-                    {/* End Post */}
                   </div>
-
-                  {/* Sidebar */}
                   <div className="col-md-4 col-lg-3 offset-lg-1">
-                    <BlogWidget2 params={params} searchInputClass="form-control input-lg search-field round" />
+                    <BlogWidget2 searchInputClass="form-control input-lg search-field round" />
                   </div>
-                  {/* End Sidebar */}
                 </div>
               </div>
             </section>
