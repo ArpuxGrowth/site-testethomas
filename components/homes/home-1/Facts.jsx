@@ -1,7 +1,11 @@
 import { numberItems } from "@/data/facts";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 export default function Facts() {
+
+  const t = useTranslations('Home');
+
   return (
     <div className="col-lg-7 offset-lg-1">
       {/* Numbers Grid */}
@@ -16,7 +20,7 @@ export default function Facts() {
             data-wow-delay={item.delay}
           >
             <div className="number-title mb-10">{item.title}</div>
-            <div className="number-descr">{item.description}</div>
+            <div className="number-descr">{t(`numberItems.${item.translationKey}`)}</div>
           </div>
         ))}
         {/* End Number Item */}

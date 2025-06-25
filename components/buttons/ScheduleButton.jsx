@@ -1,9 +1,15 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-export default function ScheduleButton({ buttonText = "Agendar consulta", formPortalId, formId, className = "" }) {
+export default function ScheduleButton({ buttonText, formPortalId, formId, className = "" }) {
+  // Importa as traduções do namespace "Buttons"
+  const t = useTranslations("ScheduleButton");
+  // Se não for passado um buttonText, usa a tradução padrão
+  const label = buttonText || t("textbtn");
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -31,7 +37,7 @@ export default function ScheduleButton({ buttonText = "Agendar consulta", formPo
         className={`btn btn-mod btn-large btn-round btn-hover-anim align-middle ${className}`}
         onClick={() => setIsModalOpen(true)}
       >
-        <span>{buttonText}</span>
+        <span>{label}</span>
       </button>
 
       {/* Modal */}

@@ -1,12 +1,14 @@
 import React from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 export default function Brands() {
+  const t = useTranslations('Brands');
   return (
     <div className="container position-relative">
       <div className="row">
         <div className="col-md-8 offset-md-2 text-center">
           <h2 className="section-title-small mb-60">
-            Certificações Nacionais e Internacionais.
+            {t('h2')}
           </h2>
 
           <div className="logo-grid">

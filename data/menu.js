@@ -527,67 +527,67 @@ export const menuItems = [
 
 export const menuItems2 = [
   {
-    title: "Início",
+    titleKey: "home",
     subMenu: [
       {
         links: [
-          { href: "/", text: "Início" },
+          { href: "/", textKey: "home" },
         ],
       },
     ],
   },
   {
-    title: "Dr. Thomas",
+    titleKey: "drThomas",
     subMenu: [
       {
         links: [
-          { href: "/dr-thomas", text: "Sobre" },
-          { href: "/equipe", text: "Equipe" },
-          { href: "/blog", text: "Blog" },
+          { href: "/dr-thomas", textKey: "about" },
+          { href: "/equipe", textKey: "team" },
+          { href: "/blog", textKey: "blog" },
         ],
       },
     ],
   },
   {
-    title: "Imprensa",
+    titleKey: "press",
     subMenu: [
       {
         links: [
           {
-            href: "/imprensa", text: "Imprensa" },
+            href: "/imprensa", textKey: "press" },
         ],
       },
     ],
   },
   {
-    title: "Pacientes no Exterior",
+    titleKey: "international",
     subMenu: [
       {
         links: [
           {
-            href: "/pacientes-no-exterior", text: "Pacientes no Exterior"},
+            href: "/pacientes-no-exterior", textKey: "international"},
         ],
       },
     ],
   },
   {
-    title: "Cirurgias",
+    titleKey: "surgeries",
     subMenu: [
       {
         links: [
           {
-            href: "/cirurgias", text: "Cirurgias"},
+            href: "/cirurgias", textKey: "surgeries"},
         ],
       },
     ],
   },
   {
-    title: "Antes e Depois",
+    titleKey: "beforeAfter",
     subMenu: [
       {
         links: [
           {
-            href: "/antes-e-depois", text: "Antes e Depois"},
+            href: "/antes-e-depois", textKey: "beforeAfter"},
         ],
       },
     ],

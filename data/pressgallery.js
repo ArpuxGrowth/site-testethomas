@@ -1,7 +1,7 @@
 export const pressItems = [
   {
     id: 1,
-    title: "Pioneirismo no Brasil: Dr. Thomas Benson é referência na imprensa desde 2021.", 
+    title: "Pioneirismo no Brasil: Dr. Thomas Benson é referência na imprensa desde 2021.",
     href: "/assets/images/press/news-1.jpg",
     src: "/assets/images/press/news-1.jpg",
     externalLink: "https://noticias.r7.com/cidades/folha-vitoria/cirurgiao-plastico-thomas-benson-tem-titulo-da-europa-reconhecido-no-brasil-06042022/",

@@ -15,6 +15,7 @@ import { featuresListData } from "@/data/features";
 import { features2 } from "@/data/features";
 import Faq2 from "@/components/common/Faq2";
 import ScheduleButton from "@/components/buttons/ScheduleButton";
+import { useTranslations } from "next-intl";
 const ParallaxContainer = dynamic(
   () => import("@/components/common/ParallaxContainer"),
   {
@@ -22,6 +23,11 @@ const ParallaxContainer = dynamic(
   }
 );
 export default function Home11({ onePage = false}) {
+
+  const t = useTranslations('Home');
+
+  const featureKeys = ['excellence', 'technology', 'care', 'safety'];
+
   return (
     <>
 
@@ -37,26 +43,8 @@ export default function Home11({ onePage = false}) {
                 data-wow-duration="1.2s"
                 data-wow-offset={255}
               >
-                <h2 className="section-title mb-50 mb-sm-20">Uma carreira marcada pela excelência.</h2>
-                <p>
-                  Doutor em Medicina (PhD) pelas prestigiadas Universidade de São Paulo (USP), no Brasil, e Doutor em Medicina (PhD) pela 
-                  Universidade de Hamburgo (UKE – Universitätsklinik Eppendorf Hamburg) na Alemanha, o Dr. Thomas construiu sua carreira nas 
-                  duas instituições mais respeitadas na área médica.<br/><br/>
- 
-                  Ele também é o único cirurgião plástico no Brasil com título de especialista pelo European Board of Plastic Surgery (EBOPRAS),após 
-                  ter feito sua prova de especialista em Bruxelas, Bélgica e em Bern, Suíça para obter seu certificado. Dr. Thomas Benson possui títulos 
-                  de especialista no Brasil sendo membro titular da SBCP e também pelo governo Alemão.<br/><br/>
-
-                  Sua formação inclui residência em Cirurgia Geral e Cirurgia Plástica no Hospital das Clínicas da USP, pós graduação em microcirurgia 
-                  na USP, um dos maiores centros de referência em reconstruções faciais e de cabeça e pescoço da América Latina, fez residência médica 
-                  no Hospital Bogenhausen, em Munique, Alemanha, onde foi responsável pela preceptoria da formação naquele ano, onde atuou como cirurgião 
-                  plástico no Hospital Bogenhausen, após esse período se especializou e acompanhou vários cirurgiões renomados no Brasil e nos EUA onde 
-                  se aprimorou nas técnicas de cirurgia de face, inclusive o Deep Plane Facelift.<br/><br/>
-
-                  O Dr. Thomas é membro do corpo clínico do hospital Israelita Albert Einstein, hospital Sírio Libanês, hospital Moriah, hoje, opera todos 
-                  os dias de segunda a sábado, sendo sete cirurgias por semana no único hospital 6 estrelas do Brasil, o Vila Nova Star (SP), referência 
-                  máxima em infraestrutura altamente segura e tecnológica.<br/><br/>
-                </p>
+                <h2 className="section-title mb-50 mb-sm-20">{t('abouth2')}</h2>
+                <div dangerouslySetInnerHTML={{__html: t.raw('aboutp')}} style={{marginBottom: '1.5em'}} />
                 {/* <Faq /> */}
                 <div className="local-scroll">
                   <ScheduleButton />
@@ -160,19 +148,15 @@ export default function Home11({ onePage = false}) {
               {/* End Decorative Dots */}
               <div>
                 <h2 className="section-title mb-30">
-                  Consultório de cirurgias plásticas em São Paulo.
+                  {t('clinicah2')}
                 </h2>
                 <p className="mb-50">
-                  O Consultório Médico Particular do Dr. Thomas Benson 
-                  está localizado ao lado do Parque Ibirapuera na Av. 
-                  Antônio Joaquim de Moura Andrade, no bairro nobre da 
-                  Vila Nova Conceição em São Paulo, um ambiente luxuoso 
-                  e confortável com total segurança.
+                  {t('clinicap')}
                 </p>
                 {/* Features List */}
                 <div className="row mt-n20">
                   {/* Features List Item */}
-                  {featuresListData.map((item, index) => (
+                  {featureKeys.map((key, index) => (
                     <div
                       key={index}
                       className="col-sm-6 col-lg-12 col-xl-6 d-flex mt-20"
@@ -181,7 +165,7 @@ export default function Home11({ onePage = false}) {
                         <i className="mi-check" />
                       </div>
                       <div className="features-list-text">
-                        {item.text}
+                        {t(`features.${key}`)}
                       </div>
                     </div>
                   ))}
@@ -210,13 +194,13 @@ export default function Home11({ onePage = false}) {
             <div className="row">
               <div className="col-lg-4 mb-md-60 mb-xs-50">
                 <h2 className="section-title mb-20 wow fadeInUp">
-                  Somos uma das poucas equipes exclusivas que operam face todos os dias.
+                  {t('ct1h2')}
                 </h2>
                 <p
                   className="section-descr mb-40 wow fadeInUp"
                   data-wow-delay="0.1s"
                 >
-                  A excelência vem através da repetição prática diária.
+                  {t('ct1p')}
                 </p>
                 <div className="local-scroll wow fadeInUp" data-wow-delay="0.2s">
                   <ScheduleButton className="btn-w"/>
@@ -260,11 +244,10 @@ export default function Home11({ onePage = false}) {
           <div className="row wow fadeInUp">
             <div className="col-md-7 offset-md-5 col-lg-6 offset-lg-6 col-xl-5 offset-xl-7">
               <h2 className="section-title mb-40 mb-sm-30">
-                Dr. Thomas realiza cirurgias todos os dias no único hospital 6 estrelas do país.
+                {t('hosph2')}
               </h2>
               <p className="mb-50 mb-sm-40">
-                Dr. Thomas também é membro do corpo clínico de outros grandes 
-                hospitais, como: Hospital Israelita Albert Einstein e Hospital Sírio-Libanês.
+                {t('hospp')}
               </p>
               <div className="local-scroll mb-70 mb-sm-50">
                 <ScheduleButton className="btn-w" />
@@ -272,14 +255,17 @@ export default function Home11({ onePage = false}) {
               {/* Features List */}
               <div className="row mt-n10">
                 {/* Features List Item */}
-                {features2.map((elm, i) => (
-                  <div key={i} className="col-lg-6 d-flex mt-10">
-                    <div className="features-list-icon ">
-                      <i className="mi-check" />
+                {features2.map((elm, i) => {
+                  const translatedItem = t.raw(`features2.${elm.id}`);
+                  return (
+                    <div key={i} className="col-lg-6 d-flex mt-10">
+                      <div className="features-list-icon ">
+                        <i className="mi-check" />
+                      </div>
+                      <div className="features-list-text">{translatedItem.text}</div>
                     </div>
-                    <div className="features-list-text">{elm.text}</div>
-                  </div>
-                ))}
+                  )
+                })}
                 {/* End Features List Item */}
               </div>
               {/* End Features List */}
@@ -294,7 +280,7 @@ export default function Home11({ onePage = false}) {
             <div className="row position-relative">
               <div className="col-md-6 col-lg-5 mb-md-50 mb-sm-30">
                 <h3 className="section-title mb-30">
-                  Dúvidas que alguns pacientes podem ter.
+                  {t('faqh3')}
                 </h3>
               </div>
               <div className="col-md-6 offset-lg-1 pt-10 pt-sm-0">
@@ -316,8 +302,7 @@ export default function Home11({ onePage = false}) {
           <div className="row text-center wow fadeInUp">
             <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
               <p className="section-descr mb-50 mb-sm-30">
-                Pioneirismo, exclusividade e uma carreira marcada pela excelência e dedicação.
-                O Dr. Thomas Benson é um dos maiores especialistas em rejuvenescimento facial.
+                {t('sectionp')}
               </p>
               <div className="local-scroll">
                 <ScheduleButton />

@@ -3,25 +3,25 @@ export const numberItems = [
     id: 1,
     delay: "0.4s",
     title: "+7",
-    description: "Casos de face por semana.",
+    translationKey: "cases",
   },
   {
     id: 2,
     delay: "0.6s",
     title: "+20",
-    description: "Anos de experiência.",
+    translationKey: "experience",
   },
   {
     id: 3,
     delay: "0.8s",
     title: "+10",
-    description: "Países buscam a excelência do Dr. Thomas no Brasil.",
+    translationKey: "countries",
   },
   {
     id: 4,
     delay: "1s",
     title: "+5.700",
-    description: "Cirurgias realizadas.",
+    translationKey: "surgeries",
   },
 ];
 export const numberItems2 = [

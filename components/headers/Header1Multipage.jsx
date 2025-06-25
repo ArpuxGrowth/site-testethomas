@@ -1,10 +1,11 @@
 "use client";
 import { toggleMobileMenu } from "@/utlis/toggleMobileMenu";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from '@/i18n/routing';
 import React, { useState, useEffect } from "react";
 import Nav3 from "./components/Nav3";
 import LanguageSelect from "./components/LanguageSelect";
+import { useTranslations } from "next-intl";
 
 export default function Header1Multipage({ links, defaultButtonColor = "white" }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,6 +69,8 @@ export default function Header1Multipage({ links, defaultButtonColor = "white" }
     }
   }, [isScrolled, defaultButtonColor, isMobile]);
 
+  const t = useTranslations('Header1Multipage');
+
   return (
     <div className="main-nav-sub full-wrapper">
       <div className="nav-logo-wrap local-scroll">
@@ -121,13 +124,13 @@ export default function Header1Multipage({ links, defaultButtonColor = "white" }
                 }}
               >
                 <span className="link-strong link-strong-unhovered">
-                  Marque a sua consulta
+                  {t('span')}
                 </span>
                 <span
                   className="link-strong link-strong-hovered"
                   aria-hidden="true"
                 >
-                  Marque a sua consulta
+                  {t('span')}
                 </span>
               </span>
             </button>

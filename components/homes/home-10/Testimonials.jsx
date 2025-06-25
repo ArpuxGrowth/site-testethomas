@@ -3,7 +3,9 @@ import { testimonials3 } from "@/data/testimonials";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 export default function Testimonials() {
+  const t = useTranslations('teamTestimonials');
   return (
     <div className="wow fadeInUp">
       <Swiper
@@ -34,14 +36,14 @@ export default function Testimonials() {
         }}
       >
         {/* Team item */}
-        {testimonials3.map((elm, i) => (
-          <SwiperSlide className="owl-item" key={i}>
+        {testimonials3.map((elm) => (
+          <SwiperSlide className="owl-item" key={elm.id}>
             <div className="testimonials-3-item ">
               <div className="testimonials-3-icon">
                 <i className="icon-quotation-mark" aria-hidden="true"></i>
               </div>
               <blockquote className="testimonials-3-text">
-                <p className="mb-0">{elm.text}</p>
+                <p className="mb-0">{t(`testimonials3.${elm.id}.text`)}</p>
                 <footer className="testimonials-3-author pt-30 clearfix">
                   <div className="testimonials-3-author-img float-start">
                     <Image
@@ -53,7 +55,7 @@ export default function Testimonials() {
                   </div>
                   <div className="overflow-hidden">
                     {elm.author}
-                    <div className="small">{elm.role}</div>
+                    <div className="small">{t('role')}</div>
                   </div>
                 </footer>
               </blockquote>

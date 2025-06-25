@@ -1,8 +1,13 @@
 import { featureItems2 } from "@/data/features";
 import Image from "next/image";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 export default function Promo() {
+
+  const t = useTranslations('Promo');
+
+
   return (
     <div className="container position-relative">
       {/* Decorative Dots */}
@@ -31,36 +36,39 @@ export default function Promo() {
             <div className="row">
               <div className="col-lg-10">
                 <h2 className="section-title mb-60 mb-sm-30">
-                  Dr. Thomas lançou <em>UM BEST SELLER.</em>
+                  {t.rich('h2', { em: (chunks) => <em>{chunks}</em> })}
                 </h2>
               </div>
             </div>
             {/* Features Grid */}
             <div className="row alt-features-grid">
               {/* Features Item */}
-              {featureItems2.map((item, index) => (
-                <div key={index} className={item.className}>
-                  <div className="alt-features-item">
-                    <div className="alt-features-icon">
-                      <svg
-                        width={24}
-                        height={24}
-                        viewBox="0 0 36 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                        focusable="false"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                      >
-                        <path d={item.path} />
-                      </svg>
+              {featureItems2.map((item, index) => {
+                const translatedItem = t.raw(`featureItems2.${item.id}`);
+                return (
+                  <div key={index} className={item.className}>
+                    <div className="alt-features-item">
+                      <div className="alt-features-icon">
+                        <svg
+                          width={24}
+                          height={24}
+                          viewBox="0 0 36 24"
+                          fill="currentColor"
+                          aria-hidden="true"
+                          focusable="false"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                        >
+                          <path d={item.path} />
+                        </svg>
+                      </div>
+                      <h3 className="alt-features-title">{translatedItem.title}</h3>
+                      <div className="alt-features-descr">{translatedItem.description}</div>
                     </div>
-                    <h3 className="alt-features-title">{item.title}</h3>
-                    <div className="alt-features-descr">{item.description}</div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
               {/* End Features Item */}
             </div>
             {/* End Features Grid */}

@@ -1,9 +1,9 @@
 export const categories = [
-  { id: 1, name: "Abdominoplastia", count: 2 },
-  { id: 2, name: "Blefaroplastia", count: 2 },
-  { id: 3, name: "Braquioplastia", count: 1 },
-  { id: 4, name: "Cicatriz", count: 1 },
-  { id: 5, name: "Lipoaspiração", count: 1 },
-  { id: 6, name: "Mamoplastia", count: 1 },
-  { id: 7, name: "Rinoplastia", count: 2 },
+  { id: 1, key: "abdominoplastia", count: 2 },
+  { id: 2, key: "blefaroplastia", count: 2 },
+  { id: 3, key: "braquioplastia", count: 1 },
+  { id: 4, key: "cicatriz", count: 1 },
+  { id: 5, key: "lipoaspiração", count: 1 },
+  { id: 6, key: "mamoplastia", count: 1 },
+  { id: 7, key: "rinoplastia", count: 2 },
 ];

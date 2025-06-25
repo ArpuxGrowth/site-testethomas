@@ -2,15 +2,13 @@
 
 import { surgeriesItems } from "@/data/surgeries";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import React, { useEffect, useRef, useState } from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
-const filters = [
-  { name: "Todas", category: "all" },
-  { name: "Cirurgias Faciais", category: "facials" },
-  { name: "Outras Cirurgias", category: "others" },
-];
+import { useTranslations } from "next-intl";
 export default function SurgeriesPortfolio({ gridClass = "" }) {
+  const t = useTranslations('SurgeriesPortfolio');
+  const surgerie = useTranslations ('surgeriesItems')
   const [currentCategory, setCurrentCategory] = useState("all");
   const isotopContainer = useRef();
   const isotope = useRef();
@@ -41,6 +39,13 @@ export default function SurgeriesPortfolio({ gridClass = "" }) {
 
     initIsotop();
   }, []);
+
+  const filters = [
+    { name: t('filters.all'), category: "all" },
+    { name: t('filters.facials'), category: "facials" },
+    { name: t('filters.others'), category: "others" },
+  ];
+  
   return (
     <div className="full-wrapper position-relative">
       {/* Works Filter */}
@@ -89,8 +94,8 @@ export default function SurgeriesPortfolio({ gridClass = "" }) {
                           />
                         </div>
                         <div onClick={open} className="work-intro text-start">
-                          <h3 className="work-title">{item.title}</h3>
-                          <div className="work-descr">{item.descr}</div>
+                          <h3 className="work-title">{surgerie(`${item.id}.title`)}</h3>
+                          <div className="work-descr">{surgerie(`${item.id}.descr`)}</div>
                         </div>
                       </>
                     )}
@@ -112,7 +117,7 @@ export default function SurgeriesPortfolio({ gridClass = "" }) {
                     />
                   </div>
                   <div className="work-intro text-start">
-                    <h3 className="work-title">{item.title}</h3>
+                    <h3 className="work-title">{surgerie(`${item.id}.title`)}</h3>
                     <div className="work-descr">{item.description}</div>
                   </div>
                 </Link>

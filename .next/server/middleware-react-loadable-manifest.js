@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"app\\\\layout.js -> bootstrap/dist/js/bootstrap.esm\":{\"id\":\"app\\\\layout.js -> bootstrap/dist/js/bootstrap.esm\",\"files\":[\"static/chunks/_app-pages-browser_node_modules_bootstrap_dist_js_bootstrap_esm_js.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{\"app\\\\[locale]\\\\layout.js -> bootstrap/dist/js/bootstrap.esm\":{\"id\":\"app\\\\[locale]\\\\layout.js -> bootstrap/dist/js/bootstrap.esm\",\"files\":[\"static/chunks/_app-pages-browser_node_modules_bootstrap_dist_js_bootstrap_esm_js.js\"]}}"

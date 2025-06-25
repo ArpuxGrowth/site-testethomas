@@ -2,8 +2,9 @@
 import React from "react";
 import Image from "next/image";
 import FooterSocials from "./FooterSocials";
-import Link from "next/link";
+import { Link } from '@/i18n/routing';
 import { footerLinks, navigationLinks } from "@/data/footer";
+import { useTranslations } from "next-intl";
 
 export default function Footer1({ dark = false }) {
   const scrollToTop = (event) => {
@@ -13,6 +14,8 @@ export default function Footer1({ dark = false }) {
       behavior: "smooth", // Linear easing replacement
     });
   };
+
+  const t = useTranslations('Footer1');
 
   return (
     <footer
@@ -41,8 +44,7 @@ export default function Footer1({ dark = false }) {
               />
             </Link>
             <p>
-              Dr. Thomas Benson, um dos pioneiros no Brasil na inovadora 
-              técnica de rejuvenescimento facial Deep Plane Facelift.
+              {t('p1')}
             </p>
             <div className="clearlinks">
               <strong>T. </strong>
@@ -57,19 +59,22 @@ export default function Footer1({ dark = false }) {
             <div className="row mt-n30">
               {/* Footer Widget */}
               <div className="col-sm-4 mt-30">
-                <h3 className="fw-title">Páginas</h3>
+                <h3 className="fw-title">{t('h3')}</h3>
                 <ul className="fw-menu clearlist local-scroll">
-                  {navigationLinks.map((elm, i) => (
-                    <li key={i}>
-                      <a href={elm.href}>{elm.text}</a>
-                    </li>
-                  ))}
+                  {navigationLinks.map((elm, i) => {
+                    const tLinks = t.raw(`navigationLinks.${i}`);
+                    return (
+                      <li key={i}>
+                        <Link href={elm.href}>{tLinks.text}</Link>
+                      </li>
+                    )
+                  })}
                 </ul>
               </div>
               {/* End Footer Widget */}
               {/* Footer Widget */}
               <div className="col-sm-4 mt-30">
-                <h3 className="fw-title">Redes Sociais</h3>
+                <h3 className="fw-title">{t('h3_2')}</h3>
                 <ul className="fw-menu clearlist">
                   <FooterSocials />
                 </ul>
@@ -93,18 +98,15 @@ export default function Footer1({ dark = false }) {
         {/* Footer Text */}
         <div className="row text-gray">
           <p className="size-13">
-          Este site possui caráter informativo e educacional e segue os princípios da resolução 
-          nº 1.974/2011 do Conselho Federal de Medicina (CFM) e do código de conduta de medicina e saúde.
-          O paciente jamais deve usar seu conteúdo para autodiagnóstico ou autotratamento. Segundo 
-          recomendação do Conselho Federal de Medicina, em caso de dúvida, o médico sempre deve ser consultado.
+          {t('p2')}
           </p>
         </div>
         <div className="row text-gray">
           <div className="col-md-4 col-lg-3">
-            <b>© Todos os direitos reservados {new Date().getFullYear()}.</b>
+            <b>© {t('b1')} {new Date().getFullYear()}.</b>
           </div>
           <div className="col-md-7 offset-md-1 offset-lg-2 clearfix">
-            <b>Responsável técnico: Dr. Thomas Benson CRM. 119.278 – RQE 29279.</b>
+            <b>{t('b2')}</b>
             {/* Back to Top Link */}
             <div className="local-scroll float-end mt-n20 mt-sm-10">
               <a href="#top" className="link-to-top" onClick={scrollToTop}>

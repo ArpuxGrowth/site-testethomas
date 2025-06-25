@@ -3,8 +3,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { teamMembersalt } from "@/data/team";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function Team() {
+  const t = useTranslations('compTeam');
   return (
     <div className="container position-relative">
       <div className="row">
@@ -68,7 +70,7 @@ export default function Team() {
                       </div>
                       <div className="team-item-descr">
                         <div className="team-item-name">{member.name}</div>
-                        <div className="small team-item-role">{member.role}</div>
+                        <div className="small team-item-role">{t('role')}</div>
                       </div>
                     </div>
                   </div>
@@ -107,11 +109,11 @@ export default function Team() {
         <div className="col-md-6 mb-sm-60 mb-xs-40 d-flex align-items-center">
           <blockquote className="testimonial mb-0 wow fadeInUp">
             <p>
-              Cicatrizes.
+              {t('p')}
             </p>
             <footer>
               <div className="section-line mb-10" />
-              <span className="small">Cicatrizes sutis com técnicas de precisão e refinamento.</span>
+              <span className="small">{t('span')}</span>
             </footer>
           </blockquote>
         </div>

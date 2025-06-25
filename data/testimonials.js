@@ -1,22 +1,14 @@
 export const testimonials = [
   {
-    quote: `Fiz o meu Lifting Facial com o Dr Thomas há 1 ano e estou muito satisfeita com o resultado. Ficou tão natural, que as pessoas que conheço me perguntam o que eu faço para não envelhercer! Fazer uma cirurgia no rosto é uma decisão muito difícil, pois se algo der errado não tem como esconder, sendo assim, posso afirmar que o Dr Thomas vai trazer a vcs um resultado natural e perfeito. Obrigada, Dr Thomas! Suas mãos são realmente abençoadas! Sua equipe tb é maravilhosa!`,
     author: "Elaine Prado",
-    role: "Paciente",
     image: "/assets/images/icon-user.jpg",
   },
   {
-    quote: `Completei 1 ano de cirurgia e só tenho a agradecer o Dr.Thomas Benson, o resultado continua perfeito,com certeza ele é um dos melhores cirurgiões do Brasil e do mundo.
-Trabalho de excelência .`,
     author: "Silvana Bispo",
-    role: "Paciente",
     image: "/assets/images/icon-user.jpg",
   },
   {
-    quote: `Sempre muito atencioso, extremamente profissional e cuidadoso em deixar o paciente sem dúvidas e criar a máxima confiança nos conhecimentos técnicos e no tratamento humano e personalizado ao paciente.
-Excelente profissional.`,
     author: "Rayane Rodrigues",
-    role: "Paciente",
     image: "/assets/images/icon-user.jpg",
   },
 ];
@@ -56,36 +48,42 @@ export const testimonials2 = [
 
 export const testimonials3 = [
   {
+    id: 1,
     text: "Dr Thomas é um profissional incrível, amei meu procedimento. Ele explicou com muito cuidado todo meu procedimento, tirou as dúvidas, a consulta foi muito esclarecedora e detalhada. Equipe toda achei maravilhosa e cuidadosa. Recomendo muito.",
     author: "Andrea Nogueira",
     role: "Paciente",
     imgSrc: "/assets/images/icon-user.jpg",
   },
   {
+    id: 2,
     text: "Gratidão é a palavra! Dr. Thomas um profissional excelente e muito cuidadoso com seus pacientes. Em todos os momentos me passou segurança, o resultado trouxe de volta a minha auto estima e a minha identidade. À toda a equipe obrigado, de coração. Deus abençoe a todos vocês.",
     author: "Ivone Souza",
     role: "Paciente",
     imgSrc: "/assets/images/icon-user.jpg",
   },
   {
+    id: 3,
     text: "Superou a minha expectativa. O meu sentimento é de gratidão a todos que cuidaram de mim com tanto carinho e atenção, desde a primeira consulta até o acompanhamento final. Meus amigos e familiares ficaram impressionados com o resultado é só ouço elogios.",
     author: "Giovana Ferreira",
     role: "Paciente",
     imgSrc: "/assets/images/icon-user.jpg",
   },
   {
+    id: 4,
     text: "Desde a 1a consulta até as sessões pós cirurgia, todo o caminho foi cercado de cuidados e atenções da parte dele e de sua equipe excepcional. Tudoooo transcorreu no maior clima de tranquilidade, segurança e confiança, não podia ter sido melhor.",
     author: "Maria Clara",
     role: "Paciente",
     imgSrc: "/assets/images/icon-user.jpg",
   },
   {
+    id: 5,
     text: "Super satisfeita. O Doutor Benson devolveu minha autoestima . Fiz uma cirurgia plástica facial e foi a melhor escolha que fiz . Ótimo trabalho, funcionários super atenciosos e carinhosos . Uma equipe excelente .E o Doutor Benson é incrível ! Só tenho a agradecer por tudo . EU AMEI",
     author: "Nubia Valleria",
     role: "Paciente",
     imgSrc: "/assets/images/icon-user.jpg",
   },
   {
+    id: 6,
     text: "Só tenho a agradecer pelo profissional maravilhoso e pela equipe muito bem treinada, tive todo o suporte desde o dia da consulta até os retornos pós operatório, médico humano, honesto e muito sensato. Mudou a minha autoestima e minha vida, eterna gratidão a todos.",
     author: "Débora Gonçalves",
     role: "Paciente",

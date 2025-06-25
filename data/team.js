@@ -44,7 +44,6 @@ export const teamMembers = [
 export const squadMembers = [
   {
     name: "Dr. Thomas Benson",
-    role: "Cirurgião Plástico",
     image: "/assets/images/team/drthomas-s.jpg",
     imgAlt: "Dr. Thomas Benson, Cirurgião Plástico",
     socials: [
@@ -55,7 +54,6 @@ export const squadMembers = [
   },
   {
     name: "Aline Keiko",
-    role: "Gerente",
     image: "/assets/images/team/alinekeiko-s.jpg",
     imgAlt: "Aline Keiko, Gerente",
     socials: [
@@ -66,7 +64,6 @@ export const squadMembers = [
   },
   {
     name: "Dr. Enio Giacchetto",
-    role: "Cirurgião Plástico",
     image: "/assets/images/team/eniogia-s.jpg",
     imgAlt: "Dr. Enio Giacchetto, Cirurgião Plástico",
     socials: [
@@ -77,7 +74,6 @@ export const squadMembers = [
   },
   {
     name: "Dr. Eiki Takemura",
-    role: "Cirurgião Plástico",
     image: "/assets/images/team/eikitakemura-s.jpg",
     imgAlt: "Dr. Eiki Takemura, Cirurgião Plástico",
     socials: [
@@ -88,7 +84,6 @@ export const squadMembers = [
   },
   {
     name: "Dr. Osvaldo Almeida",
-    role: "Cirurgião Plástico",
     image: "/assets/images/team/osvaldoalmeida-s.jpg",
     imgAlt: "Dr. Osvaldo Almeida, Cirurgião Plástico",
     socials: [
@@ -99,7 +94,6 @@ export const squadMembers = [
   },
   {
     name: "Dra. Adriane Tartare",
-    role: "Cirurgiã Plástica",
     image: "/assets/images/team/adrianetartare-s.jpg",
     imgAlt: "Dra. Adriane Tartare, Cirurgião Plástico",
     socials: [
@@ -110,7 +104,6 @@ export const squadMembers = [
   },
   {
     name: "Adriana Machado",
-    role: "Enfermagem",
     image: "/assets/images/team/adrianamachado-s.jpg",
     imgAlt: "Adriana Machado, Enfermeira",
     socials: [
@@ -121,7 +114,6 @@ export const squadMembers = [
   },
   {
     name: "Anna Luiza",
-    role: "Enfermagem",
     image: "/assets/images/team/annaluiza-s.jpg",
     imgAlt: "Anna Luiza, Enfermeira",
     socials: [
@@ -132,7 +124,6 @@ export const squadMembers = [
   },
   {
     name: "Débora",
-    role: "Enfermagem",
     image: "/assets/images/team/debora-s.jpg",
     imgAlt: "Débora, Enfermeira",
     socials: [
@@ -143,7 +134,6 @@ export const squadMembers = [
   },
   {
     name: "Cristina Fantacone",
-    role: "Administração",
     image: "/assets/images/team/cristinafantacone-s.jpg",
     imgAlt: "Cristina Fantacone, Administração",
     socials: [
@@ -154,7 +144,6 @@ export const squadMembers = [
   },
   {
     name: "Tamires Santos",
-    role: "Concierge",
     image: "/assets/images/team/tamiressantos-s.jpg",
     imgAlt: "Tamires Santos, Concierge",
     socials: [

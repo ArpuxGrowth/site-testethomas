@@ -3,8 +3,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import Image from "next/image";
 import { videoContainersrc } from "@/data/videocontainer";
+import { useTranslations } from "next-intl";
 
 export default function VideoContainer() {
+  const t = useTranslations('VideoContainer');
   return (
     <div className="container position-relative">
       <div className="row">
@@ -36,48 +38,51 @@ export default function VideoContainer() {
               }}
             >
               {/* Team item */}
-              {videoContainersrc.map((member, index) => (
-                <SwiperSlide className="owl-item" key={index}>
-                  <div className="team-carousel-item">
-                    <div className="team-item">
-                      <div className="team-item-image">
-                        <a href={member.videoUrl} target="_blank" rel="noopener noreferrer">
-                          <Image
-                            width={600}
-                            height={800}
-                            src={member.image}
-                            className="wow scaleOutIn"
-                            alt="Mensagem do Dr. Thomas Benson"
-                          />
-                        </a>
-                        <div className="team-item-detail">
-                          <div className="team-social-links">
-                            {member.socials.map((social, socialIndex) => (
-                              <a
-                                href={social.url}
-                                target="_blank"
-                                rel="noopener nofollow"
-                                key={socialIndex}
-                              >
-                                <div className="visually-hidden">
-                                  {social.platform}
-                                </div>
-                                <i className={social.icon} />
-                              </a>
-                            ))}
+              {videoContainersrc.map((member, index) => {
+                const translatedDescr = t('videoContainersrc.descr');
+                return (
+                  <SwiperSlide className="owl-item" key={index}>
+                    <div className="team-carousel-item">
+                      <div className="team-item">
+                        <div className="team-item-image">
+                          <a href={member.videoUrl} target="_blank" rel="noopener noreferrer">
+                            <Image
+                              width={600}
+                              height={800}
+                              src={member.image}
+                              className="wow scaleOutIn"
+                              alt="Mensagem do Dr. Thomas Benson"
+                            />
+                          </a>
+                          <div className="team-item-detail">
+                            <div className="team-social-links">
+                              {member.socials.map((social, socialIndex) => (
+                                <a
+                                  href={social.url}
+                                  target="_blank"
+                                  rel="noopener nofollow"
+                                  key={socialIndex}
+                                >
+                                  <div className="visually-hidden">
+                                    {social.platform}
+                                  </div>
+                                  <i className={social.icon} />
+                                </a>
+                              ))}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="team-item-descr">
-                        <div className="team-item-name">{member.name}</div>
-                        <a href={member.videoUrl} target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
-                          <div className="small team-item-role">{member.descr}</div>
-                        </a>
+                        <div className="team-item-descr">
+                          <div className="team-item-name">{member.name}</div>
+                          <a href={member.videoUrl} target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
+                            <div className="small team-item-role">{translatedDescr}</div>
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </SwiperSlide>
-              ))}
+                  </SwiperSlide>
+                )
+              })}
               <div className="owl-controls clickable">
                 <div className="owl-pagination">
                   <div className="owl-page">
@@ -111,11 +116,11 @@ export default function VideoContainer() {
         <div className="col-md-6 mb-sm-60 mb-xs-40 d-flex align-items-center">
           <blockquote className="testimonial mb-0 wow fadeInUp">
             <p>
-              Uma mensagem especial para você!
+              {t('p')}
             </p>
             <footer>
               <div className="section-line mb-10" />
-              <span className="small">Confira esses dois vídeos.</span>
+              <span className="small">{t('videodesc')}</span>
             </footer>
           </blockquote>
         </div>

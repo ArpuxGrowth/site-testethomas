@@ -2,11 +2,17 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { categories } from "@/data/categories";
+import { Link } from "@/i18n/routing";
+import { useLocale } from 'next-intl';
+import { useTranslations } from "next-intl";
 
 export default function BlogWidget2({
   searchInputClass = "form-control input-md search-field input-circle",
   itemsPerPage = 5, // Define o número de posts exibidos por página
 }) {
+  const t = useTranslations('BlogWidget2');
+  const cat = useTranslations();
+  const locale = useLocale();
   const [searchTerm, setSearchTerm] = useState("");
   const [allPosts, setAllPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
@@ -14,7 +20,7 @@ export default function BlogWidget2({
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch("/api/fetch-all-blogs"); // Nova rota
+      const response = await fetch(`/${locale}/api/fetch-all-blogs`); // Nova rota
       if (!response.ok) {
         throw new Error("Erro ao buscar dados da API");
       }
@@ -56,7 +62,7 @@ export default function BlogWidget2({
             <input
               type="text"
               className={searchInputClass}
-              placeholder="Buscar..."
+              placeholder={t('placeholder')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               required
@@ -66,7 +72,7 @@ export default function BlogWidget2({
       </div>
 
       <div className="widget">
-        <h3 className="widget-title">Últimas postagens</h3>
+        <h3 className="widget-title">{t('h3')}</h3>
         <div className="widget-body">
           <ul className="clearlist widget-posts">
             {displayedPosts.length > 0 ? (
@@ -78,7 +84,7 @@ export default function BlogWidget2({
                     : defaultImage;
                 return (
                   <li key={post.id} className="clearfix">
-                    <a href={`/blog/${post.attributes.Url}`}>
+                    <Link href={`/blog/${post.attributes.Url}`}>
                       <Image
                         src={imageUrl}
                         height={140}
@@ -86,34 +92,34 @@ export default function BlogWidget2({
                         alt={post.attributes.Titulo}
                         className="widget-posts-img"
                       />
-                    </a>
+                    </Link>
                     <div className="widget-posts-descr">
-                      <a
+                      <Link
                         href={`/blog/${post.attributes.Url}`}
                         title={post.attributes.Titulo}
                       >
                         {post.attributes.Titulo}
-                      </a>
-                      <span>Postado em {post.attributes.DataPublicacao}</span>
+                      </Link>
+                      <span>{t('span')} {post.attributes.DataPublicacao}</span>
                     </div>
                   </li>
                 );
               })
             ) : (
-              <li>Nenhum resultado encontrado.</li>
+              <li>{t('li')}</li>
             )}
           </ul>
         </div>
       </div>
 
       <div className="widget">
-        <h3 className="widget-title">Categorias</h3>
+        <h3 className="widget-title">{t('h3_2')}</h3>
         <div className="widget-body">
           <ul className="clearlist widget-menu">
             {categories.map((category) => (
               <li key={category.id}>
                 <a href="#" title="">
-                  {category.name}
+                  {cat(`BlogWidget2.categories.${category.key}`)}
                 </a>
                 <small> - {category.count} </small>
               </li>

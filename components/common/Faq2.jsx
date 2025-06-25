@@ -1,11 +1,15 @@
 "use client";
 import { faqDataMain } from "@/data/faqs";
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function Faq2({ faqData = faqDataMain }) {
   const questionRefs = useRef([]);
   const answerRefs = useRef([]);
   const [currentIndex, setCurrentIndex] = useState(-1);
+
+  const t = useTranslations('Faq2.faqDataMain');
+
   useEffect(() => {
     questionRefs.current.forEach((el) => {
       el.classList.remove("active");
@@ -28,25 +32,29 @@ export default function Faq2({ faqData = faqDataMain }) {
 
   return (
     <dl className="toggle">
-      {faqData.map((item, index) => (
-        <React.Fragment key={index}>
-          <dt
-            onClick={() => {
-              setCurrentIndex((pre) => (pre == index ? -1 : index));
-            }}
-          >
-            <a ref={(el) => (questionRefs.current[index] = el)}>
-              {item.question}
-            </a>
-          </dt>
-          <dd
-            ref={(el) => (answerRefs.current[index] = el)}
-            className="black faqAnswer"
-            dangerouslySetInnerHTML={{ __html: item.answer }}
-          >
-          </dd>
-        </React.Fragment>
-      ))}
+      {faqData.map((item, index) => {
+        const translatedQuestion = t(`${item.id}.question`);
+        const translatedAnswer = t.raw(`${item.id}.answer`);
+        return (
+          <React.Fragment key={index}>
+            <dt
+              onClick={() => {
+                setCurrentIndex((pre) => (pre == index ? -1 : index));
+              }}
+            >
+              <a ref={(el) => (questionRefs.current[index] = el)}>
+                {translatedQuestion}
+              </a>
+            </dt>
+            <dd
+              ref={(el) => (answerRefs.current[index] = el)}
+              className="black faqAnswer"
+              dangerouslySetInnerHTML={{ __html: translatedAnswer }}
+            >
+            </dd>
+          </React.Fragment>
+        )
+      })}
     </dl>
   );
 }

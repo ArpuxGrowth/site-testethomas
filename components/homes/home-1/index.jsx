@@ -14,6 +14,7 @@ import Image from "next/image";
 import Portfolio2 from "../home-2/Portfolio2";
 import VideoContainer from "./VideoContainer";
 import ScheduleButton from "@/components/buttons/ScheduleButton";
+import { useTranslations } from "next-intl";
 const ParallaxContainer = dynamic(
   () => import("@/components/common/ParallaxContainer"),
   {
@@ -21,6 +22,7 @@ const ParallaxContainer = dynamic(
   }
 );
 export default function Home1({ onePage = false }) {
+  const t = useTranslations('About');
   return (
     <>
       <section
@@ -30,9 +32,9 @@ export default function Home1({ onePage = false }) {
         <div className="container position-relative">
           <div className="row mb-60 mb-xs-30">
             <div className="col-md-6">
-              <h2 className="section-caption mb-xs-10">Nossa História</h2>
+              <h2 className="section-caption mb-xs-10">{t('h2_2')}</h2>
               <h3 className="section-title mb-0">
-                <AnimatedText text="O caminho da excelência." />
+                <AnimatedText text={t('atext1')} />
               </h3>
             </div>
             <div className="col-md-5 offset-md-1 relative text-start text-md-end pt-40 pt-sm-20 local-scroll">
@@ -114,7 +116,7 @@ export default function Home1({ onePage = false }) {
                 data-wow-duration="1.2s"
                 data-wow-offset={255}
               >
-                <h2 className="section-title mb-50 mb-sm-20">Uma carreira marcada pela excelência.</h2>
+                <h2 className="section-title mb-50 mb-sm-20">{t('h2_3')}</h2>
                 <Faq />
                 <div className="local-scroll">
                   <ScheduleButton />
@@ -158,13 +160,13 @@ export default function Home1({ onePage = false }) {
             <div className="row">
               <div className="col-lg-4 mb-md-60 mb-xs-50">
                 <h2 className="section-title mb-20 wow fadeInUp">
-                  Somos uma das poucas equipes exclusivas que operam face todos os dias.
+                  {t('ct1h2')}
                 </h2>
                 <p
                   className="section-descr mb-40 wow fadeInUp"
                   data-wow-delay="0.1s"
                 >
-                  A excelência vem através da repetição prática diária.
+                  {t('ct1p')}
                 </p>
                 <div className="local-scroll wow fadeInUp" data-wow-delay="0.2s">
                   <ScheduleButton className="btn-w" />
@@ -200,8 +202,7 @@ export default function Home1({ onePage = false }) {
           <div className="row text-center wow fadeInUp">
             <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
               <p className="section-descr mb-50 mb-sm-30">
-                Pioneirismo, exclusividade e uma carreira marcada pela excelência e dedicação.
-                O Dr. Thomas Benson é um dos maiores especialistas em rejuvenescimento facial.
+                {t('p2')}
               </p>
               <div className="local-scroll">
                 <ScheduleButton />

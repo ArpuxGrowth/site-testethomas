@@ -63,39 +63,8 @@ export const portfolios1 = [
     bannerPort: "/assets/images/full-width-images/resultado1-banner.jpg",
     date: "3º de Junho, 2024",
     title: "Paciente 1 do Dr. Thomas",
-    procedures: "Blefaroplastia completa (Sup. / Inf.), Deep Plane | MADE, Enxertia, Laser CO2.",
-    description: "Clique para ver o resultado",
-    descriptionInt: `
-    
-    <div class="container">
-      <br/><p>
-        Neste caso, a paciente buscava um rejuvenescimento facial profundo, com foco na região dos olhos e no contorno
-        facial, e o Dr. Thomas Benson propôs uma combinação personalizada de procedimentos para alcançar um resultado natural e harmônico.
-      </p>
-      <p>
-        A Blefaroplastia Completa, que envolveu tanto a pálpebra superior quanto a inferior, foi fundamental para corrigir a flacidez e
-        os excessos de pele, proporcionando um olhar mais aberto, descansado e jovial. A Blefaroplastia Superior suavizou as linhas
-        pesadas na área das pálpebras, enquanto a Inferior ajudou a reduzir as bolsas de gordura e suavizar as rugas finas, contribuindo
-        para um olhar mais revigorado.
-      </p>
-      <p>
-        A combinação com o Deep Plane Facelift e a técnica MADE (Minimal Access Deep Plane) foi decisiva para um rejuvenescimento mais
-        profundo, garantindo um lifting eficaz das estruturas faciais sem comprometer a naturalidade. A enxertia de gordura foi utilizada
-        para reposicionar volume nas áreas onde havia perda de gordura, proporcionando um contorno mais jovem e equilibrado, restaurando
-        as proporções faciais.
-      </p>
-      <p>
-        O uso do Laser CO2 complementou o tratamento, melhorando a textura da pele, suavizando cicatrizes e linhas finas, além de promover
-        um aspecto mais uniforme e luminoso. Cada um desses procedimentos atuou de forma sinérgica, atendendo às necessidades específicas
-        da paciente e proporcionando um resultado global de rejuvenescimento, com um olhar mais aberto e descansado e um rosto mais jovem,
-        firme e harmonioso.
-      </p>
-      <p>
-        A combinação de Blefaroplastia, Deep Plane Facelift, MADE, enxertia de gordura e Laser CO2 demonstrou a habilidade do Dr. Thomas
-        Benson em personalizar tratamentos para cada paciente, oferecendo resultados excepcionais e naturais.
-      </p>
-    </div>
-    `,
+    proceduresKey: "portfolios1.result1.procedures",
+    descriptionIntKey: "portfolios1.result1.descriptionInt",
     images: [
       "/assets/images/portfolio/full-resultado1-1.jpg",
       "/assets/images/portfolio/full-resultado1-2.jpg",
@@ -117,30 +86,8 @@ export const portfolios1 = [
     bannerPort: "/assets/images/full-width-images/resultado2-banner.jpg",
     date: "1º de Maio, 2024",
     title: "Paciente 2 do Dr. Thomas",
-    procedures: "Deep Plane | Deep Neck, Enxertia, Laser CO2.",
-    description: "Clique para ver o resultado",
-    descriptionInt: `
-    
-    <div class="container">
-      <br/><p>
-        A paciente optou por um rejuvenescimento completo com foco na face e pescoço, e o Dr. Thomas Benson combinou técnicas 
-        avançadas para garantir um resultado natural e harmônico.
-      </p>
-      <p>
-        O Deep Plane Facelift e o Deep Neck Lift proporcionaram um lifting profundo, restaurando a firmeza da pele e suavizando 
-        a flacidez tanto na face quanto no pescoço. A enxertia de gordura foi utilizada para devolver volume às áreas com perda 
-        de gordura, criando um contorno mais equilibrado e jovem.
-      </p>
-      <p>
-        O Laser CO2 complementou o tratamento, melhorando a textura da pele, suavizando rugas e manchas, e conferindo uma 
-        aparência radiante.
-      </p>
-      <p>
-        O resultado final foi uma transformação que trouxe um rejuvenescimento natural, com a face e pescoço visivelmente mais 
-        firmes e revitalizados.
-      </p>
-    </div>
-    `,
+    proceduresKey: "portfolios1.result2.procedures",
+    descriptionIntKey: "portfolios1.result2.descriptionInt",
     images: [
       "/assets/images/portfolio/full-resultado2-1.jpg",
       "/assets/images/portfolio/full-resultado2-2.jpg",
@@ -162,23 +109,8 @@ export const portfolios1 = [
     bannerPort: "/assets/images/full-width-images/resultado3-banner.jpg",
     date: "2º de Julho, 2024",
     title: "Paciente 3 do Dr. Thomas",
-    procedures: "Blefaroplastia completa (Sup. / Inf.), Deep Plane | Deep Neck, Enxertia, Liplift.",
-    description: "Clique para ver o resultado",
-    descriptionInt: `
-    
-    <div class="container">
-      <br/><p>
-        A paciente procurou o Dr. Thomas Benson em busca de um rejuvenescimento completo e natural, focado na área dos olhos e
-        no contorno facial. A Blefaroplastia Completa (superior e inferior) corrigiu a flacidez das pálpebras e reduziu as bolsas
-        de gordura, proporcionando um olhar mais descansado e jovem. O Deep Plane Facelift combinado com o Deep Neck Lift promoveu
-        um rejuvenescimento profundo na face e pescoço, restaurando a firmeza e definição da pele.
-      </p>
-      <p>
-        A enxertia de gordura devolveu volume nas áreas que perderam preenchimento, e o Liplift realçou os lábios, tornando-os mais
-        definidos e harmoniosos. O resultado foi uma aparência rejuvenescida e equilibrada, com um contorno facial mais suave e natural.
-      </p>
-    </div>
-    `,
+    proceduresKey: "portfolios1.result3.procedures",
+    descriptionIntKey: "portfolios1.result3.descriptionInt",
     images: [
       "/assets/images/portfolio/full-resultado3-1.jpg",
       "/assets/images/portfolio/full-resultado3-2.jpg",
@@ -200,31 +132,8 @@ export const portfolios1 = [
     bannerPort: "/assets/images/full-width-images/resultado4-banner.jpg",
     date: "12º de Agosto, 2023",
     title: "Paciente 4 do Dr. Thomas",
-    procedures: "Deep Plane | Deep Neck, Enxertia, Laser CO2, Liplift, Susp. sobrancelha.",
-    description: "Clique para ver o resultado",
-    descriptionInt: `
-    
-    <div class="container">
-      <br/><p>
-        A combinação de procedimentos proporcionou um resultado de rejuvenescimento completo e harmônico, com cada técnica
-        complementando a outra de forma precisa e eficaz. O Deep Plane Facelift, aliado ao Deep Neck Lift, trabalhou tanto na
-        face quanto no pescoço, restaurando a firmeza e definição das áreas mais afetadas pela flacidez. A enxertia de gordura
-        foi fundamental para devolver volume nas regiões que naturalmente perdem essa substância com o envelhecimento, trazendo
-        equilíbrio e suavidade ao contorno facial.
-      </p>
-      <p>
-        O Laser CO2 atuou de forma complementar, melhorando a textura da pele, suavizando rugas finas e manchas, enquanto o
-        Liplift proporcionou lábios mais naturais e proporcionais, valorizando o sorriso sem exageros. A suspensão de sobrancelhas
-        elevou a área dos olhos, conferindo um olhar mais descansado e revigorado.
-      </p>
-      <p>
-        Cada um desses procedimentos foi cuidadosamente escolhido para atuar em diferentes camadas e aspectos do envelhecimento
-        facial, garantindo um resultado harmonioso e de aparência natural, sem sobrecarregar nenhuma área específica. O trabalho
-        sinérgico entre as técnicas garantiu uma transformação profunda e equilibrada, com um rejuvenescimento completo que respeitou
-        as características únicas da paciente.
-      </p>
-    </div>
-    `,
+    proceduresKey: "portfolios1.result4.procedures",
+    descriptionIntKey: "portfolios1.result4.descriptionInt",
     images: [
       "/assets/images/portfolio/full-resultado4-1.jpg",
       "/assets/images/portfolio/full-resultado4-2.jpg",
@@ -246,24 +155,8 @@ export const portfolios1 = [
     bannerPort: "/assets/images/full-width-images/resultado5-banner.jpg",
     date: "26º de Outubro, 2023",
     title: "Paciente 5 do Dr. Thomas",
-    procedures: "Deep Plane | Deep Neck, Enxertia, Laser CO2.",
-    description: "Clique para ver o resultado",
-    descriptionInt: `
-    
-    <div class="container">
-      <br/><p>
-        A paciente optou por um rejuvenescimento completo com foco na face e pescoço, e o Dr. Thomas Benson combinou técnicas
-        avançadas para garantir um resultado natural e harmônico. O Deep Plane Facelift e o Deep Neck Lift proporcionaram um
-        lifting profundo, restaurando a firmeza da pele e suavizando a flacidez tanto na face quanto no pescoço.
-      </p>
-      <p>
-        A enxertia de gordura foi utilizada para devolver volume nas áreas que apresentavam perda de gordura, criando um contorno
-        mais equilibrado e jovem. O Laser CO2 complementou o tratamento, melhorando a textura da pele, suavizando rugas e manchas,
-        e conferindo uma aparência radiante. O resultado final foi uma transformação que trouxe um rejuvenescimento natural, com a
-        face e pescoço visivelmente mais firmes e revitalizados.
-      </p>
-    </div>
-    `,
+    proceduresKey: "portfolios1.result5.procedures",
+    descriptionIntKey: "portfolios1.result5.descriptionInt",
     images: [
       "/assets/images/portfolio/full-resultado5-1.jpg",
       "/assets/images/portfolio/full-resultado5-2.jpg",
@@ -285,33 +178,8 @@ export const portfolios1 = [
     bannerPort: "/assets/images/full-width-images/resultado6-banner.jpg",
     date: "1º de Fevereiro, 2024",
     title: "Paciente 6 do Dr. Thomas",
-    procedures: "Deep Plane | Deep Neck, Enxertia, Laser CO2, Susp. sobrancelha.",
-    description: "Clique para ver o resultado",
-    descriptionInt: `
-    
-    <div class="container">
-      <br/><p>
-        Neste caso, a paciente buscou uma transformação completa, com foco no rejuvenescimento da face e pescoço, e o Dr. Thomas
-        Benson elaborou um plano de tratamento integrado, combinando técnicas de vanguarda para um resultado natural e sofisticado.
-      </p>
-      <p>
-        O Deep Plane Facelift foi o ponto de partida, proporcionando um rejuvenescimento profundo e duradouro na face, tratando a
-        flacidez e promovendo uma aparência mais firme e descansada. Em conjunto, o Deep Neck Lift restaurou a definição e firmeza
-        da região do pescoço, uma área que frequentemente revela sinais de envelhecimento. Juntas, essas técnicas ofereceram um
-        rejuvenescimento completo, com a face e o pescoço se tornando mais harmônicos e proporcionais.
-      </p>
-      <p>
-        A enxertia de gordura foi usada para restaurar o volume perdido ao longo dos anos, especialmente nas áreas onde a gordura
-        subcutânea é mais susceptível à perda, como as bochechas e a região temporal. Isso garantiu um contorno mais suave e jovem,
-        além de proporcionar uma aparência mais equilibrada e natural.
-      </p>
-      <p>
-        O Laser CO2 complementou esse rejuvenescimento, melhorando a textura da pele e tratando manchas, rugas finas e pequenas
-        imperfeições, proporcionando uma pele mais suave e radiante. Por fim, a suspensão de sobrancelhas foi realizada para elevar
-        a região das sobrancelhas, proporcionando um olhar mais aberto e rejuvenescido, sem perder a expressividade natural da paciente.
-      </p>
-    </div>
-    `,
+    proceduresKey: "portfolios1.result6.procedures",
+    descriptionIntKey: "portfolios1.result6.descriptionInt",
     images: [
       "/assets/images/portfolio/full-resultado6-1.jpg",
       "/assets/images/portfolio/full-resultado6-2.jpg",

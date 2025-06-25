@@ -3,7 +3,9 @@ import { testimonials } from "@/data/testimonials";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 export default function Testimonials() {
+  const t = useTranslations('Testimonials');
   return (
     <div className="container position-relative">
       <div className="pt-80 pb-80 pt-sm-70 pb-sm-70 px-4 bg-gray-light-1">
@@ -12,8 +14,7 @@ export default function Testimonials() {
             <div className="row">
               <div className="col-md-10 offset-md-1 text-center">
                 <h2 className="section-title mb-70 mb-sm-40">
-                  + de 5.700
-                  pacientes confiaram na excelência e nos protocolos do Dr. Thomas.
+                  {t('h2')}
                 </h2>
               </div>
             </div>
@@ -35,34 +36,37 @@ export default function Testimonials() {
                 }}
                 className="testimonials-slider-1 owl-carousel owl-theme pb-xs-80 overflow-visible position-static"
               >
-                {testimonials.map((testimonial, index) => (
-                  <SwiperSlide className="owl-item" key={index}>
-                    <div>
-                      <blockquote className="mb-0">
-                        <div className="blockquote-icon" aria-hidden="true">
-                          ”
-                        </div>
-                        <p>{testimonial.quote}</p>
-                        <div className="section-line mt-40" />
-                        <footer className="ts1-author mt-20 clearfix">
-                          <div className="ts1-author-img float-start">
-                            <Image
-                              className="rounded-circle"
-                              width={44}
-                              height={44}
-                              src={testimonial.image}
-                              alt="Paciente do Dr. Thomas Benson"
-                            />
+                {testimonials.map((testimonial, index) => {
+                  const tTestimonial = t.raw(`testimonials.${index}`);
+                  return (
+                    <SwiperSlide className="owl-item" key={index}>
+                      <div>
+                        <blockquote className="mb-0">
+                          <div className="blockquote-icon" aria-hidden="true">
+                            ”
                           </div>
-                          <div className="overflow-hidden">
-                            {testimonial.author}
-                            <div className="small">{testimonial.role}</div>
-                          </div>
-                        </footer>
-                      </blockquote>
-                    </div>
-                  </SwiperSlide>
-                ))}
+                          <p>{tTestimonial.quote}</p>
+                          <div className="section-line mt-40" />
+                          <footer className="ts1-author mt-20 clearfix">
+                            <div className="ts1-author-img float-start">
+                              <Image
+                                className="rounded-circle"
+                                width={44}
+                                height={44}
+                                src={testimonial.image}
+                                alt="Paciente do Dr. Thomas Benson"
+                              />
+                            </div>
+                            <div className="overflow-hidden">
+                              {testimonial.author}
+                              <div className="small">{tTestimonial.role}</div>
+                            </div>
+                          </footer>
+                        </blockquote>
+                      </div>
+                    </SwiperSlide>
+                  )
+                })}
                 <div className="owl-controls clickable">
                   {/* <div className="owl-pagination">
                     <div className="owl-page">

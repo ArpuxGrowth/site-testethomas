@@ -12766,3 +12766,16 @@ html:not(.mobile) .owl-animate-fadeInDown {
   height: 200px; /* Altura padrão para todas as imagens */
   object-fit: cover; /* Faz o "crop" automático para preencher o espaço */
 }
+
+.mi-chevron-down {
+  transition: transform 0.3s ease;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.mn-sub li a.active {
+  font-weight: bold;
+  color: var(--primary-color);
+}

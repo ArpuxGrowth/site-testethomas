@@ -5,12 +5,15 @@ import { parallaxMouseMovement } from "@/utlis/parallax";
 import { useEffect, useState } from "react";
 import ModalVideo from "react-modal-video";
 import ScheduleButton from "@/components/buttons/ScheduleButton";
+import { useTranslations } from "next-intl";
 
 export default function Hero1() {
   useEffect(() => {
     parallaxMouseMovement();
   }, []);
   const [isOpen, setOpen] = useState(false);
+
+  const t = useTranslations('Home');
 
   return (
     <>
@@ -29,7 +32,7 @@ export default function Hero1() {
                 </h2>
                 <h1 className="hs-title-1 mb-30">
                   <AnimatedText
-                    text={"Especialista e referência em cirurgias faciais."}
+                    text={t('h1')}
                   />
                 </h1>
 
@@ -38,7 +41,7 @@ export default function Hero1() {
                   data-wow-delay="0.6s"
                   data-wow-duration="1.2s"
                 >
-                  Há 15 anos atuando com os mais altos padrões de qualidade e excelência no rejuvenescimento facial.
+                  {t('pdesc')}
                 </p>
                 <div
                   className="local-scroll mt-n10 wow fadeInUp wch-unset"
@@ -52,7 +55,7 @@ export default function Hero1() {
                     className="link-hover-anim align-middle lightbox mfp-iframe mt-10"
                     data-link-animate="y"
                   >
-                    <i className="icon-play size-13 me-1" /> Clique aqui e veja o vídeo!
+                    <i className="icon-play size-13 me-1" /> {t('videobtn')}
                   </a>
                 </div>
               </div>
@@ -128,7 +131,7 @@ export default function Hero1() {
               <div className="scroll-down-1-icon">
                 <i className="mi-arrow-down" />
               </div>
-              <div className="scroll-down-1-text">Rolar para baixo</div>
+              <div className="scroll-down-1-text">{t('scrolld')}</div>
             </a>
           </div>
         </div>

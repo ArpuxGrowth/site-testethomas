@@ -1,15 +1,19 @@
 import AnimatedText from "@/components/common/AnimatedText";
 import Image from "next/image";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 export default function Service() {
+
+  const t = useTranslations('Service');
+
   return (
     <div className="container position-relative">
       <div className="row">
         <div className="col-lg-6 mb-md-60 mb-sm-30">
-          <h2 className="section-caption mb-xs-10">Liderança no Brasil</h2>
+          <h2 className="section-caption mb-xs-10">{t('h2')}</h2>
           <h3 className="section-title mb-30">
-            <AnimatedText text="Alto padrão nos protocolos de segurança." />
+            <AnimatedText text={t('atext')} />
           </h3>
           <div className="row">
             <div className="col-lg-10">
@@ -35,7 +39,7 @@ export default function Service() {
                 aria-selected="true"
                 data-bs-toggle="tab"
               >
-                Experiência e exclusividade. <span className="number">01</span>
+                {t('item1')} <span className="number">01</span>
               </a>
             </li>
             <li role="presentation">
@@ -46,7 +50,7 @@ export default function Service() {
                 aria-selected="false"
                 data-bs-toggle="tab"
               >
-                Habilidade tecnica comprovada. <span className="number">02</span>
+                {t('item2')} <span className="number">02</span>
               </a>
             </li>
             <li role="presentation">
@@ -57,7 +61,7 @@ export default function Service() {
                 aria-selected="false"
                 data-bs-toggle="tab"
               >
-                Aprimoramento diário. <span className="number">03</span>
+                {t('item3')} <span className="number">03</span>
               </a>
             </li>
             <li role="presentation">
@@ -68,7 +72,7 @@ export default function Service() {
                 aria-selected="false"
                 data-bs-toggle="tab"
               >
-                Protocolos de segurança detalhados. <span className="number">04</span>
+                {t('item4')} <span className="number">04</span>
               </a>
             </li>
             
@@ -88,13 +92,8 @@ export default function Service() {
             >
               <div className="services-text">
                 <div className="services-text-container">
-                  <h4 className="services-title">Reconhecimento internacional</h4>
-                  <p className="text-gray mb-0">
-                  PhD no Brasil e na Alemanha pela Universidade de Hamburgo, sendo o único brasileiro 
-                  reconhecido pelo Conselho Europeu de Cirurgia Plástica e pela Sociedade Alemã e Americana de Cirurgia Plástica.
-                  <br /><br /> O Dr. Thomas Benson é verdadeiramente exclusivo e escolhê-lo significa optar por um profissional cujo prestígio 
-                  internacional atesta sua competência e distinção no campo das cirurgias plásticas faciais.
-                  </p>
+                  <h4 className="services-title">{t('servtitle1')}</h4>
+                  <div dangerouslySetInnerHTML={{__html: t.raw('servp1')}} className="text-gray mb-0" />
                 </div>
               </div>
               <Image
@@ -114,15 +113,8 @@ export default function Service() {
             >
               <div className="services-text">
                 <div className="services-text-container">
-                  <h4 className="services-title">+ de 5.000 casos</h4>
-                  <p className="text-gray mb-0">
-                  O Dr. Thomas atua em consultório particular desde 2009, 
-                  hoje realizando em média 350 procedimentos por ano. <br />
-                  <br /> Especialista e Cirurgião plástico na Alemanha e na 
-                  Europa e PhD em ambos os países. Com uma experiência sólida 
-                  e habilidade técnica comprovada em mais de 5.000 casos bem-sucedidos, 
-                  o Dr. Thomas Benson é a escolha confiável para transformações faciais excepcionais.
-                  </p>
+                  <h4 className="services-title">{t('servtitle2')}</h4>
+                  <div dangerouslySetInnerHTML={{__html: t.raw('servp2')}} className="text-gray mb-0" />
                 </div>
               </div>
               <Image
@@ -142,16 +134,8 @@ export default function Service() {
             >
               <div className="services-text">
                 <div className="services-text-container">
-                  <h4 className="services-title">Excelência e aperfeiçoamento contínuo</h4>
-                  <p className="text-gray mb-0">
-                  Comprometido com a excelência, o Dr. Thomas não apenas possui vasta experiência, mas 
-                  também busca aprimoramento constante, tendo uma agenda cirúrgica diária nos melhores 
-                  hospitais do país com as mais recentes inovações e técnicas. <br />
-                  <br /> 
-                  Também participa em diversos congressos no Brasil e no mundo com os maiores nomes da cirurgia 
-                  plástica, como participante e palestrante transmitindo seu conhecimento técnico e prático 
-                  obtido ao longo de 15 anos.
-                  </p>
+                  <h4 className="services-title">{t('servtitle3')}</h4>
+                  <div dangerouslySetInnerHTML={{__html: t.raw('servp3')}} className="text-gray mb-0" />
                 </div>
               </div>
               <Image
@@ -171,14 +155,8 @@ export default function Service() {
             >
               <div className="services-text">
                 <div className="services-text-container">
-                  <h4 className="services-title">Estrutura e prestígio exclusivos</h4>
-                  <p className="text-gray mb-0">
-                    Operamos nos melhores hospitais do Brasil incluindo e desfrutando dos centros cirúrgicos 
-                    mais inovadores e tecnológico do país. <br />
-                    <br /> O Dr. Thomas Benson é verdadeiramente exclusivo e escolhê-lo significa optar por 
-                    um profissional cujo prestígio internacional atesta sua competência e distinção no campo 
-                    das cirurgias plásticas faciais.
-                  </p>
+                  <h4 className="services-title">{t('servtitle4')}</h4>
+                  <div dangerouslySetInnerHTML={{__html: t.raw('servp4')}} className="text-gray mb-0" />
                 </div>
               </div>
               <Image

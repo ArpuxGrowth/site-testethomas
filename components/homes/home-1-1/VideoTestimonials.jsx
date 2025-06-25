@@ -4,9 +4,12 @@ import { Navigation, Autoplay } from "swiper/modules";
 import { useState } from "react";
 import {  videoTestimonials } from "@/data/videotestimonials";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function VideoTestimonials2() {
   const [isHovered, setIsHovered] = useState(false); // Animação do Carrosel
+
+  const t = useTranslations('VideoTestimonials');
   
   return (
     <div className="container position-relative">
@@ -16,13 +19,12 @@ export default function VideoTestimonials2() {
           <blockquote className="testimonial mb-0 wow fadeInUp">
            
             <p>
-              Depoimentos de pacientes.
+              {t('p')}
             </p>
             <footer>
               <div className="section-line mb-10" />
               
-              <div className="small">Confira alguns feedbacks de nossas queridas pacientes<br />
-              sobre pré e pós cirúrgico.</div>
+              <div dangerouslySetInnerHTML={{__html: t.raw('desc')}} className="small" />
             </footer>
           </blockquote>
         </div>
@@ -100,7 +102,7 @@ export default function VideoTestimonials2() {
                       <div className="team-item-descr">
                         <div className="team-item-name">{member.name}</div>
                         <a href={member.videoUrl} target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
-                          <div className="team-item-role">{member.descr}</div>
+                          <div className="team-item-role">{t('videodesc')}</div>
                         </a>
                       </div>
                     </div>

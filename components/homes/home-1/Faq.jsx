@@ -1,4 +1,4 @@
-import Faq from "@/components/common/Faq2";
+import Faq from "@/components/common/Faq";
 import { faqs } from "@/data/faqs";
 
 export default function Faqs() {

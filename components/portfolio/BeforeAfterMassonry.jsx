@@ -1,16 +1,14 @@
 "use client";
 
 import { portfolios1 } from "@/data/portfolio";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import React, { useEffect, useRef, useState } from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
-const filters = [
-  { name: "Casos", category: "all" },
-  { name: "Cicatrizes", category: "scars" },
-  { name: "Pós-cirúrgicos", category: "post-surgical" },
-];
+
 export default function BeforeAfterMassonry3() {
+  const t = useTranslations('BeforeAfterMassonry');
   const [currentCategory, setCurrentCategory] = useState("all");
   const isotopContainer = useRef();
   const isotope = useRef();
@@ -41,6 +39,13 @@ export default function BeforeAfterMassonry3() {
 
     initIsotop();
   }, []);
+
+  const filters = [
+    { name: t('filters.all'), category: "all" },
+    { name: t('filters.scars'), category: "scars" },
+    { name: t('filters.post-surgical'), category: "post-surgical" },
+  ];
+
   return (
     <div className="container">
       {/* Works Filter */}
@@ -119,7 +124,7 @@ export default function BeforeAfterMassonry3() {
                   </div>
                   <div className="work-intro text-start">
                     {/* <h3 className="work-title">{item.title}</h3> */}
-                    <div className="work-descr">{item.description}</div>
+                    <div className="work-descr">{t('itemdescr')}</div>
                   </div>
                 </Link>
               )}

@@ -4,9 +4,13 @@
 import { useState } from "react";
 import Pagination from "../common/Pagination";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
+import { useLocale } from 'next-intl';
 
 export default function BlogClient({ initialBlogs, totalPages }) {
+  const t = useTranslations('BlogClient');
+  const locale = useLocale();
   const [blogs, setBlogs] = useState(initialBlogs || []);
   const [searchQuery, setSearchQuery] = useState(""); // Fazendo o 'Search' funcionar;
   const [activePage, setActivePage] = useState(1); // Página ativa]
@@ -20,7 +24,7 @@ export default function BlogClient({ initialBlogs, totalPages }) {
     setLoading(true); // Exibe estado de carregamento
 
   try {
-      const response = await fetch(`/api/fetch-blogs?page=${newPage}`);
+      const response = await fetch(`/${locale}/api/fetch-blogs?page=${newPage}`);
       if (response.ok) {
           const data = await response.json();
           setBlogs(data.blogs || []);
@@ -67,7 +71,7 @@ export default function BlogClient({ initialBlogs, totalPages }) {
             <input
               type="text"
               className="form-control input-lg search-field round"
-              placeholder="Buscar..."
+              placeholder={t('placeholder')}
               value={searchQuery} // Fazendo o 'Search' funcionar;
               onChange={(e) => setSearchQuery(e.target.value)} // Fazendo o 'Search' funcionar;
               required
@@ -113,10 +117,10 @@ export default function BlogClient({ initialBlogs, totalPages }) {
                         alt="Thomas Benson"
                       />
                     </a>
-                    <a href={`/blog/${Url}`}>Thomas Benson</a>
+                    <Link href={`/blog/${Url}`}>Thomas Benson</Link>
                   </div>
                   <div className="float-end">
-                    <a href={`/blog/${Url}`}>{DataPublicacao}</a>
+                    <Link href={`/blog/${Url}`}>{DataPublicacao}</Link>
                   </div>
                 </div>
               </div>

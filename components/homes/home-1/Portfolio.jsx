@@ -2,15 +2,12 @@
 import AnimatedText from "@/components/common/AnimatedText";
 import { portfolios1 } from "@/data/portfolio";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from '@/i18n/routing';
 import React, { useEffect, useRef, useState } from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
-const filters = [
-  { name: "Casos", category: "all" },
-  { name: "Cicatrizes", category: "scars" },
-  { name: "Pós-cirúrgicos", category: "post-surgical" },
-];
+import { useTranslations } from "next-intl";
 export default function Portfolio() {
+  const t = useTranslations('Portfolio');
   const [currentCategory, setCurrentCategory] = useState("all");
   const isotopContainer = useRef();
   const isotope = useRef();
@@ -28,6 +25,13 @@ export default function Portfolio() {
       isotope.current.layout();
     });
   };
+  
+  const filters = [
+    { name: t('filters.all'), category: "all" },
+    { name: t('filters.scars'), category: "scars" },
+    { name: t('filters.postSurgical'), category: "post-surgical" },
+  ];
+
   const updateCategory = (val) => {
     setCurrentCategory(val);
     isotope.current.arrange({
@@ -41,13 +45,14 @@ export default function Portfolio() {
 
     initIsotop();
   }, []);
+
   return (
     <div className="container">
       <div className="row mb-60 mb-md-40">
         <div className="col-lg-5">
-          <h2 className="section-caption mb-xs-10">Antes e Depois</h2>
+          <h2 className="section-caption mb-xs-10">{t('h2')}</h2>
           <h3 className="section-title mb-0">
-            <AnimatedText text=" Resultados de excelência em Deep Plane Facelift." />
+            <AnimatedText text={t('atext')} />
           </h3>
         </div>
         <div className="col-lg-7">
@@ -76,59 +81,62 @@ export default function Portfolio() {
       >
         {/* Work Item (Lightbox) */}
         <Gallery>
-          {portfolios1.slice(0, 6).map((item, index) => (
-            <li key={index} className={item.className}>
-              {item.description == "Lightbox" ? (
-                <a className={item.linkClassName}>
-                  <div className="work-img">
-                    <div className="work-img-bg " />
-                    <Item
-                      original={item.imgSrc}
-                      thumbnail={item.imgSrc}
-                      width={650}
-                      height={773}
-                    >
-                      {({ ref, open }) => (
-                        <Image
-                          width={650}
-                          height={773}
-                          ref={ref}
-                          onClick={open}
-                          src={item.imgSrc}
-                          alt={item.imgAlt}
-                          data-wow-delay={item.delay}
-                        />
-                      )}
-                    </Item>
-                  </div>
-                  <div className="work-intro text-start">
-                    <h3 className="work-title">{item.title}</h3>
-                    <div className="work-descr">{item.description}</div>
-                  </div>
-                </a>
-              ) : (
-                <Link
-                  href={`/resultado/${item.id}`}
-                  className={item.linkClassName}
-                >
-                  <div className="work-img">
-                    <div className="work-img-bg " />
-                    <Image
-                      width={650}
-                      height={773}
-                      src={item.imgSrc}
-                      alt={item.imgAlt}
-                      data-wow-delay={item.delay}
-                    />
-                  </div>
-                  <div className="work-intro text-start">
-                    {/* <h3 className="work-title">{item.title}</h3> */}
-                    <div className="work-descr">{item.description}</div>
-                  </div>
-                </Link>
-              )}
-            </li>
-          ))}
+          {portfolios1.slice(0, 6).map((item, index) => {
+            const translatedDescription = t('portfolios1.description');
+            return (
+              <li key={index} className={item.className}>
+                {translatedDescription == "Lightbox" ? (
+                  <a className={item.linkClassName}>
+                    <div className="work-img">
+                      <div className="work-img-bg " />
+                      <Item
+                        original={item.imgSrc}
+                        thumbnail={item.imgSrc}
+                        width={650}
+                        height={773}
+                      >
+                        {({ ref, open }) => (
+                          <Image
+                            width={650}
+                            height={773}
+                            ref={ref}
+                            onClick={open}
+                            src={item.imgSrc}
+                            alt={item.imgAlt}
+                            data-wow-delay={item.delay}
+                          />
+                        )}
+                      </Item>
+                    </div>
+                    <div className="work-intro text-start">
+                      <h3 className="work-title">{item.title}</h3>
+                      <div className="work-descr">{translatedDescription}</div>
+                    </div>
+                  </a>
+                ) : (
+                  <Link
+                    href={`/resultado/${item.id}`}
+                    className={item.linkClassName}
+                  >
+                    <div className="work-img">
+                      <div className="work-img-bg " />
+                      <Image
+                        width={650}
+                        height={773}
+                        src={item.imgSrc}
+                        alt={item.imgAlt}
+                        data-wow-delay={item.delay}
+                      />
+                    </div>
+                    <div className="work-intro text-start">
+                      {/* <h3 className="work-title">{item.title}</h3> */}
+                      <div className="work-descr">{translatedDescription}</div>
+                    </div>
+                  </Link>
+                )}
+              </li>
+            )
+          })}
         </Gallery>
         {/* End Work Item */}
       </ul>

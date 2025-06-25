@@ -2,14 +2,16 @@
 import { portfolios13 } from "@/data/portfolio";
 import { portfolios1 } from "@/data/portfolio";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { Gallery, Item } from "react-photoswipe-gallery";
+import { useTranslations } from "next-intl";
 
 export default function RelatedProject10() {
+  const t = useTranslations('RelatedProject10');
   return (
     <div className="container relative">
       <div className="text-center mb-60 mb-sm-40">
-        <h2 className="section-title-small">Outros Resultados</h2>
+        <h2 className="section-title-small">{t('h2')}</h2>
       </div>
       <Gallery>
         <ul className="works-grid work-grid-4 work-grid-gut hover-white work-grid-hover-alt">
@@ -61,7 +63,7 @@ export default function RelatedProject10() {
                   </div>
                   <div className="work-intro text-start">
                     {/* <h3 className="work-title">{item.title}</h3> */}
-                    <div className="work-descr">{item.description}</div>
+                    <div className="work-descr">{t('itemdescr')}</div>
                   </div>
                 </Link>
               )}
