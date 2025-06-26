@@ -1,8 +1,8 @@
-// File: C:\Users\Asus Switch\Desktop\drthomas-template\resonance\app\[locale]\page.jsx
-import * as entry from '../../../../app/[locale]/page.js'
+// File: C:\Users\Asus Switch\Desktop\drthomas-template\resonance\app\[locale]\(blogs)\blog\[slug]\page.jsx
+import * as entry from '../../../../../../../app/[locale]/(blogs)/blog/[slug]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
-type TEntry = typeof import('../../../../app/[locale]/page.js')
+type TEntry = typeof import('../../../../../../../app/[locale]/(blogs)/blog/[slug]/page.js')
 
 // Check that the entry is a valid entry
 checkFields<Diff<{

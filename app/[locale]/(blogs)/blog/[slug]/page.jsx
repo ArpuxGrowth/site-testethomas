@@ -8,45 +8,49 @@ import { menuItems2 } from "@/data/menu";
 import BlogWidget2 from "@/components/blog/widgets/BlogWidget2";
 import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
+import { createClient } from "@/prismicio";
+import { asHTML } from "@prismicio/client";
 
 // Carrega ParallaxContainer dinamicamente (client component)
 const ParallaxContainer = dynamic(() => import('@/components/common/ParallaxContainer'), { ssr: false });
 
 // Função para buscar dados do post no lado do servidor
-async function fetchPost(slug) {
-  const query = qs.stringify(
-    {
-      filters: {
-        Url: { $eq: slug }, // Filtro pelo slug
-        Tipo: { $eq: "Blog" }, // Apenas posts do tipo Blog
-      },
-      populate: ["FotoPrincipal", "Tipo", "Seo"], // Popula os campos necessários
-    },
-    { encodeValuesOnly: true }
-  );
+// async function fetchPost(slug) {
+//   const query = qs.stringify(
+//     {
+//       filters: {
+//         Url: { $eq: slug }, // Filtro pelo slug
+//         Tipo: { $eq: "Blog" }, // Apenas posts do tipo Blog
+//       },
+//       populate: ["FotoPrincipal", "Tipo", "Seo"], // Popula os campos necessários
+//     },
+//     { encodeValuesOnly: true }
+//   );
 
-  const endpoint = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/noticias?${query}`;
-  const token = process.env.API_TOKEN;
+//   const endpoint = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/noticias?${query}`;
+//   const token = process.env.API_TOKEN;
 
-  const response = await fetch(endpoint, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    cache: "no-store", // Evita cache para garantir dados atualizados
-  });
+//   const response = await fetch(endpoint, {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//     cache: "no-store", // Evita cache para garantir dados atualizados
+//   });
 
-  if (!response.ok) {
-    throw new Error("Erro ao buscar os dados do post.");
-  }
+//   if (!response.ok) {
+//     throw new Error("Erro ao buscar os dados do post.");
+//   }
 
-  const data = await response.json();
-  return data?.data?.[0] || null; // Retorna o primeiro resultado ou null
-}
+//   const data = await response.json();
+//   return data?.data?.[0] || null; // Retorna o primeiro resultado ou null
+// }
 
 // Função para metadados dinâmicos
 export async function generateMetadata({ params }) {
-  const { slug } = params;
-  const post = await fetchPost(slug);
+  const client = createClient();
+  const post = await client.getByUID("blog_post", params.slug)
+  // const { slug } = params;
+  // const post = await fetchPost(slug);
 
   if (!post) {
     return {
@@ -55,35 +59,44 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  const { Seo, Titulo } = post.attributes;
-  const { metaTitle, metaDescription } = Seo || {};
+  // const { Seo, Titulo } = post.attributes;
+  // const { metaTitle, metaDescription } = Seo || {};
 
+  const title = post.data.title
+  const description = post.data.description
   return {
-    title: metaTitle || Titulo || "Blog || Dr. Thomas Benson",
-    description: metaDescription || "Acompanhe o blog do Dr. Thomas Benson e explore artigos, publicações e insights exclusivos sobre cirurgia plástica facial, rejuvenescimento e as mais avançadas técnicas estéticas.",
+    title: title || "Blog || Dr. Thomas Benson",
+    description: description || "Acompanhe o blog do Dr. Thomas Benson e explore artigos, publicações e insights exclusivos sobre cirurgia plástica facial, rejuvenescimento e as mais avançadas técnicas estéticas.",
   };
 }
 
 // Função Server-side
 export default async function BlogPostPage({ params }) {
-  const { slug } = params;
+  const client = createClient();
+  const post = await client.getByUID("blog_post", params.slug)
 
-  // Busca os dados do post
-  const post = await fetchPost(slug);
+  const title = post.data.title
+  const date = post.data.date
+  const cover_image = post.data.cover_image?.url
+  const content = asHTML(post.data.content)
+  // const { slug } = params;
+
+  // // Busca os dados do post
+  // const post = await fetchPost(slug);
 
   if (!post) {
     notFound();
   }
 
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL; // URL base da API
-  const { Titulo, Conteudo, DataPublicacao, FotoPrincipal } = post.attributes;
-  const imageFormats = FotoPrincipal?.data?.attributes?.formats || {};
-  const defaultImage = "/assets/images/full-width-images/blog-bg-1.jpg";
+  // const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL; // URL base da API
+  // const { Titulo, Conteudo, DataPublicacao, FotoPrincipal } = post.attributes;
+  // const imageFormats = FotoPrincipal?.data?.attributes?.formats || {};
+  // const defaultImage = "/assets/images/full-width-images/blog-bg-1.jpg";
 
-  const images = Object.entries(imageFormats).reduce((acc, [key, format]) => {
-    acc[key] = `${apiBaseUrl}${format?.url || defaultImage}`;
-    return acc;
-  }, {});
+  // const images = Object.entries(imageFormats).reduce((acc, [key, format]) => {
+  //   acc[key] = `${apiBaseUrl}${format?.url || defaultImage}`;
+  //   return acc;
+  // }, {});
 
   const t = await getTranslations('BlogSlug');
 
@@ -99,7 +112,7 @@ export default async function BlogPostPage({ params }) {
               <ParallaxContainer
                 className="page-section bg-gray-light-1 bg-light-alpha-90 parallax-5"
                 style={{
-                  backgroundImage: `url(${images.large || defaultImage})`,
+                  backgroundImage: `url(${cover_image})`,
                 }}
               >
                 {/* Section Content */}
@@ -117,7 +130,7 @@ export default async function BlogPostPage({ params }) {
                             {t('i')}
                           </Link>
                         </div>
-                        <h1 className="hs-title-1 mb-20">{Titulo}</h1>
+                        <h1 className="hs-title-1 mb-20">{title}</h1>
                         <div
                           className="blog-item-data mt-30 mt-sm-10 mb-0 wow fadeInUp"
                           data-wow-delay="0.2s"
@@ -125,7 +138,7 @@ export default async function BlogPostPage({ params }) {
                           <div className="d-inline-block me-3">
                             <a href="#">
                               <i className="mi-clock size-16"></i>
-                              <span className="visually-hidden">Data:</span> {DataPublicacao}
+                              <span className="visually-hidden">Data:</span> {date}
                             </a>
                           </div>
                           <div className="d-inline-block me-3">
@@ -151,13 +164,13 @@ export default async function BlogPostPage({ params }) {
                       <div className="blog-item-body">
                         <div className="blog-media mb-40 mb-xs-30">
                           <Image
-                            src={images.large || defaultImage}
+                            src={cover_image}
                             width={1350}
                             height={865}
-                            alt={Titulo}
+                            alt={title}
                           />
                         </div>
-                        <div dangerouslySetInnerHTML={{ __html: Conteudo }} />
+                        <div dangerouslySetInnerHTML={{ __html: content }} />
                       </div>
                     </div>
                   </div>

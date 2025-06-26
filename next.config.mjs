@@ -10,6 +10,12 @@ const nextConfig = {
           protocol: 'http',
           hostname: '54.91.50.25',
         },
+        {
+        protocol: 'https',
+        hostname: 'images.prismic.io',
+        port: '',
+        pathname: '/**',  // permite qualquer subpath
+      },
       ],
     },
   };
