@@ -79,6 +79,15 @@ export default function RootLayout({ children, params: {locale} }) {
           portalId: "43984996", // Substitua pelo seu portalId
           formId: "d1ae94a9-fc3d-4747-9fbd-01519b8f7d7b", // Substitua pelo seu formId
           target: "#hubspot-form",
+
+          // The callback
+          onFormSubmit: () => {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              event: "hubspotFormSubmit",
+              formId:  "d1ae94a9-fc3d-4747-9fbd-01519b8f7d7b",
+            });
+          },
         });
       };
       document.body.appendChild(script);
