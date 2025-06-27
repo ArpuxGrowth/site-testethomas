@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Script from "next/script";
 import "swiper/css";
 import "../../public/assets/css/styles.css";
 import "jarallax/dist/jarallax.min.css";
