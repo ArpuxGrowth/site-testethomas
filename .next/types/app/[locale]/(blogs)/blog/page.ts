@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // File: C:\Users\arpux\OneDrive\Área de Trabalho\Projetos da Arpux\site-testethomas\app\[locale]\(blogs)\blog\page.jsx
+=======
+// File: C:\Users\Asus Switch\Desktop\drthomas-template\resonance\app\[locale]\(blogs)\blog\page.jsx
+>>>>>>> c637680ca78132b8de4d30bdce151c2440775467
 import * as entry from '../../../../../../app/[locale]/(blogs)/blog/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

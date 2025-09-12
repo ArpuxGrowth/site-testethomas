@@ -51,7 +51,15 @@ export default function Hero1() {
                 >
                   <ScheduleButton className="me-2 me-sm-5 mt-10" />
                   <a
-                    onClick={() => setOpen(true)}
+                    onClick={() => {
+                      setOpen(true)
+
+                      window.dataLayer = window.dataLayer || []
+                      window.dataLayer.push({
+                        event:   'videoModalOpen',
+                        videoId: '0DT0mNTJ0_o',
+                      })
+                    }}
                     className="link-hover-anim align-middle lightbox mfp-iframe mt-10"
                     data-link-animate="y"
                   >
@@ -142,7 +150,7 @@ export default function Hero1() {
         channel="youtube"
         youtube={{ mute: 0, autoplay: 0 }}
         isOpen={isOpen}
-        videoId="0DT0mNTJ0_o"
+        videoId="M6n_LK1A4Wg"
         onClose={() => setOpen(false)}
       />
     </>

@@ -16,15 +16,55 @@
       "static/chunks/main-app.js",
       "static/chunks/app/[locale]/not-found.js"
     ],
+<<<<<<< HEAD
+=======
+    "/[locale]/(about)/dr-thomas/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/(about)/dr-thomas/page.js"
+    ],
+    "/[locale]/(portfolio-single)/resultado/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/(portfolio-single)/resultado/[id]/page.js"
+    ],
+    "/[locale]/(otherPages)/equipe/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/(otherPages)/equipe/page.js"
+    ],
+>>>>>>> c637680ca78132b8de4d30bdce151c2440775467
     "/[locale]/(blogs)/blog/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/[locale]/(blogs)/blog/page.js"
     ],
+<<<<<<< HEAD
     "/[locale]/(blogs)/blog/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/[locale]/(blogs)/blog/[slug]/page.js"
+=======
+    "/[locale]/(otherPages)/imprensa/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/(otherPages)/imprensa/page.js"
+    ],
+    "/[locale]/(otherPages)/pacientes-no-exterior/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/(otherPages)/pacientes-no-exterior/page.js"
+    ],
+    "/[locale]/(otherPages)/cirurgias/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/(otherPages)/cirurgias/page.js"
+    ],
+    "/[locale]/(portfolio)/antes-e-depois/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/(portfolio)/antes-e-depois/page.js"
+>>>>>>> c637680ca78132b8de4d30bdce151c2440775467
     ]
   }
 }

@@ -81,7 +81,7 @@ export default function Portfolio() {
       >
         {/* Work Item (Lightbox) */}
         <Gallery>
-          {portfolios1.slice(0, 6).map((item, index) => {
+          {portfolios1.slice(0, 5).map((item, index) => {
             const translatedDescription = t('portfolios1.description');
             return (
               <li key={index} className={item.className}>

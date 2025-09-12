@@ -25,7 +25,7 @@ export async function generateMetadata({ params }) {
   const portfolioItem = allPortfolios.find((item) => item.id === portfolioId);
 
   // Caso o ID seja inválido, direciona para a página 404
-  if (!portfolioId || portfolioId < 7 || portfolioId > 12) {
+  if (!portfolioId || portfolioId < 7 || portfolioId > 11) {
     return {
       title: "Página não encontrada",
       description: "A página que você está procurando não existe.",
@@ -47,7 +47,7 @@ export default function MainPortfolioSinglePage1({ params }) {
     allPortfolios.filter((elm) => elm.id == params.id)[0] || allPortfolios[0];
 
     // Verifica se o ID está fora do intervalo permitido
-  if (portfolioId < 7 || portfolioId > 12 || !portfolioItem) {
+  if (portfolioId < 7 || portfolioId > 11 || !portfolioItem) {
     notFound(); // Retorna a página de erro 404
   }
 
@@ -244,7 +244,7 @@ export default function MainPortfolioSinglePage1({ params }) {
                 {/* Link para o item anterior */}
                 <Link
                   href={`/resultado/${
-                    portfolioItem.id - 1 < 7 ? 12 : portfolioItem.id - 1
+                    portfolioItem.id - 1 < 7 ? 11 : portfolioItem.id - 1
                   }`}
                   className="work-prev"
                 >
@@ -263,7 +263,7 @@ export default function MainPortfolioSinglePage1({ params }) {
                 {/* Link para o próximo item */}
                 <Link
                   href={`/resultado/${
-                    portfolioItem.id + 1 > 12 ? 7 : portfolioItem.id + 1
+                    portfolioItem.id + 1 > 11 ? 7 : portfolioItem.id + 1
                   }`}
                   className="work-next"
                 >
