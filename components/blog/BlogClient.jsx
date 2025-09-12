@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { useLocale } from 'next-intl';
+import { asHTML, asText } from "@prismicio/client";
 
 export default function BlogClient({ initialBlogs, totalPages }) {
   const t = useTranslations('BlogClient');
@@ -40,15 +41,15 @@ export default function BlogClient({ initialBlogs, totalPages }) {
 
   // Filtro de blogs com base no texto digitado
   const filteredBlogs = blogs.filter((elm) =>
-    elm.attributes.Titulo.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    elm.attributes.Conteudo.toLowerCase().includes(searchQuery.toLowerCase())
+    elm.data.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    asText(elm.data.content).toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  function extractPlainText(html) {
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = html; // Define o conteúdo HTML
-    return tempDiv.textContent || tempDiv.innerText || ""; // Retorna o texto limpo
-  }
+  // function extractPlainText(html) {
+  //   const tempDiv = document.createElement("div");
+  //   tempDiv.innerHTML = html; // Define o conteúdo HTML
+  //   return tempDiv.textContent || tempDiv.innerText || ""; // Retorna o texto limpo
+  // }
 
   return (
     <div className="container relative">
@@ -84,24 +85,24 @@ export default function BlogClient({ initialBlogs, totalPages }) {
       <div className="row mt-n30 mb-60 mb-sm-40">
         {/* Post Item */}
         {filteredBlogs.map((elm, i) => {
-          const { Titulo, Conteudo, Url, DataPublicacao, FotoPrincipal } = elm.attributes;
-          const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-          const imageUrl = FotoPrincipal?.data?.attributes?.formats?.medium?.url
-            ? `${apiBaseUrl}${FotoPrincipal.data.attributes.formats.medium.url}`
-            : "/assets/images/full-width-images/blog-bg-1.jpg";
+          const titulo = elm.data.title;
+          const description = elm.data.description;
+          const date = elm.data.date;
+          const imageUrl = elm.data.cover_image?.url;
+          const uid = elm.uid;
 
-          const plainTextContent = extractPlainText(Conteudo).substring(0, 120); // Limita o texto a 120 caracteres
+          const plainTextContent = description.substring(0, 200); // Limita o texto a 200 caracteres
 
           return (
             <div key={i} className="post-prev col-md-6 col-lg-4 mt-30">
               <div className="post-prev-container">
                 <div className="post-blog-prev-img">
-                  <Link href={`/blog/${Url}`}>
-                    <Image src={imageUrl} width={650} height={412} alt={Titulo} />
+                  <Link href={`/blog/${uid}`}>
+                    <Image src={imageUrl} width={650} height={412} alt={titulo} />
                   </Link>
                 </div>
                 <h4 className="post-prev-title">
-                  <Link href={`/blog/${Url}`}>{Titulo}</Link>
+                  <Link href={`/blog/${uid}`}>{titulo}</Link>
                 </h4>
                 <div className="post-prev-text">
                     <p>{plainTextContent}...</p>
@@ -117,10 +118,10 @@ export default function BlogClient({ initialBlogs, totalPages }) {
                         alt="Thomas Benson"
                       />
                     </a>
-                    <Link href={`/blog/${Url}`}>Thomas Benson</Link>
+                    <Link href={`/blog/${uid}`}>Thomas Benson</Link>
                   </div>
                   <div className="float-end">
-                    <Link href={`/blog/${Url}`}>{DataPublicacao}</Link>
+                    <Link href={`/blog/${uid}`}>{date}</Link>
                   </div>
                 </div>
               </div>

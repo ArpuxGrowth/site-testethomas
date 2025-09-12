@@ -5,10 +5,12 @@ import { categories } from "@/data/categories";
 import { Link } from "@/i18n/routing";
 import { useLocale } from 'next-intl';
 import { useTranslations } from "next-intl";
+import { asText } from "@prismicio/client";
 
 export default function BlogWidget2({
   searchInputClass = "form-control input-md search-field input-circle",
   itemsPerPage = 5, // Define o número de posts exibidos por página
+  posts,
 }) {
   const t = useTranslations('BlogWidget2');
   const cat = useTranslations();
@@ -18,41 +20,44 @@ export default function BlogWidget2({
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch(`/${locale}/api/fetch-all-blogs`); // Nova rota
-      if (!response.ok) {
-        throw new Error("Erro ao buscar dados da API");
-      }
-      const data = await response.json();
-      setAllPosts(data.blogs || []);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  console.log("Testando o 'posts':", posts);
+
+  // const fetchPosts = async () => {
+  //   try {
+  //     const response = await fetch(`/${locale}/api/fetch-all-blogs`); // Nova rota
+  //     if (!response.ok) {
+  //       throw new Error("Erro ao buscar dados da API");
+  //     }
+  //     const data = await response.json();
+  //     setAllPosts(data.blogs || []);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   
 
-  useEffect(() => {
-    fetchPosts();
-  }, []);
+  // useEffect(() => {
+  //   // fetchPosts();
+  // }, []);
 
   useEffect(() => {
-    const filtered = allPosts.filter((post) => {
-      const { Titulo, Conteudo } = post.attributes;
-      const textContent = `${Titulo} ${Conteudo}`.toLowerCase();
+    const filtered = posts.filter((post) => {
+      const title = post.data.title;
+      const content = asText(post.data.content);
+      const textContent = `${title} ${content}`.toLowerCase();
       return textContent.includes(searchTerm.toLowerCase()); // Filtra pelo termo de busca
     });
     setFilteredPosts(filtered);
     setCurrentPage(1); // Reinicia a página ao buscar
-  }, [searchTerm, allPosts]);
+  }, [searchTerm, posts]);
 
-  const displayedPosts = filteredPosts.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  // const displayedPosts = filteredPosts.slice(
+  //   (currentPage - 1) * itemsPerPage,
+  //   currentPage * itemsPerPage
+  // );
 
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const defaultImage = "/assets/images/full-width-images/blog-bg-1.jpg";
+  // const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  // const defaultImage = "/assets/images/full-width-images/blog-bg-1.jpg";
 
   return (
     <>
@@ -75,32 +80,29 @@ export default function BlogWidget2({
         <h3 className="widget-title">{t('h3')}</h3>
         <div className="widget-body">
           <ul className="clearlist widget-posts">
-            {displayedPosts.length > 0 ? (
-              displayedPosts.map((post) => {
+            {filteredPosts.length > 0 ? (
+              filteredPosts.map((post) => {
                 const imageUrl =
-                  post.attributes.FotoPrincipal?.data?.attributes?.formats
-                    ?.thumbnail?.url
-                    ? `${apiBaseUrl}${post.attributes.FotoPrincipal.data.attributes.formats.thumbnail.url}`
-                    : defaultImage;
+                  post.data.cover_image?.url
                 return (
                   <li key={post.id} className="clearfix">
-                    <Link href={`/blog/${post.attributes.Url}`}>
+                    <Link href={`/blog/${post.uid}`}>
                       <Image
                         src={imageUrl}
                         height={140}
                         width={100}
-                        alt={post.attributes.Titulo}
+                        alt={post.data.title}
                         className="widget-posts-img"
                       />
                     </Link>
                     <div className="widget-posts-descr">
                       <Link
-                        href={`/blog/${post.attributes.Url}`}
-                        title={post.attributes.Titulo}
+                        href={`/blog/${post.uid}`}
+                        title={post.data.title}
                       >
-                        {post.attributes.Titulo}
+                        {post.data.title}
                       </Link>
-                      <span>{t('span')} {post.attributes.DataPublicacao}</span>
+                      <span>{t('span')} {post.data.date}</span>
                     </div>
                   </li>
                 );

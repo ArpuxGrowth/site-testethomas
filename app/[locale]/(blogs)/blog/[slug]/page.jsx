@@ -49,6 +49,7 @@ const ParallaxContainer = dynamic(() => import('@/components/common/ParallaxCont
 export async function generateMetadata({ params }) {
   const client = createClient();
   const post = await client.getByUID("blog_post", params.slug)
+  
   // const { slug } = params;
   // const post = await fetchPost(slug);
 
@@ -74,6 +75,9 @@ export async function generateMetadata({ params }) {
 export default async function BlogPostPage({ params }) {
   const client = createClient();
   const post = await client.getByUID("blog_post", params.slug)
+
+  const posts = await client.getAllByType("blog_post")
+  // console.log('VENDO O QUE RETORNA O "posts":', posts);
 
   const title = post.data.title
   const date = post.data.date
@@ -175,7 +179,7 @@ export default async function BlogPostPage({ params }) {
                     </div>
                   </div>
                   <div className="col-md-4 col-lg-3 offset-lg-1">
-                    <BlogWidget2 searchInputClass="form-control input-lg search-field round" />
+                    <BlogWidget2 posts={posts} searchInputClass="form-control input-lg search-field round" />
                   </div>
                 </div>
               </div>

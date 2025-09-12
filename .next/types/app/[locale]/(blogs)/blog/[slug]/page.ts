@@ -1,4 +1,4 @@
-// File: C:\Users\Asus Switch\Desktop\drthomas-template\resonance\app\[locale]\(blogs)\blog\[slug]\page.jsx
+// File: C:\Users\arpux\OneDrive\Área de Trabalho\Projetos da Arpux\site-testethomas\app\[locale]\(blogs)\blog\[slug]\page.jsx
 import * as entry from '../../../../../../../app/[locale]/(blogs)/blog/[slug]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
