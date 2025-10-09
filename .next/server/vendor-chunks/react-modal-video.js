@@ -11,7 +11,6 @@ exports.id = "vendor-chunks/react-modal-video";
 exports.ids = ["vendor-chunks/react-modal-video"];
 exports.modules = {
 
-<<<<<<< HEAD
 /***/ "(ssr)/./node_modules/react-modal-video/lib/index.js":
 /*!*****************************************************!*\
   !*** ./node_modules/react-modal-video/lib/index.js ***!
@@ -22,8 +21,6 @@ eval("\n\nfunction _typeof(obj) { \"@babel/helpers - typeof\"; return _typeof = 
 
 /***/ }),
 
-=======
->>>>>>> c637680ca78132b8de4d30bdce151c2440775467
 /***/ "(ssr)/./node_modules/react-modal-video/css/modal-video.css":
 /*!************************************************************!*\
   !*** ./node_modules/react-modal-video/css/modal-video.css ***!

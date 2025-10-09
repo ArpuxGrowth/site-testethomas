@@ -38,7 +38,10 @@
         "type": "Image",
         "config": {
           "label": "cover image",
-          "constraint": {},
+          "constraint": {
+            "width": 2000,
+            "height": 1333
+          },
           "thumbnails": []
         }
       },

@@ -1,13 +1,3 @@
 {
-<<<<<<< HEAD
-  "/[locale]/page": "app/[locale]/page.js",
-  "/[locale]/(blogs)/blog/page": "app/[locale]/(blogs)/blog/page.js",
-  "/[locale]/(blogs)/blog/[slug]/page": "app/[locale]/(blogs)/blog/[slug]/page.js"
-=======
-  "/[locale]/(otherPages)/imprensa/page": "app/[locale]/(otherPages)/imprensa/page.js",
-  "/[locale]/(portfolio-single)/resultado/[id]/page": "app/[locale]/(portfolio-single)/resultado/[id]/page.js",
-  "/[locale]/(otherPages)/cirurgias/page": "app/[locale]/(otherPages)/cirurgias/page.js",
-  "/[locale]/(portfolio)/antes-e-depois/page": "app/[locale]/(portfolio)/antes-e-depois/page.js",
-  "/[locale]/(otherPages)/pacientes-no-exterior/page": "app/[locale]/(otherPages)/pacientes-no-exterior/page.js"
->>>>>>> c637680ca78132b8de4d30bdce151c2440775467
+  "/slice-simulator/page": "app/slice-simulator/page.js"
 }
