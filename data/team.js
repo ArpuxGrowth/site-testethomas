@@ -112,16 +112,16 @@ export const squadMembers = [
       { platform: "YouTube", icon: "fa-youtube", url: "https://www.youtube.com/@dr.thomasbenson" },
     ],
   },
-  {
-    name: "Anna Luiza",
-    image: "/assets/images/team/annaluiza-s.jpg",
-    imgAlt: "Anna Luiza, Enfermeira",
-    socials: [
-      { platform: "Facebook", icon: "fa-facebook-f", url: "https://www.facebook.com/drthomasbenson/" },
-      { platform: "Instagram", icon: "fa-instagram", url: "https://www.instagram.com/thomasbenson/" },
-      { platform: "YouTube", icon: "fa-youtube", url: "https://www.youtube.com/@dr.thomasbenson" },
-    ],
-  },
+  // {
+  //   name: "Anna Luiza",
+  //   image: "/assets/images/team/annaluiza-s.jpg",
+  //   imgAlt: "Anna Luiza, Enfermeira",
+  //   socials: [
+  //     { platform: "Facebook", icon: "fa-facebook-f", url: "https://www.facebook.com/drthomasbenson/" },
+  //     { platform: "Instagram", icon: "fa-instagram", url: "https://www.instagram.com/thomasbenson/" },
+  //     { platform: "YouTube", icon: "fa-youtube", url: "https://www.youtube.com/@dr.thomasbenson" },
+  //   ],
+  // },
   {
     name: "Débora",
     image: "/assets/images/team/debora-s.jpg",

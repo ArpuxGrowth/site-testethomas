@@ -85,7 +85,7 @@ export default function MainSquadPage() {
                 <div className="container">
                 <div className="row position-relative mt-n40 mb-80 mb-sm-40 wow fadeInUp" data-wow-delay="0.2s">
                   {/* Primeira imagem, centralizada */}
-                  <div className="col-12 d-flex justify-content-center mt-40">
+                  {/* <div className="col-12 d-flex justify-content-center mt-40">
                     <div className="team-item" style={{ maxWidth: "417px", width: "100%" }}>
                       <div className="team-item-image">
                         <Image
@@ -116,11 +116,11 @@ export default function MainSquadPage() {
                         <div className="team-item-role">{t('squadMembers.0.role')}</div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Demais imagens em duas linhas de cinco */}
-                  {squadMembers.slice(1).map((elm, i) => {
-                    const translatedRole = t(`squadMembers.${i + 1}.role`);
+                  {squadMembers.map((elm, i) => {
+                    const translatedRole = t(`squadMembers.${i}.role`);
                     return (
                       <div key={i} className="col-sm-6 col-lg-2-4 mt-40">
                         <div className="team-item">
