@@ -15,6 +15,13 @@ import { menuItems2 } from "@/data/menu";
 import Header1Multipage from "@/components/headers/Header1Multipage";
 import Blogs2 from "@/components/blog/Blogs2";
 import { useTranslations } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
+
+// Gera a página de cada idioma no build (atualizada quando o Prismic chama /api/revalidate)
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export const metadata = {
   title:
@@ -22,7 +29,10 @@ export const metadata = {
   description:
     "Acompanhe o blog do Dr. Thomas Benson e explore artigos, publicações e insights exclusivos sobre cirurgia plástica facial, rejuvenescimento e as mais avançadas técnicas estéticas.",
 };
-export default function MainBlogPage() {
+export default function MainBlogPage({ params }) {
+  // Permite renderização estática com next-intl (sem ler headers da requisição)
+  setRequestLocale(params.locale);
+
   const t = useTranslations('Blog');
   return (
     <>

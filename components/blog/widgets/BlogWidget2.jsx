@@ -1,15 +1,43 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import { categories } from "@/data/categories";
 import { Link } from "@/i18n/routing";
 import { useLocale } from "next-intl";
 import { useTranslations } from "next-intl";
-import { asText } from "@prismicio/client";
+
+// Data usada para ordenar: o campo "date" do post ou, se vazio, a data de publicação no Prismic
+const getPostDate = (post) => post.data.date || post.first_publication_date;
+
+const MAX_TITLE_LENGTH = 40;
+const ELLIPSIS = "...";
+
+// Títulos longos são cortados na última palavra inteira dos 37 primeiros caracteres + "..."
+// (no máximo 40 no total). Se uma frase terminar (. ? !) no ponto do corte, o título termina nela.
+const truncateTitle = (title) => {
+  if (title.length <= MAX_TITLE_LENGTH) return title;
+
+  const cutLength = MAX_TITLE_LENGTH - ELLIPSIS.length;
+  const visible = title.slice(0, MAX_TITLE_LENGTH);
+  const sentenceEnd = Math.max(
+    visible.lastIndexOf("."),
+    visible.lastIndexOf("?"),
+    visible.lastIndexOf("!")
+  );
+  if (sentenceEnd >= cutLength - 1) return visible.slice(0, sentenceEnd + 1);
+
+  // Volta até o fim da última palavra inteira (a não ser que o título seja uma palavra só)
+  let cut = title.slice(0, cutLength);
+  const lastSpace = cut.lastIndexOf(" ");
+  if (title[cutLength] !== " " && lastSpace > 0) cut = cut.slice(0, lastSpace);
+  cut = cut.replace(/[\s,;:]+$/, ""); // Tira espaço ou vírgula/dois-pontos soltos no fim
+
+  return /[.?!]$/.test(cut) ? cut : `${cut}${ELLIPSIS}`;
+};
 
 export default function BlogWidget2({
   searchInputClass = "form-control input-md search-field input-circle",
-  itemsPerPage = 5,
+  recentPostsCount = 5,
   posts,
 }) {
   const t = useTranslations("BlogWidget2");
@@ -17,8 +45,6 @@ export default function BlogWidget2({
   const locale = useLocale();
   const [searchTerm, setSearchTerm] = useState("");
   const [allPosts, setAllPosts] = useState([]);
-  const [filteredPosts, setFilteredPosts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
 
   // const fetchPosts = async () => {
   //   try {
@@ -37,21 +63,20 @@ export default function BlogWidget2({
   //   // fetchPosts();
   // }, []);
 
-  useEffect(() => {
-    const filtered = posts.filter((post) => {
-      const title = post.data.title;
-      const content = asText(post.data.content);
-      const textContent = `${title} ${content}`.toLowerCase();
-      return textContent.includes(searchTerm.toLowerCase()); // Filtra pelo termo de busca
-    });
-    setFilteredPosts(filtered);
-    setCurrentPage(1); // Reinicia a página ao buscar
-  }, [searchTerm, posts]);
+  // Posts do mais recente para o mais antigo
+  const sortedPosts = useMemo(
+    () => [...posts].sort((a, b) => getPostDate(b).localeCompare(getPostDate(a))),
+    [posts]
+  );
 
-  // const displayedPosts = filteredPosts.slice(
-  //   (currentPage - 1) * itemsPerPage,
-  //   currentPage * itemsPerPage
-  // );
+  // Sem busca, mostra só os posts mais recentes; com busca, procura em todos (título e descrição)
+  const term = searchTerm.toLowerCase();
+  const filteredPosts = term
+    ? sortedPosts.filter((post) => {
+        const { title, description } = post.data;
+        return `${title} ${description}`.toLowerCase().includes(term);
+      })
+    : sortedPosts.slice(0, recentPostsCount);
 
   // const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   // const defaultImage = "/assets/images/full-width-images/blog-bg-1.jpg";
@@ -85,15 +110,17 @@ export default function BlogWidget2({
                     <Link href={`/blog/${post.uid}`}>
                       <Image
                         src={imageUrl}
-                        height={140}
                         width={100}
+                        height={56}
                         alt={post.data.title}
                         className="widget-posts-img"
+                        // Padroniza todas as miniaturas em 16:9, cortando o excesso da capa
+                        style={{ width: 100, height: "auto", aspectRatio: "16 / 9", objectFit: "cover" }}
                       />
                     </Link>
                     <div className="widget-posts-descr">
                       <Link href={`/blog/${post.uid}`} title={post.data.title}>
-                        {post.data.title}
+                        {truncateTitle(post.data.title)}
                       </Link>
                       <span>
                         {t("span")} {post.data.date}

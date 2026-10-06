@@ -1,13 +1,10 @@
 // app/(blogs)/blog/page.jsx
-import BlogList from "./BlogList";
 import BlogClient from "./BlogClient";
-import { createClient } from "@/prismicio";
+import { createClient, getAllBlogPostSummaries } from "@/prismicio";
 
 export default async function Blogs2() {
-  const { blogs, totalPages } = await BlogList({ page: 1 });
-
   const client = createClient();
-  const posts = await client.getAllByType("blog_post");
+  const posts = await getAllBlogPostSummaries(client);
 
-  return <BlogClient initialBlogs={posts} totalPages={totalPages} />;
+  return <BlogClient initialBlogs={posts} />;
 }

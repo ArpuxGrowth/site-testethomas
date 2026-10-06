@@ -42,3 +42,19 @@ export const createClient = (config = {}) => {
 
   return client;
 };
+
+/**
+ * Fetches all blog posts with only the fields used in listings (cards and
+ * sidebar), leaving out the full article content, which would bloat the page.
+ *
+ * @param {import("@prismicio/client").Client} client - Prismic client used to query the posts.
+ */
+export const getAllBlogPostSummaries = (client) =>
+  client.getAllByType("blog_post", {
+    fetch: [
+      "blog_post.title",
+      "blog_post.description",
+      "blog_post.date",
+      "blog_post.cover_image",
+    ],
+  });

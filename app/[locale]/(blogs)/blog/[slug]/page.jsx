@@ -7,12 +7,18 @@ import Header1Multipage from "@/components/headers/Header1Multipage";
 import { menuItems2 } from "@/data/menu";
 import BlogWidget2 from "@/components/blog/widgets/BlogWidget2";
 import { Link } from "@/i18n/routing";
-import { getTranslations } from "next-intl/server";
-import { createClient } from "@/prismicio";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { createClient, getAllBlogPostSummaries } from "@/prismicio";
 import { asHTML } from "@prismicio/client";
 
 // Carrega ParallaxContainer dinamicamente (client component)
 const ParallaxContainer = dynamic(() => import('@/components/common/ParallaxContainer'), { ssr: false });
+
+// Nenhum artigo é gerado no build: cada um é gerado no primeiro acesso e fica em cache
+// (atualizado quando o Prismic chama /api/revalidate)
+export function generateStaticParams() {
+  return [];
+}
 
 // Função para buscar dados do post no lado do servidor
 // async function fetchPost(slug) {
@@ -73,10 +79,13 @@ export async function generateMetadata({ params }) {
 
 // Função Server-side
 export default async function BlogPostPage({ params }) {
+  // Permite renderização estática com next-intl (sem ler headers da requisição)
+  setRequestLocale(params.locale);
+
   const client = createClient();
   const post = await client.getByUID("blog_post", params.slug)
 
-  const posts = await client.getAllByType("blog_post")
+  const posts = await getAllBlogPostSummaries(client)
   // console.log('VENDO O QUE RETORNA O "posts":', posts);
 
   const title = post.data.title

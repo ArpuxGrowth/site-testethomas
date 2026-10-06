@@ -1,4 +1,3 @@
-// app/(blogs)/blog/BlogClient.jsx
 "use client";
 
 import { useState } from "react";
@@ -6,44 +5,41 @@ import Pagination from "../common/Pagination";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { useLocale } from 'next-intl';
-import { asHTML, asText } from "@prismicio/client";
 
-export default function BlogClient({ initialBlogs, totalPages }) {
+const POSTS_PER_PAGE = 12;
+
+export default function BlogClient({ initialBlogs }) {
   const t = useTranslations('BlogClient');
-  const locale = useLocale();
-  const [blogs, setBlogs] = useState(initialBlogs || []);
+  const blogs = initialBlogs || [];
   const [searchQuery, setSearchQuery] = useState(""); // Fazendo o 'Search' funcionar;
-  const [activePage, setActivePage] = useState(1); // Página ativa]
-  const [loading, setLoading] = useState(false);
+  const [activePage, setActivePage] = useState(1); // Página ativa
 
-  // Atualize o conteúdo ao mudar a página
-  const handlePageChange = async (newPage) => {
-    if (newPage === activePage || newPage < 1 || newPage > totalPages) return; // Evita requisições desnecessárias
-
-    setActivePage(newPage); // Atualiza a página ativa
-    setLoading(true); // Exibe estado de carregamento
-
-  try {
-      const response = await fetch(`/${locale}/api/fetch-blogs?page=${newPage}`);
-      if (response.ok) {
-          const data = await response.json();
-          setBlogs(data.blogs || []);
-      } else {
-          console.error("Erro ao buscar dados da página:", response.status);
-      }
-      } catch (error) {
-      console.error("Erro ao carregar blogs:", error);
-      } finally {
-      setLoading(false); // Oculta estado de carregamento
-      }
-    };
-
-  // Filtro de blogs com base no texto digitado
+  // Filtro de blogs com base no texto digitado (título e descrição)
   const filteredBlogs = blogs.filter((elm) =>
-    elm.data.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    asText(elm.data.content).toLowerCase().includes(searchQuery.toLowerCase())
+    `${elm.data.title} ${elm.data.description}`
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
   );
+
+  // Paginação feita no navegador sobre os posts filtrados
+  const totalPages = Math.max(1, Math.ceil(filteredBlogs.length / POSTS_PER_PAGE));
+  const displayedBlogs = filteredBlogs.slice(
+    (activePage - 1) * POSTS_PER_PAGE,
+    activePage * POSTS_PER_PAGE
+  );
+
+  const handlePageChange = (newPage) => {
+    if (newPage === activePage || newPage < 1 || newPage > totalPages) return;
+
+    setActivePage(newPage);
+    // Volta para o início da lista ao trocar de página
+    document.getElementById("blog-list")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setActivePage(1); // Reinicia a página ao buscar
+  };
 
   // function extractPlainText(html) {
   //   const tempDiv = document.createElement("div");
@@ -52,11 +48,7 @@ export default function BlogClient({ initialBlogs, totalPages }) {
   // }
 
   return (
-    <div className="container relative">
-
-    {/* Estado de carregamento */}
-    {loading && <div className="loading"><h1>Carregando conteúdo...</h1></div>}
-
+    <div className="container relative" id="blog-list">
       {/* Search Form */}
       <div className="mb-60 mb-sm-40">
         <form onSubmit={(e) => e.preventDefault()} className="form">
@@ -74,7 +66,7 @@ export default function BlogClient({ initialBlogs, totalPages }) {
               className="form-control input-lg search-field round"
               placeholder={t('placeholder')}
               value={searchQuery} // Fazendo o 'Search' funcionar;
-              onChange={(e) => setSearchQuery(e.target.value)} // Fazendo o 'Search' funcionar;
+              onChange={handleSearchChange} // Fazendo o 'Search' funcionar;
               required
             />
           </div>
@@ -84,7 +76,7 @@ export default function BlogClient({ initialBlogs, totalPages }) {
       {/* Blog Posts Grid */}
       <div className="row mt-n30 mb-60 mb-sm-40">
         {/* Post Item */}
-        {filteredBlogs.map((elm, i) => {
+        {displayedBlogs.map((elm) => {
           const titulo = elm.data.title;
           const description = elm.data.description;
           const date = elm.data.date;
@@ -94,7 +86,7 @@ export default function BlogClient({ initialBlogs, totalPages }) {
           const plainTextContent = description.substring(0, 200); // Limita o texto a 200 caracteres
 
           return (
-            <div key={i} className="post-prev col-md-6 col-lg-4 mt-30">
+            <div key={uid} className="post-prev col-md-6 col-lg-4 mt-30">
               <div className="post-prev-container">
                 <div className="post-blog-prev-img">
                   <Link href={`/blog/${uid}`}>
