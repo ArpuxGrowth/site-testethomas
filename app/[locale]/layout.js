@@ -1,6 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import Script from "next/script";
+import { PHProvider } from "../providers";
+import PostHogPageView from "../PostHogPageView";
 import "swiper/css";
 import "../../public/assets/css/styles.css";
 import "jarallax/dist/jarallax.min.css";
@@ -138,94 +140,101 @@ export default function RootLayout({ children, params: {locale} }) {
         {/* ———————————————— */}
       </head>
       <body className="appear-animate body">
-        {/* ———————————————— */}
-        {/* 2) GTM noscript */}
-        <noscript
-          dangerouslySetInnerHTML={{
-            __html: `<iframe
-               src="https://www.googletagmanager.com/ns.html?id=GTM-5TTZF69D"
-               height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
-          }}
-        />
-        {/* ———————————————— */}
-        <NextIntlClientProvider messages={messages} locale={locale} timeZone={timeZone}>
-          {children}
-        </NextIntlClientProvider>
+        {/* PostHog: inicializa o cliente e registra um $pageview a cada troca de rota */}
+        <PHProvider>
+          <Suspense fallback={null}>
+            <PostHogPageView />
+          </Suspense>
 
-        {/* Botão de WhatsApp */}
-        <div
-          style={{
-            position: "fixed",
-            bottom: "20px",
-            right: "20px",
-            zIndex: 1000,
-          }}
-        >
-          <button
-            onClick={toggleForm}
-            style={{
-              backgroundColor: "#25D366",
-              border: "none",
-              borderRadius: "50%",
-              width: "60px",
-              height: "60px",
-              cursor: "pointer",
-              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)",
+          {/* ———————————————— */}
+          {/* 2) GTM noscript */}
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: `<iframe
+                 src="https://www.googletagmanager.com/ns.html?id=GTM-5TTZF69D"
+                 height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
             }}
-          >
-            <img
-              src="/assets/images/whatsapp-icon.png" // Substitua pelo caminho do ícone do WhatsApp
-              alt="WhatsApp"
-              style={{ width: "30px", height: "30px" }}
-            />
-          </button>
-        </div>
+          />
+          {/* ———————————————— */}
+          <NextIntlClientProvider messages={messages} locale={locale} timeZone={timeZone}>
+            {children}
+          </NextIntlClientProvider>
 
-        {/* Modal com o Formulário do HubSpot */}
-        {isFormVisible && (
+          {/* Botão de WhatsApp */}
           <div
-            className="modal-overlay"
             style={{
               position: "fixed",
-              top: 25,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              zIndex: 1100,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "flex-start",
+              bottom: "20px",
+              right: "20px",
+              zIndex: 1000,
             }}
-            onClick={toggleForm}
           >
-            <div
-              className="modal-content"
+            <button
+              onClick={toggleForm}
               style={{
-                backgroundColor: "white",
-                padding: "20px",
-                borderRadius: "8px",
-                maxWidth: "500px",
-                width: "100%",
+                backgroundColor: "#25D366",
+                border: "none",
+                borderRadius: "50%",
+                width: "60px",
+                height: "60px",
+                cursor: "pointer",
                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)",
               }}
-              onClick={(e) => e.stopPropagation()}
             >
-              <button
-                onClick={toggleForm}
-                style={{
-                  float: "right",
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  fontSize: "18px",
-                }}
-              >
-                ✖
-              </button>
-              <div id="hubspot-form"></div>
-            </div>
+              <img
+                src="/assets/images/whatsapp-icon.png"
+                alt="WhatsApp"
+                style={{ width: "30px", height: "30px" }}
+              />
+            </button>
           </div>
-        )}
+
+          {/* Modal com o Formulário do HubSpot */}
+          {isFormVisible && (
+            <div
+              className="modal-overlay"
+              style={{
+                position: "fixed",
+                top: 25,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                zIndex: 1100,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+              }}
+              onClick={toggleForm}
+            >
+              <div
+                className="modal-content"
+                style={{
+                  backgroundColor: "white",
+                  padding: "20px",
+                  borderRadius: "8px",
+                  maxWidth: "500px",
+                  width: "100%",
+                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)",
+                }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={toggleForm}
+                  style={{
+                    float: "right",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    fontSize: "18px",
+                  }}
+                >
+                  ✖
+                </button>
+                <div id="hubspot-form"></div>
+              </div>
+            </div>
+          )}
+        </PHProvider>
       </body>
     </html>
   );
