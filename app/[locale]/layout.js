@@ -15,6 +15,7 @@ import { parallaxMouseMovement, parallaxScroll } from "@/utlis/parallax";
 import "tippy.js/dist/tippy.css";
 import { init_wow } from "@/utlis/initWowjs";
 import { headerChangeOnScroll } from "@/utlis/changeHeaderOnScroll";
+import { trackScheduleConsultationClick } from "@/utlis/analytics";
 
 import {NextIntlClientProvider} from 'next-intl';
 import {notFound} from 'next/navigation';
@@ -43,6 +44,12 @@ export default function RootLayout({ children, params: {locale} }) {
 
   const toggleForm = () => {
     setIsFormVisible(!isFormVisible);
+  };
+
+  // Botão do WhatsApp: registra o clique no PostHog quando abre o formulário
+  const handleWhatsappClick = () => {
+    if (!isFormVisible) trackScheduleConsultationClick("whatsapp_button");
+    toggleForm();
   };
 
   useEffect(() => {
@@ -170,7 +177,7 @@ export default function RootLayout({ children, params: {locale} }) {
             }}
           >
             <button
-              onClick={toggleForm}
+              onClick={handleWhatsappClick}
               style={{
                 backgroundColor: "#25D366",
                 border: "none",

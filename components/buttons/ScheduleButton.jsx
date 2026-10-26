@@ -3,8 +3,10 @@
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { trackScheduleConsultationClick } from "@/utlis/analytics";
 
-export default function ScheduleButton({ buttonText, formPortalId, formId, className = "" }) {
+// trackingLocation identifica no PostHog onde está o botão (ex.: "hero"); sem ele, vale "content"
+export default function ScheduleButton({ buttonText, formPortalId, formId, className = "", trackingLocation = "content" }) {
   // Importa as traduções do namespace "Buttons"
   const t = useTranslations("ScheduleButton");
   // Se não for passado um buttonText, usa a tradução padrão
@@ -35,7 +37,10 @@ export default function ScheduleButton({ buttonText, formPortalId, formId, class
       {/* Botão para abrir o modal */}
       <button
         className={`btn btn-mod btn-large btn-round btn-hover-anim align-middle ${className}`}
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => {
+          trackScheduleConsultationClick(trackingLocation);
+          setIsModalOpen(true);
+        }}
       >
         <span>{label}</span>
       </button>

@@ -49,7 +49,7 @@ export default function Hero1() {
                   data-wow-duration="1.2s"
                   data-wow-offset={0}
                 >
-                  <ScheduleButton className="me-2 me-sm-5 mt-10" />
+                  <ScheduleButton className="me-2 me-sm-5 mt-10" trackingLocation="hero" />
                   <a
                     onClick={() => {
                       setOpen(true)

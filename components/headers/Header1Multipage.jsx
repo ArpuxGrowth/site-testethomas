@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import Nav3 from "./components/Nav3";
 import LanguageSelect from "./components/LanguageSelect";
 import { useTranslations } from "next-intl";
+import { trackScheduleConsultationClick } from "@/utlis/analytics";
 
 export default function Header1Multipage({ links, defaultButtonColor = "white" }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -108,7 +109,10 @@ export default function Header1Multipage({ links, defaultButtonColor = "white" }
           <LanguageSelect />
           <li>
             <button
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => {
+                trackScheduleConsultationClick("navbar");
+                setIsModalOpen(true);
+              }}
               className="opacity-1 no-hover"
               style={{
                 background: "none",
