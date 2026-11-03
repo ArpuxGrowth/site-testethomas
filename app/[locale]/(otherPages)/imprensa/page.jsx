@@ -1,12 +1,7 @@
+import { pageMetadata } from "@/lib/seo";
 import Footer1 from "@/components/footers/Footer1";
 
-import dynamic from "next/dynamic";
-const ParallaxContainer = dynamic(
-  () => import("@/components/common/ParallaxContainer"),
-  {
-    ssr: false, // Disable server-side rendering
-  }
-);
+import ParallaxContainer from "@/components/common/ParallaxContainer";
 
 import AnimatedText from "@/components/common/AnimatedText";
 
@@ -18,13 +13,15 @@ import Header1Multipage from "@/components/headers/Header1Multipage";
 import ScheduleButton from "@/components/buttons/ScheduleButton";
 import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
-export async function generateMetadata() {
-  const tr = await getTranslations('pagePress.metadata');
-  
-  return {
-    title: tr('title'),
-    description: tr('description')
-  };
+export async function generateMetadata({ params: { locale } }) {
+  const tr = await getTranslations({ locale, namespace: "pagePress.metadata" });
+
+  return pageMetadata({
+    locale,
+    path: "/imprensa",
+    title: tr("title"),
+    description: tr("description"),
+  });
 }
 export default function PressPage() {
   const t = useTranslations('pagePress');

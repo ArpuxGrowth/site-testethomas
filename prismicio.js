@@ -1,6 +1,7 @@
 import { createClient as baseCreateClient } from "@prismicio/client";
 import { enableAutoPreviews } from "@prismicio/next";
 import sm from "./slicemachine.config.json";
+import { redirectedBlogUids } from "./data/blogRedirects.mjs";
 
 /**
  * The project's Prismic repository name.
@@ -49,12 +50,14 @@ export const createClient = (config = {}) => {
  *
  * @param {import("@prismicio/client").Client} client - Prismic client used to query the posts.
  */
-export const getAllBlogPostSummaries = (client) =>
-  client.getAllByType("blog_post", {
-    fetch: [
-      "blog_post.title",
-      "blog_post.description",
-      "blog_post.date",
-      "blog_post.cover_image",
-    ],
-  });
+export const getAllBlogPostSummaries = async (client) =>
+  (
+    await client.getAllByType("blog_post", {
+      fetch: [
+        "blog_post.title",
+        "blog_post.description",
+        "blog_post.date",
+        "blog_post.cover_image",
+      ],
+    })
+  ).filter((post) => !redirectedBlogUids.has(post.uid)); // Cópias duplicadas redirecionam para o original

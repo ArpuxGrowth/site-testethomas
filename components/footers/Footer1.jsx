@@ -4,7 +4,20 @@ import Image from "next/image";
 import FooterSocials from "./FooterSocials";
 import { Link } from '@/i18n/routing';
 import { footerLinks, navigationLinks } from "@/data/footer";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+
+// Links para as páginas de cirurgia facial em todas as páginas do site (reforça essas páginas no Google)
+const facialSurgeries = [
+  { url: "lifting-facial", pt: "Lifting facial", en: "Facelift" },
+  { url: "deep-plane-facelift", pt: "Deep Plane Facelift", en: "Deep Plane Facelift" },
+  { url: "deep-neck-lift", pt: "Deep Neck Lift", en: "Deep Neck Lift" },
+  { url: "blefaroplastia", pt: "Blefaroplastia", en: "Blepharoplasty" },
+  { url: "rinoplastia", pt: "Rinoplastia", en: "Rhinoplasty" },
+  { url: "lifting-frontal", pt: "Lifting frontal", en: "Brow lift" },
+  { url: "lifting-labial", pt: "Lifting labial", en: "Lip lift" },
+  { url: "lipoenxertia-facial", pt: "Lipoenxertia facial", en: "Facial fat grafting" },
+  { url: "otoplastia", pt: "Otoplastia", en: "Otoplasty" },
+];
 
 export default function Footer1({ dark = false }) {
   const scrollToTop = (event) => {
@@ -16,6 +29,7 @@ export default function Footer1({ dark = false }) {
   };
 
   const t = useTranslations('Footer1');
+  const locale = useLocale();
 
   return (
     <footer
@@ -32,7 +46,7 @@ export default function Footer1({ dark = false }) {
                 width={105}
                 height={34}
                 className="light-mode-logo"
-                alt="Your Company Logo"
+                alt="Dr. Thomas Benson - Cirurgião Plástico em São Paulo"
               />
 
               <Image
@@ -40,7 +54,7 @@ export default function Footer1({ dark = false }) {
                 width={105}
                 height={34}
                 className="dark-mode-logo"
-                alt="Your Company Logo"
+                alt="Dr. Thomas Benson - Cirurgião Plástico em São Paulo"
               />
             </Link>
             <p>
@@ -69,6 +83,25 @@ export default function Footer1({ dark = false }) {
                       </li>
                     )
                   })}
+                </ul>
+              </div>
+              {/* End Footer Widget */}
+              {/* Footer Widget */}
+              <div className="col-sm-4 mt-30">
+                <h3 className="fw-title">
+                  {locale === "pt" ? "Cirurgias faciais em SP" : "Facial surgery in São Paulo"}
+                </h3>
+                <ul className="fw-menu clearlist">
+                  <li>
+                    <Link href="/cirurgia-plastica-facial">
+                      {locale === "pt" ? "Cirurgia plástica facial" : "Facial plastic surgery"}
+                    </Link>
+                  </li>
+                  {facialSurgeries.map((surgery) => (
+                    <li key={surgery.url}>
+                      <Link href={`/cirurgias/${surgery.url}`}>{surgery[locale] || surgery.pt}</Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
               {/* End Footer Widget */}

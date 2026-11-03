@@ -1,11 +1,6 @@
+import { pageMetadata } from "@/lib/seo";
 import Footer1 from "@/components/footers/Footer1";
-import dynamic from "next/dynamic";
-const ParallaxContainer = dynamic(
-  () => import("@/components/common/ParallaxContainer"),
-  {
-    ssr: false, // Disable server-side rendering
-  }
-);
+import ParallaxContainer from "@/components/common/ParallaxContainer";
 import Hero1 from "@/components/homes/home-1/heros/Hero1";
 
 import { menuItems2 } from "@/data/menu";
@@ -13,13 +8,15 @@ import Home11 from "@/components/homes/home-1-1";
 import Header1Multipage from "@/components/headers/Header1Multipage";
 import { getTranslations } from 'next-intl/server';
 
-export async function generateMetadata() {
-  const t = await getTranslations('Home.metadata');
-  
-  return {
-    title: t('title'),
-    description: t('description')
-  };
+export async function generateMetadata({ params: { locale } }) {
+  const tr = await getTranslations({ locale, namespace: "Home.metadata" });
+
+  return pageMetadata({
+    locale,
+    path: "",
+    title: tr("title"),
+    description: tr("description"),
+  });
 }
 
 export default function Home() {

@@ -1,11 +1,6 @@
+import { pageMetadata } from "@/lib/seo";
 import Footer1 from "@/components/footers/Footer1";
-import dynamic from "next/dynamic";
-const ParallaxContainer = dynamic(
-  () => import("@/components/common/ParallaxContainer"),
-  {
-    ssr: false, // Disable server-side rendering
-  }
-);
+import ParallaxContainer from "@/components/common/ParallaxContainer";
 
 import Header1Multipage from "@/components/headers/Header1Multipage";
 import AnimatedText from "@/components/common/AnimatedText";
@@ -13,13 +8,15 @@ import { menuItems2 } from "@/data/menu";
 import Home1 from "@/components/homes/home-1";
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from "next-intl";
-export async function generateMetadata() {
-  const tr = await getTranslations('About.metadata');
-  
-  return {
-    title: tr('title'),
-    description: tr('description')
-  };
+export async function generateMetadata({ params: { locale } }) {
+  const tr = await getTranslations({ locale, namespace: "About.metadata" });
+
+  return pageMetadata({
+    locale,
+    path: "/dr-thomas",
+    title: tr("title"),
+    description: tr("description"),
+  });
 }
 export default function About2() {
   const t = useTranslations('About');

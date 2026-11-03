@@ -1,6 +1,4 @@
-import qs from "qs";
 import { notFound } from "next/navigation";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Footer1 from "@/components/footers/Footer1";
 import Header1Multipage from "@/components/headers/Header1Multipage";
@@ -9,10 +7,22 @@ import BlogWidget2 from "@/components/blog/widgets/BlogWidget2";
 import { Link } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { createClient, getAllBlogPostSummaries } from "@/prismicio";
-import { asHTML } from "@prismicio/client";
-
-// Carrega ParallaxContainer dinamicamente (client component)
-const ParallaxContainer = dynamic(() => import('@/components/common/ParallaxContainer'), { ssr: false });
+import { asHTML, asText } from "@prismicio/client";
+import ParallaxContainer from "@/components/common/ParallaxContainer";
+import ScheduleButton from "@/components/buttons/ScheduleButton";
+import { surgeryForPost, postsForSurgery } from "@/data/surgerySeo";
+import { surgeriesItems } from "@/data/surgeries";
+import {
+  pageMetadata,
+  clampDescription,
+  localizedUrl,
+  breadcrumbJsonLd,
+  extractFaq,
+  faqJsonLd,
+  JsonLd,
+  PHYSICIAN_ID,
+  SITE_NAME,
+} from "@/lib/seo";
 
 // Nenhum artigo é gerado no build: cada um é gerado no primeiro acesso e fica em cache
 // (atualizado quando o Prismic chama /api/revalidate)
@@ -20,44 +30,18 @@ export function generateStaticParams() {
   return [];
 }
 
-// Função para buscar dados do post no lado do servidor
-// async function fetchPost(slug) {
-//   const query = qs.stringify(
-//     {
-//       filters: {
-//         Url: { $eq: slug }, // Filtro pelo slug
-//         Tipo: { $eq: "Blog" }, // Apenas posts do tipo Blog
-//       },
-//       populate: ["FotoPrincipal", "Tipo", "Seo"], // Popula os campos necessários
-//     },
-//     { encodeValuesOnly: true }
-//   );
+// O Prismic lança erro quando o UID não existe: nesse caso a página vira 404
+async function getPost(slug) {
+  return createClient()
+    .getByUID("blog_post", slug)
+    .catch(() => null);
+}
 
-//   const endpoint = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/noticias?${query}`;
-//   const token = process.env.API_TOKEN;
+const BRAND = " | Dr. Thomas Benson";
 
-//   const response = await fetch(endpoint, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//     cache: "no-store", // Evita cache para garantir dados atualizados
-//   });
-
-//   if (!response.ok) {
-//     throw new Error("Erro ao buscar os dados do post.");
-//   }
-
-//   const data = await response.json();
-//   return data?.data?.[0] || null; // Retorna o primeiro resultado ou null
-// }
-
-// Função para metadados dinâmicos
+// Os posts só existem em português: a versão /en aponta o canonical para a /pt e fica fora do índice
 export async function generateMetadata({ params }) {
-  const client = createClient();
-  const post = await client.getByUID("blog_post", params.slug)
-  
-  // const { slug } = params;
-  // const post = await fetchPost(slug);
+  const post = await getPost(params.slug);
 
   if (!post) {
     return {
@@ -66,15 +50,21 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  // const { Seo, Titulo } = post.attributes;
-  // const { metaTitle, metaDescription } = Seo || {};
-
-  const title = post.data.title
-  const description = post.data.description
-  return {
-    title: title || "Blog || Dr. Thomas Benson",
-    description: description || "Acompanhe o blog do Dr. Thomas Benson e explore artigos, publicações e insights exclusivos sobre cirurgia plástica facial, rejuvenescimento e as mais avançadas técnicas estéticas.",
-  };
+  const { title, description, cover_image } = post.data;
+  return pageMetadata({
+    locale: params.locale,
+    path: `/blog/${post.uid}`,
+    // Acrescenta a marca só quando o título ainda cabe no resultado do Google (~60 caracteres)
+    title: title && title.length + BRAND.length <= 60 ? `${title}${BRAND}` : title || `Blog${BRAND}`,
+    description: clampDescription(
+      description ||
+        "Acompanhe o blog do Dr. Thomas Benson e explore artigos sobre cirurgia plástica facial, rejuvenescimento e as mais avançadas técnicas estéticas."
+    ),
+    image: cover_image?.url,
+    type: "article",
+    ptOnly: true,
+    noindex: params.locale !== "pt",
+  });
 }
 
 // Função Server-side
@@ -82,39 +72,59 @@ export default async function BlogPostPage({ params }) {
   // Permite renderização estática com next-intl (sem ler headers da requisição)
   setRequestLocale(params.locale);
 
-  const client = createClient();
-  const post = await client.getByUID("blog_post", params.slug)
-
-  const posts = await getAllBlogPostSummaries(client)
-  // console.log('VENDO O QUE RETORNA O "posts":', posts);
-
-  const title = post.data.title
-  const date = post.data.date
-  const cover_image = post.data.cover_image?.url
-  const content = asHTML(post.data.content)
-  // const { slug } = params;
-
-  // // Busca os dados do post
-  // const post = await fetchPost(slug);
-
+  const post = await getPost(params.slug);
   if (!post) {
     notFound();
   }
 
-  // const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL; // URL base da API
-  // const { Titulo, Conteudo, DataPublicacao, FotoPrincipal } = post.attributes;
-  // const imageFormats = FotoPrincipal?.data?.attributes?.formats || {};
-  // const defaultImage = "/assets/images/full-width-images/blog-bg-1.jpg";
+  const posts = await getAllBlogPostSummaries(createClient());
 
-  // const images = Object.entries(imageFormats).reduce((acc, [key, format]) => {
-  //   acc[key] = `${apiBaseUrl}${format?.url || defaultImage}`;
-  //   return acc;
-  // }, {});
+  const title = post.data.title;
+  const date = post.data.date || post.first_publication_date?.slice(0, 10);
+  const cover_image = post.data.cover_image?.url;
+  const content = asHTML(post.data.content);
+
+  // Cirurgia relacionada ao post e outros artigos do mesmo tema (links internos)
+  const surgeryUrl = surgeryForPost(title);
+  const surgery = surgeriesItems.find((item) => item.url === surgeryUrl);
+  const relatedPosts = surgeryUrl
+    ? postsForSurgery(surgeryUrl, posts.filter((p) => p.id !== post.id && p.data.title !== title), 3)
+    : [];
+
+  const postUrl = localizedUrl("pt", `/blog/${post.uid}`);
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description: post.data.description,
+    image: cover_image,
+    datePublished: post.data.date || post.first_publication_date,
+    dateModified: post.last_publication_date,
+    inLanguage: "pt-BR",
+    mainEntityOfPage: postUrl,
+    wordCount: asText(post.data.content).split(/\s+/).length,
+    author: {
+      "@type": "Person",
+      name: "Thomas Benson",
+      jobTitle: "Cirurgião Plástico",
+      url: localizedUrl("pt", "/dr-thomas"),
+    },
+    publisher: { "@id": PHYSICIAN_ID, name: SITE_NAME },
+  };
+  const breadcrumb = breadcrumbJsonLd([
+    { name: SITE_NAME, url: localizedUrl("pt") },
+    { name: "Blog", url: localizedUrl("pt", "/blog") },
+    { name: title, url: postUrl },
+  ]);
+  const faq = extractFaq(post.data.content);
 
   const t = await getTranslations('BlogSlug');
 
   return (
     <>
+      <JsonLd data={articleJsonLd} />
+      <JsonLd data={breadcrumb} />
+      {faq.length > 0 && <JsonLd data={faqJsonLd(faq)} />}
       <div className="theme-main">
         <div className="page" id="top">
           <nav className="main-nav transparent stick-fixed wow-menubar">
@@ -149,16 +159,15 @@ export default async function BlogPostPage({ params }) {
                           data-wow-delay="0.2s"
                         >
                           <div className="d-inline-block me-3">
-                            <a href="#">
-                              <i className="mi-clock size-16"></i>
-                              <span className="visually-hidden">Data:</span> {date}
-                            </a>
+                            <i className="mi-clock size-16"></i>
+                            <span className="visually-hidden">Data:</span>{" "}
+                            <time dateTime={date}>{date}</time>
                           </div>
                           <div className="d-inline-block me-3">
-                            <a href="#">
+                            <Link href="/dr-thomas">
                               <i className="mi-user size-16"></i>
-                              <span className="visually-hidden">Autor:</span> Thomas Benson
-                            </a>
+                              <span className="visually-hidden">Autor:</span> Dr. Thomas Benson
+                            </Link>
                           </div>
                         </div>
                       </div>
@@ -173,19 +182,51 @@ export default async function BlogPostPage({ params }) {
               <div className="container relative">
                 <div className="row">
                   <div className="col-md-8 mb-sm-80">
-                    <div className="blog-item mb-80 mb-xs-40">
+                    <article className="blog-item mb-80 mb-xs-40">
                       <div className="blog-item-body">
                         <div className="blog-media mb-40 mb-xs-30">
                           <Image
                             src={cover_image}
                             width={1350}
                             height={865}
-                            alt={title}
+                            alt={post.data.cover_image?.alt || title}
                           />
                         </div>
                         <div dangerouslySetInnerHTML={{ __html: content }} />
                       </div>
-                    </div>
+                    </article>
+
+                    {/* Cirurgia relacionada: leva o leitor (e o Google) para a página do procedimento */}
+                    {surgery && (
+                      <aside className="bg-gray-light-1 round p-4 mb-40">
+                        <h2 className="h4 mb-10">
+                          {surgery.title} em São Paulo com o Dr. Thomas Benson
+                        </h2>
+                        <p className="mb-20">
+                          Conheça a técnica, as indicações e a recuperação na página da{" "}
+                          <Link href={`/cirurgias/${surgery.url}`} locale="pt">
+                            cirurgia de {surgery.title}
+                          </Link>
+                          .
+                        </p>
+                        <ScheduleButton />
+                      </aside>
+                    )}
+
+                    {relatedPosts.length > 0 && (
+                      <nav aria-label="Artigos relacionados">
+                        <h2 className="h4 mb-20">Leia também</h2>
+                        <ul className="list-unstyled">
+                          {relatedPosts.map((related) => (
+                            <li key={related.id} className="mb-10">
+                              <Link href={`/blog/${related.uid}`} locale="pt">
+                                {related.data.title}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </nav>
+                    )}
                   </div>
                   <div className="col-md-4 col-lg-3 offset-lg-1">
                     <BlogWidget2 posts={posts} searchInputClass="form-control input-lg search-field round" />

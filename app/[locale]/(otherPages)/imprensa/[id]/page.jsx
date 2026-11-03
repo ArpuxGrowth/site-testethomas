@@ -1,15 +1,10 @@
+import { pageMetadata, clampDescription } from "@/lib/seo";
 import Footer1 from "@/components/footers/Footer1";
 
-import dynamic from "next/dynamic";
 
 import { notFound } from "next/navigation";
 
-const ParallaxContainer = dynamic(
-  () => import("@/components/common/ParallaxContainer"),
-  {
-    ssr: false, // Disable server-side rendering
-  }
-);
+import ParallaxContainer from "@/components/common/ParallaxContainer";
 import { menuItems2 } from "@/data/menu";
 import Header1Multipage from "@/components/headers/Header1Multipage";
 import AnimatedText from "@/components/common/AnimatedText";
@@ -34,10 +29,16 @@ export async function generateMetadata({ params }) {
   }
 
   // Título e descrição de forma dinâmica
-  return {
-    title: t(`${pressId}.title`, pressNews.title),
-    description: pressNews.alt || "Veja as aparições do Dr. Thomas Benson na mídia como referência em cirurgia plástica facial.",
-  };
+  return pageMetadata({
+    locale: params.locale,
+    path: `/imprensa/${pressId}`,
+    title: `${t(`${pressId}.title`, pressNews.title)} | Dr. Thomas Benson`,
+    description: clampDescription(
+      pressNews.alt || "Veja as aparições do Dr. Thomas Benson na mídia como referência em cirurgia plástica facial."
+    ),
+    image: pressNews.src,
+    type: "article",
+  });
 }
 
 export default function PressNewsPage1({ params }) {

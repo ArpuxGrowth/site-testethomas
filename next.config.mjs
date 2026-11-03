@@ -1,9 +1,14 @@
 import createNextIntlPlugin from 'next-intl/plugin';
+import { blogRedirects } from './data/blogRedirects.mjs';
  
 const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    // Slugs antigos e posts duplicados do blog: 301 para a URL certa (lista em data/blogRedirects.mjs)
+    async redirects() {
+      return blogRedirects;
+    },
     images: {
       remotePatterns: [
         {

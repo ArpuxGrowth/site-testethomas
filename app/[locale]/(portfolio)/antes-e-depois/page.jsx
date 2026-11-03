@@ -1,13 +1,8 @@
+import { pageMetadata } from "@/lib/seo";
 import Footer1 from "@/components/footers/Footer1";
 
-import dynamic from "next/dynamic";
 
-const ParallaxContainer = dynamic(
-  () => import("@/components/common/ParallaxContainer"),
-  {
-    ssr: false, // Disable server-side rendering
-  }
-);
+import ParallaxContainer from "@/components/common/ParallaxContainer";
 
 import Header1Multipage from "@/components/headers/Header1Multipage";
 import AnimatedText from "@/components/common/AnimatedText";
@@ -19,13 +14,15 @@ import ScheduleButton from "@/components/buttons/ScheduleButton";
 import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
 
-export async function generateMetadata() {
-  const tr = await getTranslations('BeforeAfter.metadata');
-  
-  return {
-    title: tr('title'),
-    description: tr('description')
-  };
+export async function generateMetadata({ params: { locale } }) {
+  const tr = await getTranslations({ locale, namespace: "BeforeAfter.metadata" });
+
+  return pageMetadata({
+    locale,
+    path: "/antes-e-depois",
+    title: tr("title"),
+    description: tr("description"),
+  });
 }
 export default function BeforeAfterPage() {
   const t = useTranslations('BeforeAfter');

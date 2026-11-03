@@ -6,7 +6,6 @@ import Promo from "@/components/homes/home-1/Promo";
 import Service from "@/components/homes/home-1-1/Service";
 import Testimonials from "@/components/homes/home-1/Testimonials";
 import Testimonials2 from "./Teatimonials2";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import VideoTestimonials2 from "./VideoTestimonials";
 import Portfolio2 from "../home-2/Portfolio2";
@@ -16,12 +15,7 @@ import { features2 } from "@/data/features";
 import Faq2 from "@/components/common/Faq2";
 import ScheduleButton from "@/components/buttons/ScheduleButton";
 import { useTranslations } from "next-intl";
-const ParallaxContainer = dynamic(
-  () => import("@/components/common/ParallaxContainer"),
-  {
-    ssr: false, // Disable server-side rendering
-  }
-);
+import ParallaxContainer from "@/components/common/ParallaxContainer";
 export default function Home11({ onePage = false}) {
 
   const t = useTranslations('Home');

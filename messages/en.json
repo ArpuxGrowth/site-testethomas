@@ -30,12 +30,12 @@
 
     "Home": {
       "metadata": {
-        "title": "Dr. Thomas Benson, PhD - Plastic Surgeon",
-        "description": "Meet Dr. Thomas Benson, a leading expert in facial plastic surgery and a specialist in Deep Plane Facelift in Latin America. Excellence in innovative techniques for natural results, safety, and exclusivity."
+        "title": "Plastic Surgeon in São Paulo, Brazil | Dr. Thomas Benson",
+        "description": "Dr. Thomas Benson, plastic surgeon in São Paulo, Brazil, specialized in facial surgery and Deep Plane Facelift. PhD and European Board certified."
       },
-      "title": "Dr. Thomas Benson, PhD - Plastic Surgeon",
+      "title": "Plastic Surgeon in São Paulo, Brazil | Dr. Thomas Benson",
       "description": "Meet Dr. Thomas Benson, a reference in facial plastic surgery and specialist in Deep Plane Facelift in Latin America. Excellence in innovative techniques for natural, safe and exclusive results.",
-      "h1": "Specialist and reference in facial surgeries.",
+      "h1": "Plastic surgeon in São Paulo, a reference in facial surgery.",
       "pdesc": "For 15 years working with the highest standards of quality and excellence in facial rejuvenation.", 
       "videobtn": "Click here and watch the video!",
       "scrolld": "Scroll down",
@@ -79,7 +79,7 @@
 
     "About": {
       "metadata": {
-        "title": "About || Dr. Thomas Benson",
+        "title": "About | Dr. Thomas Benson",
         "description": "Learn more about Dr. Thomas Benson, PhD in plastic surgery, the only Brazilian recognized by the European Board of Plastic Surgery and the German Society of Plastic Surgery. Author of the best-seller 'The Beauty of the Face' and a reference in advanced techniques such as the Deep Plane Facelift."
       },
       "h2_1": "About",
@@ -94,7 +94,7 @@
 
     "Team": {
       "metadata": {
-        "title": "Team || Dr. Thomas Benson",
+        "title": "Team | Dr. Thomas Benson",
         "description": "Meet the team of specialists led by Dr. Thomas Benson and discover the clinic's excellent infrastructure, focused on safety, comfort, and high-standard results in facial plastic surgery."
       },
       "h2": "Team",
@@ -171,7 +171,7 @@
 
     "pagePress": {
       "metadata": {
-        "title": "Press || Dr. Thomas Benson",
+        "title": "Press | Dr. Thomas Benson",
         "description": "See Dr. Thomas Benson's media appearances as a reference in facial plastic surgery. Featured in newspapers, magazines, TV shows, and documentary series, including 'The Hospital' on Record."
       },
       "h2": "Press",
@@ -307,7 +307,7 @@
 
     "patientsAbroad": {
       "metadata": {
-        "title": "Patients Abroad || Dr. Thomas Benson",
+        "title": "Patients Abroad | Dr. Thomas Benson",
         "description": "Discover how patients from around the world choose Dr. Thomas Benson for excellence in facial plastic surgery. We offer personalized concierge service, accommodation, and a complete surgical experience in São Paulo."
       },
       "h2": "Patients Abroad",
@@ -334,7 +334,7 @@
 
     "Surgeries": {
       "metadata": {
-        "title": "Surgeries || Dr. Thomas Benson",
+        "title": "Plastic Surgery in São Paulo, Brazil | Dr. Thomas Benson",
         "description": "Get to know the surgeries performed by Dr. Thomas Benson, including advanced techniques, pre- and post-operative care, and personalized procedures for natural, safe results with thin and imperceptible scars."
       },
       "h2": "Surgeries",
@@ -351,6 +351,8 @@
     },
 
     "surgeriesItems": {
+    "19": {"title": "Facelift", "descr": "Surgery that treats sagging of the face and neck, restoring the contour of the jawline and cheeks. Learn about the techniques, from mini lift to Deep Plane."},
+    "20": {"title": "Deep Neck Lift", "descr": "Deep neck lift that treats deep fat, the platysma muscle and neck bands, redefining the angle between the chin and the neck."},
       "1": {
         "title": "Deep Plane Facelift",
         "descr": "The Deep Plane Facelift surgery is considered one of the most advanced and innovative surgical techniques for facial rejuvenation, combining more natural and longer-lasting results with the benefit of virtually no visible scars."
@@ -426,6 +428,8 @@
     },
 
     "SurgerieItemPage1": {
+    "lifting-facial": {"title": "Facelift", "descr": "A facelift treats sagging of the face and neck. Learn the differences between the techniques, from mini lift to Deep Plane Facelift, and what recovery is like.", "content": "<div class=\"container\"><h2 class=\"mb-40 mb-xs-30\">Facelift in São Paulo, Brazil</h2><p>A facelift (rhytidectomy) repositions the facial tissues that descend with aging. Techniques range from skin-only lifts and SMAS lifts to the Deep Plane Facelift, which releases the facial ligaments and moves skin, fat and muscle together for a natural, non-pulled result.</p><p>Dr. Thomas Benson is a plastic surgeon dedicated to facial surgery and uses the Deep Plane Facelift as the basis of facial rejuvenation. Recovery usually takes 2 to 3 weeks before returning to work, and the final result settles in 3 to 6 months. International patients can start their evaluation remotely.</p></div>"},
+    "deep-neck-lift": {"title": "Deep Neck Lift", "descr": "The Deep Neck Lift treats sagging skin, platysmal bands and deep fat of the neck, redefining the contour between the chin and the neck naturally.", "content": "<div class=\"container\"><h2 class=\"mb-40 mb-xs-30\">Deep Neck Lift in São Paulo, Brazil</h2><p>The Deep Neck Lift treats the deep layers of the neck: deep fat below the platysma muscle, the platysma itself (to correct vertical bands) and, when needed, prominent submandibular glands. The goal is a defined, natural angle between the chin and the neck.</p><p>It can be performed alone or combined with a Deep Plane Facelift. Most patients return to work within 2 to 3 weeks, and the final contour appears in about 3 months.</p></div>"},
       "i": "Back to the surgery page",
       "p": "Schedule your appointment with Dr. Thomas Benson now.",
       "deep-plane-facelift": {
@@ -522,7 +526,7 @@
 
     "BeforeAfter": {
       "metadata": {
-        "title": "Before and After || Dr. Thomas Benson",
+        "title": "Before and After | Dr. Thomas Benson",
         "description": "See the transformative results of procedures performed by Dr. Thomas Benson. Precise facial rejuvenation, imperceptible scars, and testimonials from satisfied patients with natural and harmonious results."
       },
       "h2": "Before and After",
@@ -541,7 +545,7 @@
 
     "Result": {
       "metadata": {
-        "title": "Result || Dr. Thomas Benson",
+        "title": "Result | Dr. Thomas Benson",
         "description": "Excellent results of the procedure performed by Dr. Thomas Benson with before and after."
       },
       "i":"Back to the homepage",

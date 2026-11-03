@@ -1,13 +1,8 @@
+import { pageMetadata } from "@/lib/seo";
 import Footer1 from "@/components/footers/Footer1";
 
-import dynamic from "next/dynamic";
 
-const ParallaxContainer = dynamic(
-  () => import("@/components/common/ParallaxContainer"),
-  {
-    ssr: false, // Disable server-side rendering
-  }
-);
+import ParallaxContainer from "@/components/common/ParallaxContainer";
 
 import AnimatedText from "@/components/common/AnimatedText";
 
@@ -23,12 +18,20 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const metadata = {
-  title:
-    "Blog || Dr. Thomas Benson",
-  description:
-    "Acompanhe o blog do Dr. Thomas Benson e explore artigos, publicações e insights exclusivos sobre cirurgia plástica facial, rejuvenescimento e as mais avançadas técnicas estéticas.",
-};
+export async function generateMetadata({ params: { locale } }) {
+  return pageMetadata({
+    locale,
+    path: "/blog",
+    title:
+      locale === "pt"
+        ? "Blog de Cirurgia Plástica Facial | Dr. Thomas Benson"
+        : "Facial Plastic Surgery Blog | Dr. Thomas Benson",
+    description:
+      locale === "pt"
+        ? "Artigos do Dr. Thomas Benson, cirurgião plástico em São Paulo, sobre Deep Plane Facelift, blefaroplastia, rinoplastia, rejuvenescimento facial e recuperação."
+        : "Articles by Dr. Thomas Benson, plastic surgeon in São Paulo, about Deep Plane Facelift, blepharoplasty, rhinoplasty and facial rejuvenation.",
+  });
+}
 export default function MainBlogPage({ params }) {
   // Permite renderização estática com next-intl (sem ler headers da requisição)
   setRequestLocale(params.locale);

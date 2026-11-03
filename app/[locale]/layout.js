@@ -1,110 +1,39 @@
-"use client";
-import { useEffect, useState, Suspense } from "react";
 import Script from "next/script";
-import { PHProvider } from "../providers";
-import PostHogPageView from "../PostHogPageView";
+import { notFound } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
 import "swiper/css";
 import "../../public/assets/css/styles.css";
 import "jarallax/dist/jarallax.min.css";
 import "swiper/css/effect-fade";
 import "react-modal-video/css/modal-video.css";
 import "photoswipe/dist/photoswipe.css";
-import { usePathname } from "next/navigation";
-import { parallaxMouseMovement, parallaxScroll } from "@/utlis/parallax";
-
 import "tippy.js/dist/tippy.css";
-import { init_wow } from "@/utlis/initWowjs";
-import { headerChangeOnScroll } from "@/utlis/changeHeaderOnScroll";
-import { trackScheduleConsultationClick } from "@/utlis/analytics";
+import { routing } from "@/i18n/routing";
+import { SITE_URL, JsonLd, physicianJsonLd } from "@/lib/seo";
+import ClientShell from "./ClientShell";
 
-import {NextIntlClientProvider} from 'next-intl';
-import {notFound} from 'next/navigation';
-import {routing} from '@/i18n/routing';
+export const metadata = {
+  metadataBase: new URL(SITE_URL),
+};
 
-export default function RootLayout({ children, params: {locale} }) {
-
+export default async function RootLayout({ children, params: { locale } }) {
   // Ensure that the incoming `locale` is valid
   if (!routing.locales.includes(locale)) {
     notFound();
   }
- 
+  setRequestLocale(locale);
+
   // Providing all messages to the client
   // side is the easiest way to get started
   let messages;
   try {
-    messages = require(`../../messages/${locale}.json`);
+    messages = (await import(`../../messages/${locale}.json`)).default;
   } catch (error) {
     notFound();
   }
 
-  const timeZone = 'America/Sao_Paulo';
-
-  const path = usePathname();
-  const [isFormVisible, setIsFormVisible] = useState(false);
-
-  const toggleForm = () => {
-    setIsFormVisible(!isFormVisible);
-  };
-
-  // Botão do WhatsApp: registra o clique no PostHog quando abre o formulário
-  const handleWhatsappClick = () => {
-    if (!isFormVisible) trackScheduleConsultationClick("whatsapp_button");
-    toggleForm();
-  };
-
-  useEffect(() => {
-    init_wow();
-    parallaxMouseMovement();
-    var mainNav = document.querySelector(".main-nav");
-    if (mainNav?.classList.contains("transparent")) {
-      mainNav.classList.add("js-transparent");
-    } else if (!mainNav?.classList?.contains("dark")) {
-      mainNav?.classList.add("js-no-transparent-white");
-    }
-
-    window.addEventListener("scroll", headerChangeOnScroll);
-    parallaxScroll();
-    return () => {
-      window.removeEventListener("scroll", headerChangeOnScroll);
-    };
-  }, [path]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      // Import the script only on the client side
-      import("bootstrap/dist/js/bootstrap.esm").then(() => {
-        // Module is imported
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isFormVisible) {
-      const script = document.createElement("script");
-      script.src = "//js.hsforms.net/forms/embed/v2.js";
-      script.async = true;
-      script.onload = () => {
-        window.hbspt.forms.create({
-          portalId: "43984996", // Substitua pelo seu portalId
-          formId: "d1ae94a9-fc3d-4747-9fbd-01519b8f7d7b", // Substitua pelo seu formId
-          target: "#hubspot-form",
-
-          // The callback
-          onFormSubmit: () => {
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-              event: "hubspotFormSubmit",
-              formId:  "d1ae94a9-fc3d-4747-9fbd-01519b8f7d7b",
-            });
-          },
-        });
-      };
-      document.body.appendChild(script);
-    }
-  }, [isFormVisible]);
-
   return (
-    <html lang={locale} className="no-mobile no-touch ">
+    <html lang={locale === "pt" ? "pt-BR" : "en"} className="no-mobile no-touch ">
       <head>
         {/* ———————————————— */}
         {/* 1) GTM snippet */}
@@ -147,101 +76,10 @@ export default function RootLayout({ children, params: {locale} }) {
         {/* ———————————————— */}
       </head>
       <body className="appear-animate body">
-        {/* PostHog: inicializa o cliente e registra um $pageview a cada troca de rota */}
-        <PHProvider>
-          <Suspense fallback={null}>
-            <PostHogPageView />
-          </Suspense>
-
-          {/* ———————————————— */}
-          {/* 2) GTM noscript */}
-          <noscript
-            dangerouslySetInnerHTML={{
-              __html: `<iframe
-                 src="https://www.googletagmanager.com/ns.html?id=GTM-5TTZF69D"
-                 height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
-            }}
-          />
-          {/* ———————————————— */}
-          <NextIntlClientProvider messages={messages} locale={locale} timeZone={timeZone}>
-            {children}
-          </NextIntlClientProvider>
-
-          {/* Botão de WhatsApp */}
-          <div
-            style={{
-              position: "fixed",
-              bottom: "20px",
-              right: "20px",
-              zIndex: 1000,
-            }}
-          >
-            <button
-              onClick={handleWhatsappClick}
-              style={{
-                backgroundColor: "#25D366",
-                border: "none",
-                borderRadius: "50%",
-                width: "60px",
-                height: "60px",
-                cursor: "pointer",
-                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)",
-              }}
-            >
-              <img
-                src="/assets/images/whatsapp-icon.png"
-                alt="WhatsApp"
-                style={{ width: "30px", height: "30px" }}
-              />
-            </button>
-          </div>
-
-          {/* Modal com o Formulário do HubSpot */}
-          {isFormVisible && (
-            <div
-              className="modal-overlay"
-              style={{
-                position: "fixed",
-                top: 25,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                zIndex: 1100,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "flex-start",
-              }}
-              onClick={toggleForm}
-            >
-              <div
-                className="modal-content"
-                style={{
-                  backgroundColor: "white",
-                  padding: "20px",
-                  borderRadius: "8px",
-                  maxWidth: "500px",
-                  width: "100%",
-                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)",
-                }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <button
-                  onClick={toggleForm}
-                  style={{
-                    float: "right",
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    fontSize: "18px",
-                  }}
-                >
-                  ✖
-                </button>
-                <div id="hubspot-form"></div>
-              </div>
-            </div>
-          )}
-        </PHProvider>
+        <JsonLd data={physicianJsonLd} />
+        <ClientShell locale={locale} messages={messages}>
+          {children}
+        </ClientShell>
       </body>
     </html>
   );

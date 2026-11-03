@@ -30,12 +30,12 @@
     
     "Home": {
       "metadata": {
-        "title": "Dr. Thomas Benson, PhD - Cirurgião Plástico",
-        "description": "Conheça o Dr. Thomas Benson, referência em cirurgia plástica facial e especialista em Deep Plane Facelift na América Latina. Excelência em técnicas inovadoras para resultados naturais, segurança e exclusividade."
+        "title": "Cirurgião Plástico em São Paulo | Dr. Thomas Benson",
+        "description": "Dr. Thomas Benson, cirurgião plástico em São Paulo especialista em cirurgia facial e Deep Plane Facelift. PhD e título europeu. Agende sua avaliação."
       },
-      "title": "Dr. Thomas Benson, PhD - Cirurgião Plástico",
-      "description": "Conheça o Dr. Thomas Benson, referência em cirurgia plástica facial e especialista em Deep Plane Facelift na América Latina. Excelência em técnicas inovadoras para resultados naturais, segurança e exclusividade.",
-      "h1": "Especialista e referência em cirurgias faciais.",
+      "title": "Cirurgião Plástico em São Paulo | Dr. Thomas Benson",
+      "description": "Dr. Thomas Benson, cirurgião plástico em São Paulo especialista em cirurgia facial e Deep Plane Facelift. PhD e título europeu. Agende sua avaliação.",
+      "h1": "Cirurgião plástico em São Paulo, referência em cirurgias faciais.",
       "pdesc": "Há 15 anos atuando com os mais altos padrões de qualidade e excelência no rejuvenescimento facial.",
       "videobtn": "Clique aqui e veja o vídeo!",
       "scrolld": "Rolar para baixo",
@@ -79,8 +79,8 @@
 
     "About": {
       "metadata": {
-        "title": "Sobre || Dr. Thomas Benson",
-        "description": "Saiba mais sobre o Dr. Thomas Benson, PhD em cirurgia plástica, único brasileiro reconhecido pelo Conselho Europeu de Cirurgia Plástica e pela Sociedade Alemã de Cirurgia Plástica. Autor do best-seller 'A Beleza da Face' e referência em técnicas avançadas como o Deep Plane Facelift."
+        "title": "Dr. Thomas Benson | Cirurgião Plástico Facial em SP",
+        "description": "Conheça o Dr. Thomas Benson, PhD, cirurgião plástico facial em São Paulo, com título pelo European Board of Plastic Surgery e autor de \"A Beleza da Face\"."
       },
       "h2_1": "Sobre",
       "p1": "Especialista em cirurgias faciais, é o único brasileiro com título de especialização do Conselho Europeu de Cirurgia Plástica e da Sociedade Alemã de Cirurgia Plástica.",
@@ -94,7 +94,7 @@
 
     "Team": {
       "metadata": {
-        "title": "Equipe || Dr. Thomas Benson",
+        "title": "Equipe | Dr. Thomas Benson",
         "description": "Conheça a equipe de especialistas liderada pelo Dr. Thomas Benson e descubra a infraestrutura de excelência da clínica, focada em segurança, conforto e resultados de alto padrão em cirurgia plástica facial."
       },
       "h2": "Equipe",
@@ -171,7 +171,7 @@
 
     "pagePress": {
       "metadata": {
-        "title": "Imprensa || Dr. Thomas Benson",
+        "title": "Imprensa | Dr. Thomas Benson",
         "description": "Veja as aparições do Dr. Thomas Benson na mídia como referência em cirurgia plástica facial. Destaque em jornais, revistas, programas de TV e séries documentais, incluindo 'O Hospital', da Record."
       },
       "h2": "Imprensa",
@@ -221,7 +221,7 @@
     },
 
     "Blog": {
-      "atext": "Fique por dentro dos principais temas sobre cirúrgia plástica!"
+      "atext": "Fique por dentro dos principais temas sobre cirurgia plástica!"
     },
 
     "BlogClient": {
@@ -307,7 +307,7 @@
 
     "patientsAbroad": {
       "metadata": {
-        "title": "Pacientes no Exterior || Dr. Thomas Benson",
+        "title": "Pacientes no Exterior | Dr. Thomas Benson",
         "description": "Descubra como pacientes de todo o mundo escolhem o Dr. Thomas Benson pela excelência em cirurgia plástica facial. Oferecemos concierge personalizado, hospedagem e uma experiência cirúrgica completa em São Paulo."
       },
       "h2": "Pacientes no Exterior",
@@ -334,8 +334,8 @@
     
     "Surgeries": {
       "metadata": {
-        "title": "Cirurgias || Dr. Thomas Benson",
-        "description": "Conheça as cirurgias realizadas pelo Dr. Thomas Benson, incluindo técnicas avançadas, cuidados pré e pós-operatórios, e procedimentos personalizados para resultados naturais, seguros, com cicatrizes finas e imperceptíveis."
+        "title": "Cirurgias Plásticas em São Paulo | Dr. Thomas Benson",
+        "description": "Cirurgias faciais e corporais com o Dr. Thomas Benson em São Paulo: Deep Plane Facelift, blefaroplastia, rinoplastia, lifting frontal, otoplastia e mais."
       },
       "h2": "Cirurgias",
       "atext": "Conheça as cirurgias realizadas pelo Dr. Thomas Benson.",
@@ -351,6 +351,8 @@
     },
 
     "surgeriesItems": {
+    "19": {"title": "Lifting Facial", "descr": "Cirurgia que trata a flacidez do rosto e do pescoço, devolvendo o contorno da mandíbula e das bochechas. Conheça as técnicas, do mini lifting ao Deep Plane."},
+    "20": {"title": "Deep Neck Lift", "descr": "Lifting profundo do pescoço que trata gordura profunda, músculo platisma e bandas, redefinindo o ângulo entre o queixo e o pescoço."},
       "1": {
         "title": "Deep Plane Facelift",
         "descr": "A cirurgia de Lifting Facial Deep Plane é considerada uma das técnicas cirúrgicas mais avançadas e inovadoras para rejuvenescimento facial, combinando resultados mais naturais e duradouros com o benefício de não possuir praticamente nenhuma cicatriz visível."
@@ -426,6 +428,8 @@
     },
 
     "SurgerieItemPage1": {
+    "lifting-facial": {"title": "Lifting Facial", "descr": "O lifting facial trata a flacidez do rosto e do pescoço. Entenda as diferenças entre as técnicas, do mini lifting ao Deep Plane Facelift, e como é a recuperação.", "content": "<div class=\"container\"><h2 class=\"mb-40 mb-xs-30\">Lifting facial em São Paulo</h2><p>O lifting facial, ou ritidoplastia, é a cirurgia plástica que reposiciona os tecidos do rosto que desceram com o envelhecimento. Hoje existem diferentes técnicas, e a escolha certa faz toda a diferença entre um rosto rejuvenescido e um rosto com aparência esticada.</p><p>O Dr. Thomas Benson é cirurgião plástico dedicado à cirurgia da face e usa o Deep Plane Facelift como base do rejuvenescimento facial, por reposicionar as estruturas profundas do rosto sem tracionar a pele.</p></div>"},
+    "deep-neck-lift": {"title": "Deep Neck Lift", "descr": "O Deep Neck Lift trata a flacidez, as bandas e a gordura profunda do pescoço, redefinindo o contorno entre o queixo e o pescoço de forma natural.", "content": "<div class=\"container\"><h2 class=\"mb-40 mb-xs-30\">Deep Neck Lift em São Paulo</h2><p>O pescoço é uma das regiões que mais denunciam a idade. Mesmo quem tem o rosto preservado pode ter flacidez, bandas musculares e acúmulo de gordura abaixo do queixo.</p><p>O Deep Neck Lift é a técnica de rejuvenescimento do pescoço que atua nas camadas profundas, e não apenas na pele, para devolver um contorno definido e natural ao pescoço.</p></div>"},
       "i": "Voltar para a página de cirurgias",
       "p": "Agende agora mesmo seu horário com o Dr. Thomas Benson.",
       "deep-plane-facelift": {
@@ -522,7 +526,7 @@
 
     "BeforeAfter": {
       "metadata": {
-        "title": "Antes e Depois || Dr. Thomas Benson",
+        "title": "Antes e Depois | Dr. Thomas Benson",
         "description": "Veja os resultados transformadores dos procedimentos realizados pelo Dr. Thomas Benson. Rejuvenescimento facial com precisão, cicatrizes imperceptíveis e depoimentos de pacientes satisfeitos com resultados naturais e harmoniosos."
       },
       "h2": "Antes e Depois",
@@ -541,7 +545,7 @@
 
     "Result": {
       "metadata": {
-        "title": "Resultado || Dr. Thomas Benson",
+        "title": "Resultado | Dr. Thomas Benson",
         "description": "Resultado de excelência do procedimento realizado pelo Dr. Thomas Benson com antes e depois."
       },
       "i": "Voltar para a página inicial",

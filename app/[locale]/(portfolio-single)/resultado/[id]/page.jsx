@@ -1,14 +1,9 @@
+import { pageMetadata, clampDescription } from "@/lib/seo";
 import Footer1 from "@/components/footers/Footer1";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
-const ParallaxContainer = dynamic(
-  () => import("@/components/common/ParallaxContainer"),
-  {
-    ssr: false, // Disable server-side rendering
-  }
-);
+import ParallaxContainer from "@/components/common/ParallaxContainer";
 
 import Header1Multipage from "@/components/headers/Header1Multipage";
 import AnimatedText from "@/components/common/AnimatedText";
@@ -20,7 +15,7 @@ import { useTranslations } from "next-intl";
 
 // Função para definir metadados dinâmicos
 export async function generateMetadata({ params }) {
-  const tra = await getTranslations('Result.metadata');
+  const tra = await getTranslations({ locale: params.locale, namespace: 'Result.metadata' });
   const portfolioId = parseInt(params.id, 10);
   const portfolioItem = allPortfolios.find((item) => item.id === portfolioId);
 
@@ -32,11 +27,19 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  // Define o título e a descrição dinamicamente
-  return {
-    title: tra('title'),
-    description: tra('description') || "Resultado de excelência do procedimento realizado pelo Dr. Thomas Benson com antes e depois.",
-  };
+  // Título único por resultado (o texto da imagem descreve os procedimentos realizados)
+  const procedures = portfolioItem?.imgAlt?.replace(/^Resultado de (uma |um )?/i, "");
+  return pageMetadata({
+    locale: params.locale,
+    path: `/resultado/${portfolioId}`,
+    title: procedures ? `Antes e depois: ${procedures} | Dr. Thomas Benson` : tra("title"),
+    description: clampDescription(
+      procedures
+        ? `Resultado real de ${procedures} realizado pelo Dr. Thomas Benson, cirurgião plástico em São Paulo. Veja o antes e depois.`
+        : tra("description")
+    ),
+    image: portfolioItem?.imgSrc,
+  });
 }
 
 export default function MainPortfolioSinglePage1({ params }) {
