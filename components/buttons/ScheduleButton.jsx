@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { trackScheduleConsultationClick } from "@/utlis/analytics";
+import { hubspotFormPostHogCallbacks, trackScheduleConsultationClick } from "@/utlis/analytics";
 
 // trackingLocation identifica no PostHog onde está o botão (ex.: "hero"); sem ele, vale "content"
 export default function ScheduleButton({ buttonText, formPortalId, formId, className = "", trackingLocation = "content" }) {
@@ -25,6 +25,7 @@ export default function ScheduleButton({ buttonText, formPortalId, formId, class
             portalId: formPortalId || "43984996", // Default portal ID
             formId: formId || "d1ae94a9-fc3d-4747-9fbd-01519b8f7d7b", // Default form ID
             target: "#hubspot-form",
+            ...hubspotFormPostHogCallbacks,
           });
         }
       };

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { parallaxMouseMovement, parallaxScroll } from "@/utlis/parallax";
 import { init_wow } from "@/utlis/initWowjs";
 import { headerChangeOnScroll } from "@/utlis/changeHeaderOnScroll";
-import { trackScheduleConsultationClick } from "@/utlis/analytics";
+import { hubspotFormPostHogCallbacks, trackScheduleConsultationClick } from "@/utlis/analytics";
 import { NextIntlClientProvider } from "next-intl";
 
 // Parte do layout que roda no navegador. O layout em si é server component para poder
@@ -63,6 +63,7 @@ export default function ClientShell({ children, locale, messages }) {
           portalId: "43984996", // Substitua pelo seu portalId
           formId: "d1ae94a9-fc3d-4747-9fbd-01519b8f7d7b", // Substitua pelo seu formId
           target: "#hubspot-form",
+          ...hubspotFormPostHogCallbacks,
 
           // The callback
           onFormSubmit: () => {
