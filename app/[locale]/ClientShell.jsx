@@ -7,6 +7,7 @@ import { parallaxMouseMovement, parallaxScroll } from "@/utlis/parallax";
 import { init_wow } from "@/utlis/initWowjs";
 import { headerChangeOnScroll } from "@/utlis/changeHeaderOnScroll";
 import { hubspotFormPostHogCallbacks, trackScheduleConsultationClick } from "@/utlis/analytics";
+import { AGENDAR_PELO_WHATSAPP, abrirWhatsapp } from "@/utlis/whatsapp";
 import { NextIntlClientProvider } from "next-intl";
 
 // Parte do layout que roda no navegador. O layout em si é server component para poder
@@ -21,10 +22,12 @@ export default function ClientShell({ children, locale, messages }) {
     setIsFormVisible(!isFormVisible);
   };
 
-  // Botão do WhatsApp: registra o clique no PostHog quando abre o formulário
+  // Botão do WhatsApp: registra o clique no PostHog e abre o WhatsApp da clínica
+  // (ou o formulário do HubSpot, se o experimento AGENDAR_PELO_WHATSAPP estiver desligado)
   const handleWhatsappClick = () => {
     if (!isFormVisible) trackScheduleConsultationClick("whatsapp_button");
-    toggleForm();
+    if (AGENDAR_PELO_WHATSAPP) abrirWhatsapp("whatsapp_button");
+    else toggleForm();
   };
 
   useEffect(() => {
