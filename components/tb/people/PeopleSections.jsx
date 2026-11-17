@@ -1,3 +1,4 @@
+import ScrollRow from "../ScrollRow";
 import { useTranslations } from "next-intl";
 import { Seals } from "../home/HomeSections";
 import { Check } from "../Icons";
@@ -40,7 +41,7 @@ export function CheckList({ items }) {
 export function PatientQuotes() {
   const t = useTranslations("teamTestimonials");
   return (
-    <div className="g3 mt-l">
+    <ScrollRow className="mt-l" label="Depoimentos de pacientes">
       {testimonials3.map((q) => (
         <figure key={q.id} className="quote card soft">
           <span className="mark" aria-hidden="true">“</span>
@@ -59,7 +60,7 @@ export function PatientQuotes() {
           </footer>
         </figure>
       ))}
-    </div>
+    </ScrollRow>
   );
 }
 

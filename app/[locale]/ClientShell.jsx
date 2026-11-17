@@ -22,6 +22,25 @@ export default function ClientShell({ children, locale, messages }) {
     else setIsFormVisible((v) => !v);
   };
 
+  // A tag do TikTok no GTM escreve o ID do pixel como texto solto no fim do <body>.
+  // Enquanto a tag não é corrigida no GTM, o texto vira um elemento oculto (o ID continua no código).
+  useEffect(() => {
+    const esconder = () => {
+      document.body.childNodes.forEach((n) => {
+        if (n.nodeType === 3 && /^\s*[A-Z0-9]{16,}\s*$/.test(n.textContent)) {
+          const span = document.createElement("span");
+          span.hidden = true;
+          span.dataset.tiktokPixelId = n.textContent.trim();
+          n.replaceWith(span);
+        }
+      });
+    };
+    esconder();
+    const obs = new MutationObserver(esconder);
+    obs.observe(document.body, { childList: true });
+    return () => obs.disconnect();
+  }, []);
+
   // Os botões "Agendar consulta" pedem o formulário por evento quando o experimento está desligado
   useEffect(() => {
     const open = () => setIsFormVisible(true);

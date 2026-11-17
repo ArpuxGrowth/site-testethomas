@@ -52,7 +52,7 @@ export default function CareerChapters({ locale }) {
           <div className="dots">{list.map((_, k) => <span key={k} className={k === i ? "on" : ""}></span>)}</div>
           <div style={{ display: "flex", gap: 10 }}>
             <button className="round clear" type="button" aria-label={locale === "en" ? "Previous chapter" : "Capítulo anterior"} onClick={() => go(i - 1)}><ArrowLeft width={16} height={16} /></button>
-            <button className="btn gold car-next" type="button" onClick={() => go(i + 1)}>{locale === "en" ? "Next" : "Próximo"} <Arrow width={14} height={14} /></button>
+            <button className="round clear" type="button" aria-label={locale === "en" ? "Next chapter" : "Próximo capítulo"} onClick={() => go(i + 1)}><Arrow width={16} height={16} /></button>
           </div>
         </div>
       </div>

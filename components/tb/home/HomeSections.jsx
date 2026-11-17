@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import ScrollRow from "../ScrollRow";
 import { Link } from "@/i18n/routing";
 import ScheduleButton from "../ScheduleButton";
 import VideoButton from "../VideoButton";
@@ -101,7 +102,7 @@ export function HomeVideos() {
           <h2 className="eyebrow">{t("p")}</h2>
           <p className="h2" dangerouslySetInnerHTML={{ __html: t.raw("desc") }} />
         </div>
-        <div className="g3 mt-l">
+        <ScrollRow className="mt-l" label="Depoimentos em vídeo">
           {videoTestimonials.map((v) => (
             <a key={v.videoUrl} className="cardlink card soft" href={v.videoUrl} target="_blank" rel="noopener noreferrer">
               <span className="ph" style={{ aspectRatio: "4/5" }}>
@@ -112,7 +113,7 @@ export function HomeVideos() {
               <p style={{ marginTop: 4 }}>{t("videodesc")}</p>
             </a>
           ))}
-        </div>
+        </ScrollRow>
       </div>
     </section>
   );
@@ -320,7 +321,7 @@ export function HomeTestimonials() {
     <section className="sec" id="depoimentos">
       <div className="wrap">
         <div className="head"><h2 className="h2">{t("h2")}</h2></div>
-        <div className="g3 mt-l">
+        <ScrollRow className="mt-l" label="Depoimentos de pacientes">
           {testimonials.map((p, i) => {
             const tr = t.raw(`testimonials.${i}`);
             return (
@@ -331,7 +332,7 @@ export function HomeTestimonials() {
               </figure>
             );
           })}
-        </div>
+        </ScrollRow>
       </div>
     </section>
   );
