@@ -4,6 +4,7 @@ import ScheduleButton from "../ScheduleButton";
 import { Chevron, Play, Arrow } from "../Icons";
 import { Seals } from "../home/HomeSections";
 import SafetyStories from "../home/SafetyStories";
+import ReadMore from "../ReadMore";
 import ResultsGrid from "./ResultsGrid";
 import { numberItems } from "@/data/facts";
 import { faqs } from "@/data/faqs";
@@ -75,7 +76,8 @@ export function DoctorStory({ locale }) {
           </div>
         </div>
         <article className="soft card dr-article">
-          <div className="prose" dangerouslySetInnerHTML={{ __html: c.raw("p") }} />
+          <ReadMore html={c.raw("p")} keep={2}
+            more={locale === "en" ? "Read the full story" : "Ler a história completa"} less={locale === "en" ? "Show less" : "Mostrar menos"} />
         </article>
       </div>
     </section>

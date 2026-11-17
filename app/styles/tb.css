@@ -605,3 +605,7 @@ html[data-page="series"] .drawer-in a{background:rgba(255,255,255,.05);border-co
 .clinic-shade{background:linear-gradient(90deg,rgba(11,20,40,.35) 0%,rgba(11,20,40,.62) 45%,rgba(11,20,40,.9) 100%),linear-gradient(180deg,#0b1428 0%,rgba(11,20,40,0) 16%,rgba(11,20,40,0) 84%,#0b1428 100%)}
 [data-theme="light"] .clinic-shade{background:linear-gradient(90deg,rgba(245,242,236,.25) 0%,rgba(245,242,236,.7) 45%,rgba(245,242,236,.94) 100%),linear-gradient(180deg,#f3efe7 0%,rgba(243,239,231,0) 16%,rgba(243,239,231,0) 84%,#f3efe7 100%)!important}
 #consultorio{min-height:max(680px,90vh);display:flex;align-items:center}
+.readmore-rest{margin-top:1.1em}
+.readmore-btn{margin-top:22px;height:46px;padding:0 20px;font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase}
+.sst-more{display:inline-flex!important;width:auto;align-items:center;height:32px;padding:0 14px;border-radius:16px;border:1px solid var(--gold-line)!important;background:rgba(214,187,133,.12)!important;color:var(--gold-soft)!important;font-size:12px!important;letter-spacing:1.2px;text-transform:uppercase}
+[data-theme="light"] .sst-more{color:#6f5220!important;background:rgba(214,187,133,.22)!important}

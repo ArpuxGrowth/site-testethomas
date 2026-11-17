@@ -1,4 +1,4 @@
-import PageHero from "@/components/tb/PageHero";
+import ScheduleButton from "@/components/tb/ScheduleButton";
 import Faq from "@/components/tb/Faq";
 import CtaBand from "@/components/tb/CtaBand";
 import SurgeryCard from "@/components/tb/surgeries/SurgeryCard";
@@ -87,14 +87,23 @@ export default async function FacialSurgeryPage({ params: { locale } }) {
       <JsonLd data={breadcrumb} />
       <JsonLd data={faqJsonLd(faq)} />
 
-      <PageHero
-        image="/assets/images/surgeries/dpfacelift.jpg"
-        imagePos="50% 30%"
-        eyebrow="Cirurgia da face"
-        title="Cirurgia plástica facial em São Paulo"
-        lead="Rejuvenescimento e harmonia do rosto com o Dr. Thomas Benson, cirurgião plástico dedicado à cirurgia da face."
-        crumbs={[{ href: "/", label: SITE_NAME }, { label: "Cirurgia plástica facial" }]}
-      />
+      <section className="phero sg-hero">
+        <div className="wrap sg-hero-cols">
+          <div>
+            <nav className="crumbs" aria-label="Breadcrumb">
+              <Link href="/">{SITE_NAME}</Link><span aria-hidden="true">/</span><span aria-current="page">Cirurgia plástica facial</span>
+            </nav>
+            <p className="eyebrow">Cirurgia da face</p>
+            <h1>Cirurgia plástica facial em São Paulo</h1>
+            <p className="body lead" style={{ fontSize: 18 }}>Rejuvenescimento e harmonia do rosto com o Dr. Thomas Benson, cirurgião plástico dedicado à cirurgia da face.</p>
+            <div style={{ marginTop: 30 }}><ScheduleButton trackingLocation="hero" /></div>
+          </div>
+          <figure className="card soft sg-hero-fig">
+            <img src="/assets/images/casos/caso-semana-deep-plane-semiperfil.jpg" alt="Antes e depois de Restore Lift (Deep Plane Facelift) realizado pelo Dr. Thomas Benson, vista em semiperfil" width="1080" height="1350" fetchPriority="high" />
+            <figcaption>Caso real · Restore Lift, o Deep Plane Facelift do Dr. Thomas</figcaption>
+          </figure>
+        </div>
+      </section>
 
       <section className="sec sg-body">
         <div className="wrap">

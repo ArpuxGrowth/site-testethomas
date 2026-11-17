@@ -3,6 +3,7 @@ import { Link } from "@/i18n/routing";
 import ScheduleButton from "../ScheduleButton";
 import VideoButton from "../VideoButton";
 import Faq from "../Faq";
+import ReadMore from "../ReadMore";
 import SafetyStories from "./SafetyStories";
 import { Check, Arrow, Play, Phone, Pin, Star } from "../Icons";
 import { PHONES } from "../site";
@@ -73,8 +74,14 @@ export function HomeAbout({ locale }) {
         <div>
           <p className="eyebrow">{locale === "en" ? "Career" : "Trajetória"}</p>
           <h2 className="h2" style={{ marginTop: 14 }}>{t("abouth2")}</h2>
-          <div className="prose" style={{ marginTop: 24, fontSize: 16.5 }} dangerouslySetInnerHTML={{ __html: t.raw("aboutp") }} />
-          <div style={{ marginTop: 30 }}><ScheduleButton /></div>
+          <div style={{ marginTop: 24 }}>
+            <ReadMore html={t.raw("aboutp")} keep={1} style={{ fontSize: 16.5 }}
+              more={locale === "en" ? "Read the full story" : "Ler a história completa"} less={locale === "en" ? "Show less" : "Mostrar menos"} />
+          </div>
+          <div style={{ marginTop: 18, display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <ScheduleButton />
+            <Link className="btn clear" href="/dr-thomas">{locale === "en" ? "About Dr. Thomas" : "Conheça o Dr. Thomas"} <Arrow width={16} height={16} /></Link>
+          </div>
         </div>
         <div>
           <p className="eyebrow" style={{ marginBottom: 18 }}>{locale === "en" ? "Titles and societies" : "Títulos e sociedades"}</p>
@@ -132,7 +139,7 @@ export function HomeSafety({ locale }) {
   return <SafetyStories id="services" eyebrow={t("h2")} title={t("atext")} items={items} locale={locale} moreHref="/dr-thomas" moreLabel={locale === "en" ? "Read Dr. Thomas's full story" : "Conheça a história do Dr. Thomas"} />;
 }
 
-export function HomeClinic() {
+export function HomeClinic({ locale }) {
   const t = useTranslations("Home");
   return (
     <section className="sec" id="consultorio">
@@ -141,6 +148,7 @@ export function HomeClinic() {
       <div className="wrap cols">
         <div aria-hidden="true"></div>
         <div>
+          <p className="eyebrow" style={{ marginBottom: 14 }}>{locale === "en" ? "The clinic" : "O consultório"}</p>
           <h2 className="h2">{t("clinicah2")}</h2>
           <p className="body" style={{ marginTop: 20 }}>{t("clinicap")}</p>
           <ul className="g2" style={{ listStyle: "none", padding: 0, margin: "30px 0 0" }}>
