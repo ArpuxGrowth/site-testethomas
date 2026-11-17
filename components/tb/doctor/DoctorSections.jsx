@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import ScrollRow from "../ScrollRow";
 import { Link } from "@/i18n/routing";
 import ScheduleButton from "../ScheduleButton";
 import { Chevron, Play, Arrow } from "../Icons";
@@ -323,7 +324,7 @@ export function DoctorTestimonials({ locale }) {
             <ScheduleButton className="btn clear" trackingLocation="testimonials" />
           </div>
         </div>
-        <div className="g3 mt-l">
+        <ScrollRow className="mt-l" label="Depoimentos de pacientes">
           {testimonials.map((p, i) => {
             const tr = t.raw(`testimonials.${i}`);
             return (
@@ -340,7 +341,7 @@ export function DoctorTestimonials({ locale }) {
               </figure>
             );
           })}
-        </div>
+        </ScrollRow>
       </div>
     </section>
   );
