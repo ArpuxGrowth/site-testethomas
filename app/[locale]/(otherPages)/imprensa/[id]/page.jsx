@@ -1,18 +1,13 @@
 import { pageMetadata, clampDescription } from "@/lib/seo";
-import Footer1 from "@/components/footers/Footer1";
-
-
 import { notFound } from "next/navigation";
-
-import ParallaxContainer from "@/components/common/ParallaxContainer";
-import { menuItems2 } from "@/data/menu";
-import Header1Multipage from "@/components/headers/Header1Multipage";
-import AnimatedText from "@/components/common/AnimatedText";
 import { pressItems } from "@/data/pressgallery";
-import ScheduleButton from "@/components/buttons/ScheduleButton";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { getTranslations } from 'next-intl/server';
+import PageHero from "@/components/tb/PageHero";
+import CtaBand from "@/components/tb/CtaBand";
+import { ArrowLeft, External } from "@/components/tb/Icons";
+import "@/app/styles/content.css";
 
 // Dinamic metadata
 export async function generateMetadata({ params }) {
@@ -43,6 +38,7 @@ export async function generateMetadata({ params }) {
 
 export default function PressNewsPage1({ params }) {
   const t = useTranslations('PressNewsPage');
+  const tp = useTranslations('pagePress');
   const pressId = parseInt(params.id, 10); // Converte o id para número
   const pressNews =
     pressItems.filter((elm) => elm.id == params.id)[0] || pressItems[0];
@@ -54,124 +50,53 @@ export default function PressNewsPage1({ params }) {
 
   const translatedTitle = t(`PressItems.${pressId}.title`, pressNews.title);
   const translatedArticle = t.raw(`PressItems.${pressId}.article`, { defaultValue: pressNews.article });
+  const isArticle = [1, 2, 3, 8, 12].includes(pressNews.id); // Matérias em texto; as demais são vídeos
+  const en = params.locale === "en";
 
   return (
-    <>
-      <div className="theme-main">
-        <div className="page" id="top">
-          <nav className="main-nav transparent stick-fixed wow-menubar">
-            <Header1Multipage links={menuItems2} defaultButtonColor="black" />
-          </nav>
-          <main id="main">
-            <section className="page-section pt-0 pb-0" id="home">
-              <ParallaxContainer
-                className="page-section bg-gray-light-1 bg-light-alpha-80 parallax-5"
-                style={{
-                  backgroundImage:
-                    `url(${pressNews.src})`,
-                }}
-              >
-                <div className="container position-relative pt-30 pt-sm-50">
-                  {/* Section Content */}
-                  <div className="text-center">
-                    <div className="row">
-                      {/* Page Title */}
-                      <div className="col-md-8 offset-md-2">
-                        <div className="mb-20">
-                          <Link
-                            href="/imprensa"
-                            className="btn btn-mod btn-small btn-border btn-circle"
-                            data-btn-animate="y"
-                          >
-                            <i className="mi-arrow-left align-center size-18" />{" "}
-                            {t('i')}
-                          </Link>
-                        </div>
-                        <h1 className="hs-title-10 mb-20">
-                          <span
-                            className="wow charsAnimIn"
-                            data-splitting="chars"
-                          >
-                            <AnimatedText text={translatedTitle} />
-                          </span>
-                        </h1>
-                      </div>
-                      {/* End Page Title */}
-                    </div>
-                  </div>
-                  {/* End Section Content */}
-                </div>
-              </ParallaxContainer>
-            </section>
-            <>
-              {/* Section */}
-              <section className="page-section">
-                <div className="container relative">
-                  {/* Row */}
-                  <div className="row mb-n40">
-                    {/* Col */}
-                    <div className="col-12 mb-40">
-                      {pressNews.id === 1 || pressNews.id === 2 || pressNews.id === 3 || pressNews.id === 8 || pressNews.id === 12 ? (  // Exibição alternativa para IDs 1, 2, 3, 5 e 9
-                        <div className="article">
-                          {<div
-                            dangerouslySetInnerHTML={{ __html: translatedArticle }} // Linha alterada
-                          />}
-                          <div className="text-center wow fadeInUp">
-                            <a
-                                href={pressNews.externalLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-mod btn-border btn-large btn-round"
-                                data-btn-animate="y"
-                              >
-                                {t('a')}
-                            </a>
-                          </div>
-                        </div>
-                      ) : (
-                      // Exibição padrão com vídeo
-                      <div className="video">
-                        <iframe
-                            width={"100%"}
-                            height={720}
-                            src={pressNews.video}
-                            title="YouTube video player"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen=""
-                          />
-                      </div>
-                      )}
-                    </div>
-                    {/* Col */}
-                  </div>
-                  {/* End Row */}
-                </div>
-              </section>
-              {/* End Section */}
-              {/* Divider */}
-              <hr className="mt-0 mb-0" />
-              {/* End Divider */}
-              {/* Section */}
-              <section className="page-section">
-                <div className="container relative">
-                  <div className="row text-center wow fadeInUp">
-                    <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                      <p className="section-descr mb-50 mb-sm-30">
-                        {t('p')}
-                      </p>
-                      <div className="local-scroll">
-                        <ScheduleButton />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              {/* End Section */}
-            </>
-          </main>
-          <Footer1 />
-        </div>{" "}
-      </div>
-    </>
+    <main id="main" className="tb-content">
+      <PageHero
+        crumbs={[
+          { href: "/", label: en ? "Home" : "Início" },
+          { href: "/imprensa", label: tp('h2') },
+          { href: `/imprensa/${pressId}`, label: translatedTitle },
+        ]}
+        title={translatedTitle}
+      >
+        <div className="press-back">
+          <Link href="/imprensa" className="btn clear">
+            <ArrowLeft width={16} height={16} /> {t('i')}
+          </Link>
+        </div>
+      </PageHero>
+
+      <section className="sec tight press-body">
+        <div className="wrap narrow">
+          {isArticle ? (
+            <article className="card soft box press-article">
+              <img className="press-cover" src={pressNews.src} alt={pressNews.alt} width={1350} height={865} fetchPriority="high" />
+              <div className="prose" dangerouslySetInnerHTML={{ __html: translatedArticle }} />
+              <div className="press-ext">
+                <a href={pressNews.externalLink} target="_blank" rel="noopener noreferrer" className="btn gold">
+                  {t('a')} <External width={16} height={16} />
+                </a>
+              </div>
+            </article>
+          ) : (
+            <div className="press-video card soft">
+              <iframe
+                src={pressNews.video}
+                title="YouTube video player"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          )}
+        </div>
+      </section>
+
+      <CtaBand text={t('p')} trackingLocation="content" />
+    </main>
   );
 }

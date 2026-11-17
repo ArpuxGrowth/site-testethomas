@@ -1,18 +1,12 @@
 import { pageMetadata } from "@/lib/seo";
-import Footer1 from "@/components/footers/Footer1";
-
-
-import ParallaxContainer from "@/components/common/ParallaxContainer";
-
-import Header1Multipage from "@/components/headers/Header1Multipage";
-import AnimatedText from "@/components/common/AnimatedText";
-import { menuItems2 } from "@/data/menu";
-import BeforeAfterMassonry from "@/components/portfolio/BeforeAfterMassonry";
-import VideoTestimonials2 from "@/components/homes/home-1-1/VideoTestimonials";
-import Team from "@/components/homes/home-1/Team";
-import ScheduleButton from "@/components/buttons/ScheduleButton";
 import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
+import { portfolios1 } from "@/data/portfolio";
+import ScheduleButton from "@/components/tb/ScheduleButton";
+import { HomeVideos } from "@/components/tb/home/HomeSections";
+import ResultsFeed from "@/components/tb/results/ResultsFeed";
+import { PageBg, ScarsSection } from "@/components/tb/results/ResultsSections";
+import "@/app/styles/results.css";
 
 export async function generateMetadata({ params: { locale } }) {
   const tr = await getTranslations({ locale, namespace: "BeforeAfter.metadata" });
@@ -24,97 +18,73 @@ export async function generateMetadata({ params: { locale } }) {
     description: tr("description"),
   });
 }
-export default function BeforeAfterPage() {
+export default function BeforeAfterPage({ params }) {
+  const en = params?.locale === "en";
   const t = useTranslations('BeforeAfter');
-  return (
-    <>
-      <div className="theme-main">
-        <div className="page" id="top">
-          <nav className="main-nav transparent stick-fixed wow-menubar">
-            <Header1Multipage links={menuItems2} defaultButtonColor="black" />
-          </nav>
-          <main id="main">
-            <section className="page-section pt-0 pb-0" id="home">
-              <ParallaxContainer
-                className="page-section bg-gray-light-1 bg-light-alpha-60 parallax-5"
-                style={{
-                  backgroundImage:
-                    "url(/assets/images/full-width-images/thomas-bg-1.jpg)",
-                }}
-              >
-                <div className="container position-relative pt-30 pt-sm-50">
-                  {/* Section Content */}
-                  <div className="text-center">
-                    <div className="row">
-                      {/* Page Title */}
-                      <div className="col-md-8 offset-md-2">
-                        <h2
-                          className="section-caption-border mb-30 mb-xs-20 wow fadeInUp"
-                          data-wow-duration="1.2s"
-                        >
-                          {t('h2')}
-                        </h2>
-                        <h1 className="hs-title-1 mb-0">
-                          <span
-                            className="wow charsAnimIn"
-                            data-splitting="chars"
-                          >
-                            <AnimatedText text={t('atext')} />
-                          </span>
-                        </h1>
-                      </div>
-                      {/* End Page Title */}
-                    </div>
-                  </div>
-                  {/* End Section Content */}
-                </div>
-              </ParallaxContainer>
-            </section>
-            <>
-              <section
-                className="page-section  scrollSpysection"
-                id="Videotestimonial"
-              >
-                <VideoTestimonials2 />
-              </section>
-              
-              {/* Section */}
-              <section id="results" className="page-section">
-                <BeforeAfterMassonry />
-              </section>
-              {/* End Section */}
-            </>
+  const tm = useTranslations('BeforeAfterMassonry');
+  const tr = useTranslations();
 
-            <section
-              className="page-section  scrollSpysection dark-content bg-gray-light-1"
-              id="team"
-            >
-              <Team />
-            </section>
-            
-            {/* Divider */}
-            <hr className="mt-0 mb-80 mb-sm-40" />
-            {/* End Divider */}
-      
-            <section
-              className="page-section">
-              <div className="container position-relative">
-                <div className="row text-center wow fadeInUp">
-                  <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                    <p className="section-descr mb-50 mb-sm-30">
-                      {t('p')}
-                    </p>
-                    <div className="local-scroll">
-                      <ScheduleButton />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </main>
-          <Footer1 />
-        </div>{" "}
-      </div>
-    </>
+  const filters = [
+    { name: tm('filters.all'), category: "all" },
+    { name: tm('filters.scars'), category: "scars" },
+    { name: tm('filters.post-surgical'), category: "post-surgical" },
+  ];
+  const cases = portfolios1.map((item) => {
+    const cats = ["scars", "post-surgical"].filter((c) => item.className.split(/\s+/).includes(c));
+    return {
+      id: item.id,
+      href: `/resultado/${item.id}`,
+      cats,
+      catLabel: cats.map((c) => tm(`filters.${c}`)).join(" · "),
+      title: tr(item.proceduresKey),
+      facts: [],
+      slides: [
+        { src: item.imgSrc, alt: item.imgAlt, w: 650, h: 773 },
+        ...(item.images || []).map((src, i) => ({
+          src,
+          alt: `${item.imgAlt} (${en ? "photo" : "foto"} ${i + 2})`,
+          w: 1350,
+          h: 865,
+          fit: "contain",
+        })),
+      ],
+    };
+  });
+
+  return (
+    <main id="main" className="rpage">
+      <PageBg src="/assets/images/full-width-images/thomas-bg-1.jpg" />
+      <section className="sec rs-top" id="results">
+        <div className="wrap">
+          <div className="head">
+            <h2 className="eyebrow">{t('h2')}</h2>
+            <h1 className="h2 rs-h1">{t('atext')}</h1>
+          </div>
+          <ResultsFeed
+            cases={cases}
+            filters={filters}
+            labels={{
+              filter: en ? "Filter by category" : "Filtrar por categoria",
+              prev: en ? "Previous photo" : "Foto anterior",
+              next: en ? "Next photo" : "Próxima foto",
+              item: tm('itemdescr'),
+            }}
+          />
+        </div>
+      </section>
+
+      <HomeVideos />
+
+      <ScarsSection />
+
+      <section className="sec tight">
+        <div className="wrap">
+          <div className="cta">
+            <p className="rs-cta-t">{t('p')}</p>
+            <ScheduleButton />
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

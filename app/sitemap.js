@@ -16,6 +16,7 @@ const staticPaths = [
   "/cirurgias",
   "/antes-e-depois",
   "/cirurgia-plastica-facial",
+  "/assista-a-serie",
   ...surgeriesItems.map((item) => `/cirurgias/${item.url}`),
   ...pressItems.map((item) => `/imprensa/${item.id}`),
   ...[7, 8, 9, 10, 11].map((id) => `/resultado/${id}`),

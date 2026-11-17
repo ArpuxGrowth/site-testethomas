@@ -1,119 +1,50 @@
-import Footer1 from "@/components/footers/Footer1";
-import Link from "next/link";
-import React from "react";
-import Image from "next/image";
+import { getLocale } from "next-intl/server";
+import { Link } from "@/i18n/routing";
+import { Arrow } from "@/components/tb/Icons";
+import "@/app/styles/content.css";
+
 export const metadata = {
   title:
     "Página não encontrada",
   description:
     "A página que você procurava não foi encontrada.",
 };
-export default function MainAboutPage1() {
-  return (
-    <>
-      <div className="theme-main">
-        <div className="page" id="top">
-          <>
-            <nav className="main-nav dark light-after-scroll transparent stick-fixed wow-menubar wch-unset">
-              <div className="main-nav-sub full-wrapper">
-                {/* Logo  (* Add your text or image to the link tag. Use SVG or PNG image format. 
-              If you use a PNG logo image, the image resolution must be equal 200% of the visible logo
-              image size for support of retina screens. See details in the template documentation. *) */}
-                <div className="nav-logo-wrap local-scroll">
-                  <Link href={`/`} className="logo">
-                    <Image
-                      src="/assets/images/logo-drthomas.png"
-                      alt="Your Company Logo"
-                      width={105}
-                      height={34}
-                      className="logo-white"
-                    />
-                    <Image
-                      src="/assets/images/logo-drthomas.png"
-                      alt="Your Company Logo"
-                      width={105}
-                      height={34}
-                      className="logo-dark"
-                    />
-                  </Link>
-                </div>
-                {/* Mobile Menu Button */}
-                <div className="mobile-nav" role="button" tabIndex={0}>
-                  <i className="mobile-nav-icon" />
-                  <span className="visually-hidden">Menu</span>
-                </div>
-                {/* Main Menu */}
-                <div className="inner-nav desktop-nav">
-                  <ul className="clearlist scroll-nav local-scroll justify-content-end">
-                  <li>
-                      <a href="tel:+551197241-5960">
-                        <i className="mi-call align-center" /> +55 (11) 97241-5960
-                      </a>
-                    </li>
-                    <li>
-                      <a href="tel:+55114305-6070">
-                        <i className="mi-call align-center" /> +55 (11) 4305-6070
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                {/* End Main Menu */}
-              </div>
-            </nav>
-            {/* End Navigation Panel */}
-            <main id="main">
-              {/* Home Section */}
-              <section
-                className="home-section bg-dark-1 bg-dark-alpha-60 light-content parallax-5"
-                style={{
-                  backgroundImage:
-                    "url(/assets/images/full-width-images/thomas-bg-1.jpg)",
-                }}
-                id="home"
-              >
-                <div className="container min-height-100vh d-flex align-items-center pt-100 pb-100 pt-sm-120 pb-sm-120">
-                  {/* Home Section Content */}
-                  <div className="home-content">
-                    <div className="row">
-                      <div className="col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                        <div className="hs-wrap">
-                          <div className="wow fadeInUp" data-wow-delay=".1s">
-                            <h1 className="hs-title-12 mb-40 mb-sm-30">404</h1>
-                          </div>
-                          <div
-                            className="mb-40 mb-sm-30 wow fadeInUp"
-                            data-wow-delay=".2s"
-                          >
-                            <h2 className="section-descr mb-20">
-                              A página que você procurava não foi encontrada.
-                            </h2>
-                          </div>
-                          <div
-                            className="local-scroll wow fadeInUp"
-                            data-wow-delay=".3s"
-                          >
-                            <Link
-                              href={`/`}
-                              className="btn btn-mod btn-w btn-round btn-medium btn-hover-anim"
-                            >
-                              <i className="mi-arrow-left size-24 align-center" />
-                              <span>Voltar para a página inicial</span>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* End Home Section Content */}
-                </div>
-              </section>
-              {/* End Home Section */}
-            </main>
-          </>
 
-          <Footer1 />
-        </div>{" "}
-      </div>
-    </>
+// Página 404 no visual novo (o status 404 vem do Next, via notFound() ou rota inexistente)
+export default async function NotFoundPage() {
+  let locale = "pt";
+  try {
+    locale = (await getLocale()) || "pt";
+  } catch {}
+  const en = locale === "en";
+  const links = [
+    { href: "/", label: en ? "Home" : "Início" },
+    { href: "/cirurgias", label: en ? "Surgeries" : "Cirurgias" },
+    { href: "/blog", label: "Blog" },
+  ];
+  return (
+    <main id="main" className="tb-content nf404">
+      <section className="phero c">
+        <div className="wrap">
+          <p className="eyebrow">{en ? "Error 404" : "Erro 404"}</p>
+          <h1 className="nf404-num">404</h1>
+          <h2 className="nf404-msg">
+            {en ? "The page you were looking for was not found." : "A página que você procurava não foi encontrada."}
+          </h2>
+          <p className="body nf404-lead">
+            {en
+              ? "The address may have changed or no longer exists. Try one of the links below."
+              : "O endereço pode ter mudado ou não existe mais. Tente um dos links abaixo."}
+          </p>
+          <nav className="nf404-links" aria-label={en ? "Useful links" : "Links úteis"}>
+            {links.map((l, i) => (
+              <Link key={l.href} href={l.href} className={`btn ${i === 0 ? "gold" : "clear"}`}>
+                {l.label} <Arrow width={16} height={16} />
+              </Link>
+            ))}
+          </nav>
+        </div>
+      </section>
+    </main>
   );
 }

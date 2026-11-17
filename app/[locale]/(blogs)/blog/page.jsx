@@ -1,17 +1,12 @@
 import { pageMetadata } from "@/lib/seo";
-import Footer1 from "@/components/footers/Footer1";
-
-
-import ParallaxContainer from "@/components/common/ParallaxContainer";
-
-import AnimatedText from "@/components/common/AnimatedText";
-
-import { menuItems2 } from "@/data/menu";
-import Header1Multipage from "@/components/headers/Header1Multipage";
-import Blogs2 from "@/components/blog/Blogs2";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
+import { createClient, getAllBlogPostSummaries } from "@/prismicio";
+import PageHero from "@/components/tb/PageHero";
+import BlogList from "@/components/tb/content/BlogList";
+import { slimPost } from "@/components/tb/content/blogUtils";
+import "@/app/styles/content.css";
 
 // Gera a página de cada idioma no build (atualizada quando o Prismic chama /api/revalidate)
 export function generateStaticParams() {
@@ -32,62 +27,36 @@ export async function generateMetadata({ params: { locale } }) {
         : "Articles by Dr. Thomas Benson, plastic surgeon in São Paulo, about Deep Plane Facelift, blepharoplasty, rhinoplasty and facial rejuvenation.",
   });
 }
+
+// Posts do Prismic (mesma busca do Blogs2 antigo)
+async function BlogPosts() {
+  const posts = await getAllBlogPostSummaries(createClient());
+  return <BlogList initialBlogs={posts.map(slimPost)} />;
+}
+
+function BlogHero({ locale }) {
+  const t = useTranslations('Blog');
+  return (
+    <PageHero
+      crumbs={[{ href: "/", label: locale === "en" ? "Home" : "Início" }, { label: "Blog" }]}
+      eyebrow={<span role="heading" aria-level={2}>Blog</span>}
+      title={t('atext')}
+    />
+  );
+}
+
 export default function MainBlogPage({ params }) {
   // Permite renderização estática com next-intl (sem ler headers da requisição)
   setRequestLocale(params.locale);
 
-  const t = useTranslations('Blog');
   return (
-    <>
-      <div className="theme-main">
-        <div className="page" id="top">
-          <nav className="main-nav transparent stick-fixed wow-menubar">
-            <Header1Multipage links={menuItems2} defaultButtonColor="black" />
-          </nav>
-          <main id="main">
-            <section className="page-section pt-0 pb-0" id="home">
-              <ParallaxContainer
-                className="page-section bg-gray-light-1 bg-light-alpha-60 parallax-5"
-                style={{
-                  backgroundImage:
-                    "url(/assets/images/full-width-images/blog-bg-1.jpg)",
-                }}
-              >
-                <div className="container position-relative pt-30 pt-sm-50">
-                  {/* Section Content */}
-                  <div className="text-center">
-                    <div className="row">
-                      {/* Page Title */}
-                      <div className="col-md-8 offset-md-2">
-                        <h2
-                          className="section-caption-border mb-30 mb-xs-20 wow fadeInUp"
-                          data-wow-duration="1.2s"
-                        >
-                          Blog
-                        </h2>
-                        <h1 className="hs-title-1 mb-0">
-                          <span
-                            className="wow charsAnimIn"
-                            data-splitting="chars"
-                          >
-                            <AnimatedText text={t('atext')} />
-                          </span>
-                        </h1>
-                      </div>
-                      {/* End Page Title */}
-                    </div>
-                  </div>
-                  {/* End Section Content */}
-                </div>
-              </ParallaxContainer>
-            </section>
-            <section className="page-section">
-              <Blogs2 />
-            </section>
-          </main>
-          <Footer1 />
-        </div>{" "}
-      </div>
-    </>
+    <main id="main" className="tb-content" aria-label="Blog">
+      <BlogHero locale={params.locale} />
+      <section className="sec tight blog-sec">
+        <div className="wrap">
+          <BlogPosts />
+        </div>
+      </section>
+    </main>
   );
 }

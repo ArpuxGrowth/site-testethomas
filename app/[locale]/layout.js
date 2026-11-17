@@ -1,16 +1,22 @@
 import Script from "next/script";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import "swiper/css";
-import "../../public/assets/css/styles.css";
-import "jarallax/dist/jarallax.min.css";
-import "swiper/css/effect-fade";
-import "react-modal-video/css/modal-video.css";
-import "photoswipe/dist/photoswipe.css";
-import "tippy.js/dist/tippy.css";
+import { Inter, Playfair_Display, Cormorant_Garamond, Bodoni_Moda } from "next/font/google";
+import "../styles/tb.css";
 import { routing } from "@/i18n/routing";
 import { SITE_URL, JsonLd, physicianJsonLd } from "@/lib/seo";
 import ClientShell from "./ClientShell";
+
+// Fontes do visual novo, servidas pelo próprio site (sem bloquear a renderização)
+const inter = Inter({ subsets: ["latin"], weight: ["300", "400", "500", "600"], variable: "--font-inter", display: "swap" });
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["500"], style: ["normal", "italic"], variable: "--font-playfair", display: "swap" });
+const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "500"], style: ["italic"], variable: "--font-cormorant", display: "swap" });
+const bodoni = Bodoni_Moda({ subsets: ["latin"], weight: ["500"], variable: "--font-bodoni", display: "swap" });
+
+// Aplica o tema (claro/escuro) antes da pintura, sem piscar
+const THEME_SCRIPT = `(function(){var t;try{t=localStorage.getItem("tb-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t)})();`;
+
+export const viewport = { themeColor: "#13213d" };
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -33,10 +39,14 @@ export default async function RootLayout({ children, params: { locale } }) {
   }
 
   return (
-    <html lang={locale === "pt" ? "pt-BR" : "en"} className="no-mobile no-touch ">
+    <html
+      lang={locale === "pt" ? "pt-BR" : "en"}
+      className={`${inter.variable} ${playfair.variable} ${cormorant.variable} ${bodoni.variable}`}
+      suppressHydrationWarning
+    >
       <head>
-        {/* ———————————————— */}
-        {/* 1) GTM snippet */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        {/* GTM */}
         <Script
           id="gtm-head"
           strategy="afterInteractive"
@@ -48,34 +58,8 @@ export default async function RootLayout({ children, params: { locale } }) {
              })(window,document,'script','dataLayer','GTM-5TTZF69D');`,
           }}
         />
-        {/* ———————————————— */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,400;1,500&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500&family=Poppins&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
-          rel="stylesheet"
-        />
-        {/* ———————————————— */}
       </head>
-      <body className="appear-animate body">
+      <body>
         <JsonLd data={physicianJsonLd} />
         <ClientShell locale={locale} messages={messages}>
           {children}

@@ -1,8 +1,4 @@
-import Footer1 from "@/components/footers/Footer1";
-
 import { getTranslations } from 'next-intl/server';
-
-import ParallaxContainer from "@/components/common/ParallaxContainer";
 
 // Metadados: título com "em São Paulo" (termo buscado), canonical, hreflang e Open Graph
 export async function generateMetadata({ params }) {
@@ -26,11 +22,13 @@ export async function generateMetadata({ params }) {
   });
 }
 
-import Header1Multipage from "@/components/headers/Header1Multipage";
-import AnimatedText from "@/components/common/AnimatedText";
-import { menuItems2 } from "@/data/menu";
 import { surgeriesItems } from "@/data/surgeries";
-import ScheduleButton from "@/components/buttons/ScheduleButton";
+import PageHero from "@/components/tb/PageHero";
+import Faq from "@/components/tb/Faq";
+import CtaBand from "@/components/tb/CtaBand";
+import ScheduleButton from "@/components/tb/ScheduleButton";
+import { ArrowLeft, Arrow } from "@/components/tb/Icons";
+import "@/app/styles/surgeries.css";
 import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { createClient, getAllBlogPostSummaries } from "@/prismicio";
@@ -82,152 +80,93 @@ export default async function SurgerieItemPage1({ params }) {
       { name: translatedTitle, url: pageUrl },
     ]);
 
+    const en = params.locale === "en";
+    const face = surgeriesPort.mix === "facials";
+    const tItems = await getTranslations({ locale: params.locale, namespace: "surgeriesItems" });
+    const sameGroup = surgeriesItems.filter((item) => item.mix === surgeriesPort.mix);
+
   return (
-    <>
-      <div className="theme-main">
-        <div className="page " id="top">
-          <nav className="main-nav transparent stick-fixed wow-menubar">
-            <Header1Multipage links={menuItems2} defaultButtonColor="black" />
-          </nav>
-          <JsonLd data={procedureJsonLd} />
-          <JsonLd data={breadcrumb} />
-          {faq.length > 0 && <JsonLd data={faqJsonLd(faq)} />}
-          <main id="main">
-            <section className="page-section pt-0 pb-0" id="home">
-              <ParallaxContainer
-                className="page-section bg-gray-light-1 bg-light-alpha-80 parallax-5"
-                style={{
-                  backgroundImage:
-                    `url(${surgeriesPort.imgSrc})`,
-                }}
-              >
-                <div className="container position-relative pt-30 pt-sm-50">
-                  {/* Section Content */}
-                  <div className="text-center">
-                    <div className="row">
-                      {/* Page Title */}
-                      <div className="col-md-8 offset-md-2">
-                        <div className="mb-20">
-                          <Link
-                            href="/cirurgias"
-                            className="btn btn-mod btn-small btn-border btn-circle"
-                            data-btn-animate="y"
-                          >
-                            <i className="mi-arrow-left align-center size-18" />{" "}
-                            {t('i')}
-                          </Link>
-                        </div>
-                        <h1 className="hs-title-1 mb-20">
-                          <span
-                            className="wow charsAnimIn"
-                            data-splitting="chars"
-                          >
-                            <AnimatedText text={translatedTitle} />
-                          </span>
-                        </h1>
-                        <div className="row">
-                          <div className="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                            <p
-                              className="section-title-descr mb-0 wow fadeIn"
-                              data-wow-delay="0.2s"
-                              data-wow-duration="1.2s"
-                            >
-                              {translatedDescr}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      {/* End Page Title */}
-                    </div>
-                  </div>
-                  {/* End Section Content */}
-                </div>
-              </ParallaxContainer>
-            </section>
+    <main id="main" className="sg-page">
+      <JsonLd data={procedureJsonLd} />
+      <JsonLd data={breadcrumb} />
+      {faq.length > 0 && <JsonLd data={faqJsonLd(faq)} />}
 
-            {/* Section */}
-            <section className="page-section">
-              <div className="container position-relative">
-                {<div
-                    dangerouslySetInnerHTML={{ __html: translatedContent }}
-                />}
-              </div>
-            </section>
-            {/* End Section */}
+      <PageHero
+        image={surgeriesPort.imgSrc}
+        imagePos="50% 35%"
+        eyebrow={en ? (face ? "Facial surgery" : "Body surgery") : face ? "Cirurgia facial" : "Cirurgia corporal"}
+        title={translatedTitle}
+        lead={translatedDescr}
+        crumbs={[
+          { href: "/", label: "Dr. Thomas Benson" },
+          { href: "/cirurgias", label: en ? "Surgeries" : "Cirurgias" },
+          { label: translatedTitle },
+        ]}
+      >
+        <div className="sg-hero-act">
+          <ScheduleButton />
+          <Link href="/cirurgias" className="back clear glass">
+            <ArrowLeft width={14} height={14} /> {t("i")}
+          </Link>
+        </div>
+      </PageHero>
 
+      <section className="sec sg-body">
+        <div className="wrap">
+          <div className="narrow">
+            <div className="prose sg-prose" dangerouslySetInnerHTML={{ __html: translatedContent }} />
             {extraContent && (
-              <section className="page-section pt-0">
-                <div className="container position-relative">
-                  <div className="row">
-                    <div className="col-lg-10" dangerouslySetInnerHTML={{ __html: extraContent }} />
-                  </div>
-                </div>
-              </section>
+              <div className="prose sg-prose sg-extra" dangerouslySetInnerHTML={{ __html: extraContent }} />
             )}
 
             {faq.length > 0 && (
-              <section className="page-section pt-0">
-                <div className="container position-relative">
-                  <h2 className="mb-30">Perguntas frequentes sobre {translatedTitle}</h2>
-                  <div className="row">
-                    <div className="col-lg-10">
-                      {faq.map(({ question, answer }) => (
-                        <div key={question} className="mb-30">
-                          <h3 className="h5 mb-10">{question}</h3>
-                          <p className="mb-0">{answer}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </section>
+              <div className="sg-faq">
+                <h2 className="h2">Perguntas frequentes sobre {translatedTitle}</h2>
+                <Faq items={faq.map(({ question, answer }) => ({ q: question, a: answer }))} headingLevel={3} />
+              </div>
             )}
 
             {/* Artigos relacionados (links internos para o blog) */}
             {relatedPosts.length > 0 && (
-              <section className="page-section pt-0">
-                <div className="container position-relative">
-                  <h2 className="h3 mb-30">
-                    {params.locale === "pt" ? `Artigos sobre ${translatedTitle}` : `Articles about ${translatedTitle}`}
-                  </h2>
-                  <ul className="list-unstyled mb-0">
-                    {relatedPosts.map((post) => (
-                      <li key={post.id} className="mb-10">
-                        <Link href={`/blog/${post.uid}`} locale="pt">
-                          {post.data.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </section>
+              <div className="sg-related">
+                <h2 className="h2">
+                  {params.locale === "pt" ? `Artigos sobre ${translatedTitle}` : `Articles about ${translatedTitle}`}
+                </h2>
+                <ul className="list-links">
+                  {relatedPosts.map((post) => (
+                    <li key={post.id}>
+                      <Link href={`/blog/${post.uid}`} locale="pt" className="card soft">
+                        <span>{post.data.title}</span>
+                        <Arrow width={16} height={16} />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
 
-            {/* Divider */}
-            <hr className="mt-0 mb-0" />
-            {/* End Divider */}
+            {/* Todas as cirurgias da mesma categoria (a atual fica marcada) */}
+            <nav className="sg-nav" aria-label={en ? (face ? "Facial surgeries" : "Body surgeries") : face ? "Cirurgias faciais" : "Cirurgias corporais"}>
+              <p className="eyebrow">{en ? (face ? "Facial surgeries" : "Body surgeries") : face ? "Cirurgias faciais" : "Cirurgias corporais"}</p>
+              <ul className="chips">
+                {sameGroup.map((item) => (
+                  <li key={item.url}>
+                    <Link
+                      href={`/cirurgias/${item.url}`}
+                      className="chip glass"
+                      aria-current={item.url === surgeriesPort.url ? "page" : undefined}
+                    >
+                      {tItems(`${item.id}.title`)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </section>
 
-            {/* Section */}
-            <section className="page-section">
-            <div className="container relative">
-                <div className="row text-center wow fadeInUp">
-                <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                    <p className="section-descr mb-50 mb-sm-30">
-                    {t('p')}
-                    </p>
-                    <div className="local-scroll">
-                    <ScheduleButton />
-                    </div>
-                </div>
-                </div>
-            </div>
-            </section>
-            {/* End Section */}
-
-          </main>
-          <Footer1 />
-        </div>{" "}
-      </div>
-    </>
+      <CtaBand text={t("p")} />
+    </main>
   );
 }

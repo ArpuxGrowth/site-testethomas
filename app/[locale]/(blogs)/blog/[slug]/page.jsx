@@ -1,15 +1,15 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
-import Footer1 from "@/components/footers/Footer1";
-import Header1Multipage from "@/components/headers/Header1Multipage";
-import { menuItems2 } from "@/data/menu";
-import BlogWidget2 from "@/components/blog/widgets/BlogWidget2";
+import BlogSidebar from "@/components/tb/content/BlogSidebar";
+import { slimPost } from "@/components/tb/content/blogUtils";
+import PageHero from "@/components/tb/PageHero";
+import CtaBand from "@/components/tb/CtaBand";
+import { ArrowLeft, Arrow } from "@/components/tb/Icons";
+import "@/app/styles/content.css";
 import { Link } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { createClient, getAllBlogPostSummaries } from "@/prismicio";
 import { asHTML, asText } from "@prismicio/client";
-import ParallaxContainer from "@/components/common/ParallaxContainer";
-import ScheduleButton from "@/components/buttons/ScheduleButton";
+import ScheduleButton from "@/components/tb/ScheduleButton";
 import { surgeryForPost, postsForSurgery } from "@/data/surgerySeo";
 import { surgeriesItems } from "@/data/surgeries";
 import {
@@ -82,7 +82,10 @@ export default async function BlogPostPage({ params }) {
   const title = post.data.title;
   const date = post.data.date || post.first_publication_date?.slice(0, 10);
   const cover_image = post.data.cover_image?.url;
-  const content = asHTML(post.data.content);
+  // Títulos "Heading 1" dentro do texto viram <h2>: a página fica com um único <h1> (o título do post)
+  const content = asHTML(post.data.content, {
+    serializer: { heading1: ({ children }) => `<h2>${children}</h2>` },
+  });
 
   // Cirurgia relacionada ao post e outros artigos do mesmo tema (links internos)
   const surgeryUrl = surgeryForPost(title);
@@ -120,124 +123,102 @@ export default async function BlogPostPage({ params }) {
 
   const t = await getTranslations('BlogSlug');
 
+  const en = params.locale === "en";
+
   return (
     <>
       <JsonLd data={articleJsonLd} />
       <JsonLd data={breadcrumb} />
       {faq.length > 0 && <JsonLd data={faqJsonLd(faq)} />}
-      <div className="theme-main">
-        <div className="page" id="top">
-          <nav className="main-nav transparent stick-fixed wow-menubar">
-            <Header1Multipage links={menuItems2} defaultButtonColor="black" />
-          </nav>
-          <main id="main">
-            <section className="page-section pt-0 pb-0" id="home">
-              <ParallaxContainer
-                className="page-section bg-gray-light-1 bg-light-alpha-90 parallax-5"
-                style={{
-                  backgroundImage: `url(${cover_image})`,
-                }}
-              >
-                {/* Section Content */}
-                <div className="container position-relative pt-30 pt-sm-50">
-                  <div className="text-center">
-                    <div className="row">
-                      <div className="col-md-8 offset-md-2">
-                        <div className="mb-20">
-                          <Link
-                            href="/blog"
-                            className="btn btn-mod btn-small btn-border btn-circle"
-                            data-btn-animate="y"
-                          >
-                            <i className="mi-arrow-left align-center size-18" />{" "}
-                            {t('i')}
-                          </Link>
-                        </div>
-                        <h1 className="hs-title-1 mb-20">{title}</h1>
-                        <div
-                          className="blog-item-data mt-30 mt-sm-10 mb-0 wow fadeInUp"
-                          data-wow-delay="0.2s"
-                        >
-                          <div className="d-inline-block me-3">
-                            <i className="mi-clock size-16"></i>
-                            <span className="visually-hidden">Data:</span>{" "}
-                            <time dateTime={date}>{date}</time>
-                          </div>
-                          <div className="d-inline-block me-3">
-                            <Link href="/dr-thomas">
-                              <i className="mi-user size-16"></i>
-                              <span className="visually-hidden">Autor:</span> Dr. Thomas Benson
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ParallaxContainer>
-            </section>
+      <main id="main" className="tb-content">
+        <PageHero
+          crumbs={[
+            { href: "/", label: en ? "Home" : "Início" },
+            { href: "/blog", label: "Blog" },
+            { href: `/blog/${post.uid}`, label: title },
+          ]}
+          title={title}
+        >
+          <div className="post-meta">
+            <span>
+              <span className="vh">Data:</span>
+              <time dateTime={date}>{date}</time>
+            </span>
+            <span aria-hidden="true">·</span>
+            <Link href="/dr-thomas">
+              <span className="vh">Autor:</span> Dr. Thomas Benson
+            </Link>
+          </div>
+          <div className="press-back">
+            <Link href="/blog" className="btn clear">
+              <ArrowLeft width={16} height={16} /> {t('i')}
+            </Link>
+          </div>
+        </PageHero>
 
-            {/* Conteúdo do Post */}
-            <section className="page-section">
-              <div className="container relative">
-                <div className="row">
-                  <div className="col-md-8 mb-sm-80">
-                    <article className="blog-item mb-80 mb-xs-40">
-                      <div className="blog-item-body">
-                        <div className="blog-media mb-40 mb-xs-30">
-                          <Image
-                            src={cover_image}
-                            width={1350}
-                            height={865}
-                            alt={post.data.cover_image?.alt || title}
-                          />
-                        </div>
-                        <div dangerouslySetInnerHTML={{ __html: content }} />
-                      </div>
-                    </article>
+        {/* Conteúdo do Post */}
+        <section className="sec tight post-sec">
+          <div className="wrap post-layout">
+            <div className="post-main">
+              <article className="card soft box post-article">
+                {cover_image && (
+                  <img
+                    className="post-cover"
+                    src={cover_image}
+                    width={1350}
+                    height={865}
+                    alt={post.data.cover_image?.alt || title}
+                    fetchPriority="high"
+                  />
+                )}
+                <div className="prose" dangerouslySetInnerHTML={{ __html: content }} />
+              </article>
 
-                    {/* Cirurgia relacionada: leva o leitor (e o Google) para a página do procedimento */}
-                    {surgery && (
-                      <aside className="bg-gray-light-1 round p-4 mb-40">
-                        <h2 className="h4 mb-10">
-                          {surgery.title} em São Paulo com o Dr. Thomas Benson
-                        </h2>
-                        <p className="mb-20">
-                          Conheça a técnica, as indicações e a recuperação na página da{" "}
-                          <Link href={`/cirurgias/${surgery.url}`} locale="pt">
-                            cirurgia de {surgery.title}
-                          </Link>
-                          .
-                        </p>
-                        <ScheduleButton />
-                      </aside>
-                    )}
+              {/* Cirurgia relacionada: leva o leitor (e o Google) para a página do procedimento */}
+              {surgery && (
+                <aside className="card soft box post-surgery">
+                  <p className="eyebrow">{en ? "Related surgery" : "Cirurgia relacionada"}</p>
+                  <h2 className="h2">
+                    {surgery.title} em São Paulo com o Dr. Thomas Benson
+                  </h2>
+                  <p className="body">
+                    Conheça a técnica, as indicações e a recuperação na página da{" "}
+                    <Link href={`/cirurgias/${surgery.url}`} locale="pt">
+                      cirurgia de {surgery.title}
+                    </Link>
+                    .
+                  </p>
+                  <ScheduleButton trackingLocation="content" />
+                </aside>
+              )}
 
-                    {relatedPosts.length > 0 && (
-                      <nav aria-label="Artigos relacionados">
-                        <h2 className="h4 mb-20">Leia também</h2>
-                        <ul className="list-unstyled">
-                          {relatedPosts.map((related) => (
-                            <li key={related.id} className="mb-10">
-                              <Link href={`/blog/${related.uid}`} locale="pt">
-                                {related.data.title}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </nav>
-                    )}
-                  </div>
-                  <div className="col-md-4 col-lg-3 offset-lg-1">
-                    <BlogWidget2 posts={posts} searchInputClass="form-control input-lg search-field round" />
-                  </div>
-                </div>
-              </div>
-            </section>
-          </main>
-          <Footer1 />
-        </div>
-      </div>
+              {relatedPosts.length > 0 && (
+                <nav aria-label="Artigos relacionados" className="post-related">
+                  <h2 className="h2">Leia também</h2>
+                  <ul className="list-links">
+                    {relatedPosts.map((related) => (
+                      <li key={related.id}>
+                        <Link href={`/blog/${related.uid}`} locale="pt" className="card soft">
+                          <span>{related.data.title}</span>
+                          <Arrow width={16} height={16} />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              )}
+            </div>
+            <aside className="post-side" aria-label={en ? "Blog sidebar" : "Barra lateral do blog"}>
+              <BlogSidebar posts={posts.map(slimPost)} />
+            </aside>
+          </div>
+        </section>
+
+        <CtaBand
+          text={en ? "Schedule your appointment now with Dr. Thomas Benson." : "Agende agora mesmo seu horário com o Dr. Thomas Benson."}
+          trackingLocation="content"
+        />
+      </main>
     </>
   );
 }

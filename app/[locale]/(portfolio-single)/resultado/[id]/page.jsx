@@ -1,14 +1,10 @@
 import { pageMetadata, clampDescription } from "@/lib/seo";
-import Footer1 from "@/components/footers/Footer1";
-import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
-import ParallaxContainer from "@/components/common/ParallaxContainer";
-
-import Header1Multipage from "@/components/headers/Header1Multipage";
-import AnimatedText from "@/components/common/AnimatedText";
-import { menuItems2 } from "@/data/menu";
-import RelatedProject10 from "@/components/portfolio/relatedProjects/RelatedProject10";
+import Carousel from "@/components/tb/results/Carousel";
+import { PageBg, RelatedResults, ResultNav } from "@/components/tb/results/ResultsSections";
+import { ArrowLeft } from "@/components/tb/Icons";
+import "@/app/styles/results.css";
 import { allPortfolios } from "@/data/portfolio";
 import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
@@ -56,231 +52,61 @@ export default function MainPortfolioSinglePage1({ params }) {
 
   const procedures = tr(portfolioItem.proceduresKey);
   const descriptionInt = tr(portfolioItem.descriptionIntKey);
-  
+  const en = params.locale === "en";
+  const slides = (portfolioItem.images || []).map((src, index) => ({
+    src,
+    alt: `Imagem ${index + 1} do portfólio`,
+    w: 1350,
+    h: 865,
+  }));
+
   return (
-    <>
-      <div className="theme-main">
-        <div className="page" id="top">
-          <nav className="main-nav transparent stick-fixed wow-menubar">
-            <Header1Multipage links={menuItems2} defaultButtonColor="black" />
-          </nav>
-          <main id="main">
-            <section className="page-section pt-0 pb-0" id="home">
-              <ParallaxContainer
-                className="page-section bg-gray-light-1 bg-light-alpha-80 parallax-5"
-                style={{
-                  backgroundImage:
-                    `url(${portfolioItem.bannerPort})`,
-                }}
-              >
-                <div className="container position-relative pt-30 pt-sm-50">
-                  {/* Section Content */}
-                  <div className="text-center">
-                    <div className="row">
-                      {/* Page Title */}
-                      <div className="col-md-8 offset-md-2">
-                        <div className="mb-20">
-                          <Link
-                            href="/"
-                            className="btn btn-mod btn-small btn-border btn-circle"
-                            data-btn-animate="y"
-                          >
-                            <i className="mi-arrow-left align-center size-18" />{" "}
-                            {t('i')}
-                          </Link>
-                        </div>
-                        <h1 className="hs-title-1 mb-20">
-                          <span
-                            className="wow charsAnimIn"
-                            data-splitting="chars"
-                          >
-                            <AnimatedText text={t('atext')} />
-                          </span>
-                        </h1>
-                        <div className="row">
-                          <div className="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                            <p
-                              className="section-descr mb-0 wow fadeIn"
-                              data-wow-delay="0.2s"
-                              data-wow-duration="1.2s"
-                            >
-                              {t('p')}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      {/* End Page Title */}
-                    </div>
-                  </div>
-                  {/* End Section Content */}
-                </div>
-              </ParallaxContainer>
-            </section>
-            <>
-            
-              {/* Section */}
-              <section className="page-section">
-                <div className="container position-relative">
-                  <div className="row">
-                    {/* Project Details */}
-                    <div className="col-md-4 mb-sm-40 wow fadeInUp">
-                      <div className="block-sticky">
-                        <h2 className="h3 mb-20">{t('h2')}</h2>
-                        <hr className="mb-20" />
-                        {/* <div className="row text-gray small">
-                          <div className="col-sm-4">
-                            <b>Data:</b>
-                          </div>
-                          <div className="col-sm-8"> </div>
-                        </div>
-                        <hr className="mb-20" />
-                        <div className="row text-gray small">
-                          <div className="col-sm-4">
-                            <b>Paciente:</b>
-                          </div>
-                          <div className="col-sm-8"> </div>
-                        </div>
-                        <hr className="mb-20" /> */}
-                        <div className="row text-gray small">
-                          <div className="col-sm-4">
-                            <b>{t('proceduresb')}</b>
-                          </div>
-                          <div className="col-sm-8">
-                            {procedures}
-                          </div>
-                        </div>
-                        <hr className="mb-20" />
-                        <div className="text-gray small">
-                          <div>
-                            <b>{t('descriptionb')}</b>
-                          </div>
-                          {<div
-                            dangerouslySetInnerHTML={{ __html: tr.raw(descriptionInt) }}
-                          />}
-                        </div>
-                        <hr className="mb-20" />
-                      </div>
-                    </div>
-                    {/* End Project Details */}
-                    <div className="col-md-8">
-                      <div className="mb-n30">
-                      {portfolioItem.images && portfolioItem.images.length > 0 ? (
-                        portfolioItem.images.map((image, index) => (
-                          <div className="mb-30 wow fadeInUp" key={index}>
-                            <Image
-                              src={image}
-                              alt={`Imagem ${index + 1} do portfólio`}
-                              width={1350}
-                              height={865}
-                            />
-                          </div>
-                        ))
-                      ) : (
-                        <p className="mb-30 wow text-gray fadeInUp align-center">{t('p_2')}</p>
-                      )}
-                        {/* Old Photo Item Mold
-                        {/* Photo Item
-                        <div className="mb-30 wow fadeInUp">
-                          <Image
-                            src="/assets/images/portfolio/full-resultado1-1.jpg"
-                            alt="Image Description"
-                            width={1350}
-                            height={865}
-                          />
-                        </div>
-                        {/* End Photo Item
-                        {/* Photo Item
-                        <div className="mb-30 wow fadeInUp">
-                          <Image
-                            src="/assets/images/portfolio/full-resultado1-2.jpg"
-                            alt="Image Description"
-                            width={1350}
-                            height={865}
-                          />
-                        </div>
-                        {/* End Photo Item
-                        {/* Photo Item
-                        <div className="mb-30 wow fadeInUp">
-                          <Image
-                            src="/assets/images/portfolio/full-resultado1-3.jpg"
-                            alt="Image Description"
-                            width={1350}
-                            height={865}
-                          />
-                        </div>
-                        {/* End Photo Item
-                        {/* Photo Item
-                        <div className="mb-30 wow fadeInUp">
-                          <Image
-                            src="/assets/images/portfolio/full-resultado1-4.jpg"
-                            alt="Image Description"
-                            width={1350}
-                            height={865}
-                          />
-                        </div>
-                        {/* End Photo Item
-                         */}
-                        
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              {/* End Section */}
+    <main id="main" className="rpage">
+      <PageBg src={portfolioItem.bannerPort} />
+      <section className="phero c rs-hero">
+        <div className="wrap">
+          <Link href="/" className="btn clear rs-back">
+            <ArrowLeft width={16} height={16} /> {t('i')}
+          </Link>
+          <h1>{t('atext')}</h1>
+          <p className="body lead" style={{ fontSize: 18 }}>{t('p')}</p>
+        </div>
+      </section>
 
-              {/* Divider */}
-              <hr className="mt-0 mb-0" />
-              {/* End Divider */}
-
-              {/* Section */}
-              <section className="page-section">
-                <RelatedProject10 />
-              </section>
-              {/* End Section */}
-
-              {/* Divider */}
-              <hr className="mt-0 mb-0" />
-              {/* End Divider */}
-
-              {/* Work Navigation */}
-              <div className="work-navigation clearfix">
-                {/* Link para o item anterior */}
-                <Link
-                  href={`/resultado/${
-                    portfolioItem.id - 1 < 7 ? 11 : portfolioItem.id - 1
-                  }`}
-                  className="work-prev"
-                >
-                  <span>
-                    <i className="mi-arrow-left size-24 align-middle" /> {t('ibefore')}
-                  </span>
-                </Link>
-
-                {/* Link para todos os resultados */}
-                <Link href="/antes-e-depois/#results" className="work-all">
-                  <span>
-                    <i className="mi-close size-24 align-middle" /> {t('iall')}
-                  </span>
-                </Link>
-
-                {/* Link para o próximo item */}
-                <Link
-                  href={`/resultado/${
-                    portfolioItem.id + 1 > 11 ? 7 : portfolioItem.id + 1
-                  }`}
-                  className="work-next"
-                >
-                  <span>
-                    {t('iafter')} <i className="mi-arrow-right size-24 align-middle" />
-                  </span>
-                </Link>
+      <section className="sec tight" style={{ paddingTop: 0 }}>
+        <div className="wrap rs-detail">
+          <aside className="card soft rs-info">
+            <h2 className="h2" style={{ fontSize: 30 }}>{t('h2')}</h2>
+            <dl>
+              <dt>{t('proceduresb')}</dt>
+              <dd>{procedures}</dd>
+            </dl>
+            <div className="rs-desc">
+              <b className="rs-label">{t('descriptionb')}</b>
+              <div className="prose" dangerouslySetInnerHTML={{ __html: tr.raw(descriptionInt) }} />
+            </div>
+          </aside>
+          <div className="rs-photos">
+            {slides.length > 0 ? (
+              <div className="post">
+                <Carousel
+                  slides={slides}
+                  ratio="1350/865"
+                  eager
+                  prevLabel={en ? "Previous photo" : "Foto anterior"}
+                  nextLabel={en ? "Next photo" : "Próxima foto"}
+                />
               </div>
+            ) : (
+              <p className="body">{t('p_2')}</p>
+            )}
+          </div>
+        </div>
+      </section>
 
-            </>
-          </main>
-          <Footer1 />
-        </div>{" "}
-      </div>
-    </>
+      <RelatedResults />
+
+      <ResultNav id={portfolioItem.id} />
+    </main>
   );
 }
