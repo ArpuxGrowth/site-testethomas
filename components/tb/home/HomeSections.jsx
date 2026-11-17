@@ -41,11 +41,14 @@ export function HomeHero() {
   return (
     <section className="sec split hero" id="inicio">
       <div className="glow"></div>
-      <div className="photo"><img src="/assets/images/full-width-images/dr-thomas3.jpg" alt="" fetchPriority="high" /></div>
+      <div className="photo"><img src="/assets/images/full-width-images/dr-thomas-capa.jpg" alt="Dr. Thomas Benson, cirurgião plástico em São Paulo" fetchPriority="high" style={{ objectPosition: "50% 22%" }} /></div>
       <div className="wrap">
         <div className="txt">
           <h2 className="eyebrow">Dr. Thomas Benson</h2>
-          <h1>{t("h1")}</h1>
+          {(() => {
+            const h = t("h1"); const i = h.indexOf(", ");
+            return <h1 className="home-h1">{i > 0 ? <>{h.slice(0, i + 1)} <span className="it">{h.slice(i + 2)}</span></> : h}</h1>;
+          })()}
           <p className="body" style={{ fontSize: 18, marginTop: 24, maxWidth: 520 }}>{t("pdesc")}</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 34 }}>
             <ScheduleButton trackingLocation="hero" />
@@ -157,6 +160,8 @@ export function HomeNumbers() {
   const t = useTranslations("Home");
   return (
     <section className="sec" id="numeros">
+      <img className="bg" src="/assets/images/full-width-images/dr-thomas1.jpg" alt="" loading="lazy" style={{ objectPosition: "75% 30%" }} />
+      <div className="shade num-shade"></div>
       <div className="wrap cols">
         <div>
           <h2 className="h2">{t("ct1h2")}</h2>

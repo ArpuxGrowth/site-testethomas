@@ -39,18 +39,7 @@ export default function SeriesPage({ params: { locale } }) {
       <JsonLd data={seriesJsonLd} />
       <SeriesPlayer locale={locale} />
 
-      <section className="nf-sec" aria-label={pt ? "Sobre a série" : "About the series"} style={{ paddingTop: 150 }}>
-        <div className="wrap">
-          <h2 className="nf-h">{pt ? "Sobre a série" : "About the series"}</h2>
-          <div className="nf-stats">
-            <div className="nf-stat"><span className="n">4</span><b>{pt ? "Pacientes reais" : "Real patients"}</b><p>{pt ? "Da primeira consulta ao resultado final, contado pelas próprias pessoas que viveram o processo. Sem roteiro e sem atores." : "From the first consultation to the final result, told by the people who lived the process. No script and no actors."}</p></div>
-            <div className="nf-stat"><span className="n">6 a 8′</span><b>{pt ? "Episódios curtos" : "Short episodes"}</b><p>{pt ? "Conversa, planejamento, dia da cirurgia, primeiros dias de recuperação e o reencontro com o espelho." : "Conversation, planning, surgery day, the first days of recovery and meeting the mirror again."}</p></div>
-            <div className="nf-stat"><span className="n">SP</span><b>{pt ? "Consultório e hospital" : "Clinic and hospital"}</b><p>{pt ? "Gravado entre o consultório e o Hospital Vila Nova Star, em São Paulo." : "Filmed at the clinic and at Vila Nova Star Hospital, in São Paulo."}</p></div>
-          </div>
-        </div>
-      </section>
-
-      <section className="nf-sec" aria-label={pt ? "Guia dos episódios" : "Episode guide"}>
+      <section className="nf-sec" aria-label={pt ? "Guia dos episódios" : "Episode guide"} style={{ paddingTop: 150 }}>
         <div className="wrap">
           <h2 className="nf-h">{pt ? "Guia dos episódios" : "Episode guide"}</h2>
           <div className="nf-guide">

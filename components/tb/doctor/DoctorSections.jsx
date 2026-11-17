@@ -186,8 +186,17 @@ export function DoctorHospitals({ locale }) {
               <span className="pill gold" style={{ fontSize: 11, letterSpacing: 1.2 }}>{L(locale, "6 ESTRELAS", "6 STARS")}</span>
             </div>
           </div>
-          <div className="soft card hosp"><p>{L(locale, "Hospital Israelita", "Hospital Israelita")}</p><b>Albert Einstein</b></div>
-          <div className="soft card hosp"><p>Hospital</p><b>Sírio-Libanês</b></div>
+          <figure className="soft card dr-hosp-ph">
+            <img src="/assets/images/hospitais/einstein.jpg" alt="Hospital Israelita Albert Einstein, em São Paulo" loading="lazy" />
+            <figcaption><p>Hospital Israelita</p><b>Albert Einstein</b></figcaption>
+            <small className="dr-credit">Foto: Abitu1995, CC BY-SA 4.0</small>
+          </figure>
+          <figure className="soft card dr-hosp-ph">
+            <img src="/assets/images/hospitais/sirio-libanes.jpg" alt="Hospital Sírio-Libanês, em São Paulo" loading="lazy" />
+            <figcaption><p>Hospital</p><b>Sírio-Libanês</b></figcaption>
+            <small className="dr-credit">Foto: Sturm, CC BY-SA 4.0</small>
+          </figure>
+          {/* Moriah: sem foto com licença livre; entra quando a clínica enviar uma */}
           <div className="soft card hosp dr-wide"><p>Hospital</p><b>Moriah</b></div>
         </div>
       </div>
@@ -215,6 +224,8 @@ export function DoctorNumbers() {
   const h = useTranslations("Home");
   return (
     <section className="sec" id="numeros">
+      <img className="bg" src="/assets/images/full-width-images/dr-thomas1.jpg" alt="" loading="lazy" style={{ objectPosition: "75% 30%" }} />
+      <div className="shade num-shade"></div>
       <div className="wrap cols">
         <div>
           <h2 className="h2">{t("ct1h2")}</h2>
