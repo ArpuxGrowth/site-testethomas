@@ -26,12 +26,12 @@ export default async function About2({ params: { locale } }) {
       <DoctorStory locale={locale} />
       <DoctorTimeline locale={locale} />
       <DoctorTitles locale={locale} />
-      <DoctorCare />
+      <DoctorCare locale={locale} />
       <DoctorHospitals locale={locale} />
       <DoctorNumbers />
       <HomePress locale={locale} />
       <DoctorResults locale={locale} />
-      <CtaBand text={t("p2")} trackingLocation="about_cta" />
+      <CtaBand text={t("p2")} trackingLocation="about_cta" bg="/assets/images/full-width-images/thomas-operando.jpg" bgPos="60% 30%" />
       <DoctorVideos />
       <HomeBenefits />
       <DoctorTestimonials locale={locale} />

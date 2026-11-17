@@ -114,7 +114,7 @@ export function HomeVideos() {
   );
 }
 
-export function HomeSafety() {
+export function HomeSafety({ locale }) {
   const t = useTranslations("Service");
   const imgs = [
     ["/assets/images/services/experiencia.jpg", "Dr. Thomas Benson reconhecido internacionalmente"],
@@ -129,17 +129,17 @@ export function HomeSafety() {
     img: imgs[i][0],
     alt: imgs[i][1],
   }));
-  return <SafetyStories id="services" eyebrow={t("h2")} title={t("atext")} items={items} />;
+  return <SafetyStories id="services" eyebrow={t("h2")} title={t("atext")} items={items} locale={locale} moreHref="/dr-thomas" moreLabel={locale === "en" ? "Read Dr. Thomas's full story" : "Conheça a história do Dr. Thomas"} />;
 }
 
 export function HomeClinic() {
   const t = useTranslations("Home");
   return (
     <section className="sec" id="consultorio">
+      <img className="bg" src="/assets/images/full-width-images/clinica-jardim.jpg" alt="Consultório médico particular do Dr. Thomas Benson, em São Paulo" loading="lazy" style={{ objectPosition: "35% 60%" }} />
+      <div className="shade clinic-shade"></div>
       <div className="wrap cols">
-        <figure className="card soft" style={{ margin: 0, padding: 10, borderRadius: 34 }}>
-          <img src="/assets/images/demo-strong/split-clinica-2.jpg" alt="Consultório médico particular do Dr. Thomas Benson, em São Paulo" loading="lazy" style={{ width: "100%", aspectRatio: "1100/930", objectFit: "cover", borderRadius: 26, display: "block" }} />
-        </figure>
+        <div aria-hidden="true"></div>
         <div>
           <h2 className="h2">{t("clinicah2")}</h2>
           <p className="body" style={{ marginTop: 20 }}>{t("clinicap")}</p>
@@ -238,20 +238,25 @@ export function HomeBook() {
 export function HomeHospital() {
   const t = useTranslations("Home");
   return (
-    <section className="sec" id="hospital" style={{ minHeight: "max(640px,86vh)", display: "flex", alignItems: "center" }}>
+    <section className="sec" id="hospital">
       <img className="bg" src="/assets/images/demo-gradient/section-hospital.jpg" alt="" loading="lazy" />
-      <div className="shade" style={{ background: "linear-gradient(90deg,rgba(11,20,40,.15) 0%,rgba(11,20,40,.55) 45%,rgba(11,20,40,.92) 75%)" }}></div>
-      <div className="wrap">
-        <div className="card glass" style={{ marginLeft: "auto", maxWidth: 560, padding: 36, borderRadius: 34 }}>
-          <h2 className="h2">{t("hosph2")}</h2>
-          <p className="body" style={{ marginTop: 18 }}>{t("hospp")}</p>
-          <ul style={{ listStyle: "none", padding: 0, margin: "24px 0 28px", display: "grid", gap: 10 }}>
-            {features2.map((f) => (
-              <li key={f.id} style={{ display: "flex", gap: 10, alignItems: "center" }}><Check width={16} height={16} style={{ color: "var(--gold)" }} />{t.raw(`features2.${f.id}`).text}</li>
-            ))}
-          </ul>
-          <ScheduleButton />
+      <div className="shade hosp-shade"></div>
+      <div className="wrap hosp-cols">
+        <div>
+          <p className="eyebrow">Hospital Vila Nova Star</p>
+          <h2 className="h2" style={{ marginTop: 14 }}>{t("hosph2")}</h2>
+          <p className="body" style={{ marginTop: 18, maxWidth: 520 }}>{t("hospp")}</p>
+          <div style={{ marginTop: 30 }}><ScheduleButton /></div>
         </div>
+        <ul className="hosp-feats">
+          {features2.map((f, k) => (
+            <li key={f.id} className="card glass">
+              <span className="round gold" style={{ width: 40, height: 40 }}><Check width={16} height={16} /></span>
+              <span className="hosp-n">{String(k + 1).padStart(2, "0")}</span>
+              <p>{t.raw(`features2.${f.id}`).text}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
@@ -278,9 +283,12 @@ export function HomeBenefits() {
   return (
     <section className="sec" id="beneficios">
       <div className="wrap">
-        <div className="head">
-          <h2 className="eyebrow">{t("h2")}</h2>
-          <h3 className="h2">{t("h3")}</h3>
+        <div className="ben-head">
+          <div className="head">
+            <h2 className="eyebrow">{t("h2")}</h2>
+            <h3 className="h2">{t("h3")}</h3>
+          </div>
+          <ScheduleButton trackingLocation="benefits" />
         </div>
         <div className="g3 mt-l">
           {featureItems.map((f) => {

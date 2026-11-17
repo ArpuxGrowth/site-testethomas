@@ -24,14 +24,14 @@ export default async function Home({ params: { locale } }) {
       <HomeHero />
       <HomeAbout locale={locale} />
       <HomeVideos />
-      <HomeSafety />
+      <HomeSafety locale={locale} />
       <HomeClinic />
       <HomeNumbers />
       <HomePress locale={locale} />
       <HomeBook />
       <HomeHospital />
       <HomeFaq />
-      <CtaBand text={t("sectionp")} trackingLocation="home_cta" />
+      <CtaBand text={t("sectionp")} trackingLocation="home_cta" bg="/assets/images/full-width-images/thomas-operando.jpg" bgPos="60% 30%" />
       <HomeBenefits />
       <HomeTestimonials />
       <HomeContact />

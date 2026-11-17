@@ -1,11 +1,11 @@
 import { pageMetadata } from "@/lib/seo";
 import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
-import { portfolios1 } from "@/data/portfolio";
 import ScheduleButton from "@/components/tb/ScheduleButton";
 import { HomeVideos } from "@/components/tb/home/HomeSections";
 import ResultsStories from "@/components/tb/results/ResultsStories";
 import { CASES_PT, AVATAR, PAGE_BG } from "@/components/tb/results/cases";
+import { toEnglish } from "@/components/tb/results/casesEn";
 import { PageBg, ScarsSection } from "@/components/tb/results/ResultsSections";
 import "@/app/styles/results.css";
 
@@ -19,42 +19,14 @@ export async function generateMetadata({ params: { locale } }) {
     description: tr("description"),
   });
 }
-// Resultado do site (data/portfolio.js) no formato de caso da página nova
-function fromPortfolio(item, tr, en) {
-  const title = tr(item.proceduresKey).replace(/\.$/, "");
-  const html = tr.raw(item.proceduresKey.replace("procedures", "descriptionInt")) || "";
-  const paras = [...html.matchAll(/<p>([\s\S]*?)<\/p>/g)].map((m) => m[1].trim()).filter(Boolean);
-  const plain = (t) => t.replace(/<[^>]+>/g, "");
-  const photos = [item.imgSrc, ...(item.images || [])].map((src) => ["ab", src]);
-  const cats = ["deep-plane"];
-  if (/neck/i.test(title)) cats.push("deep-neck");
-  if (/blefaro|blephar/i.test(title)) cats.push("blefaro");
-  if (/\bscars\b/.test(item.className)) cats.push("cicatrizes");
-  return {
-    id: `r${item.id}`,
-    href: `/resultado/${item.id}`,
-    label: en ? `Result ${item.id - 6}` : `Resultado ${item.id - 6}`,
-    title,
-    procs: title.split(/\s*[,|]\s*/).filter(Boolean).slice(0, 5),
-    cats,
-    cover: item.imgSrc,
-    fit: "contain",
-    photos,
-    short: plain(paras[0] || item.imgAlt),
-    long: paras.slice(1),
-    story: photos.map(([t, src], k) => [t, src, k === 0 ? title : (en ? "Another <em>angle</em>." : "Outro <em>ângulo</em>."), plain(paras[k] || paras[0] || "")]),
-  };
-}
-
 export default function BeforeAfterPage({ params }) {
   const en = params?.locale === "en";
   const t = useTranslations("BeforeAfter");
-  const tr = useTranslations();
 
-  // pt: os 15 casos do protótipo (7, 8 e 9 já incluídos) + resultados 10 e 11; en: os 5 resultados traduzidos
-  const cases = en
-    ? portfolios1.map((it) => fromPortfolio(it, tr, en))
-    : [...CASES_PT.slice(0, 3), ...portfolios1.filter((it) => it.id >= 10).map((it) => fromPortfolio(it, tr, en)), ...CASES_PT.slice(3)];
+  // Só os casos do Instagram (os 5 casos antigos saíram a pedido do Arthur; continuam nas páginas /resultado/7 a 11,
+  // que seguem linkadas pela página Dr. Thomas e entre si)
+  const ig = CASES_PT.filter((c) => c.ig);
+  const cases = en ? ig.map(toEnglish) : ig;
 
   const cats = en
     ? [["todos", "All"], ["deep-plane", "Deep Plane"], ["deep-neck", "Deep Neck"], ["blefaro", "Blepharoplasty"], ["masculino", "Men"], ["cicatrizes", "Scars"]]

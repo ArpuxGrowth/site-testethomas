@@ -3,7 +3,7 @@ import { Link } from "@/i18n/routing";
 import ScheduleButton from "../ScheduleButton";
 import { Chevron, Play, Arrow } from "../Icons";
 import { Seals } from "../home/HomeSections";
-import DoctorStories from "./DoctorStories";
+import SafetyStories from "../home/SafetyStories";
 import ResultsGrid from "./ResultsGrid";
 import { numberItems } from "@/data/facts";
 import { faqs } from "@/data/faqs";
@@ -96,29 +96,30 @@ export function DoctorTimeline({ locale }) {
       <img className="bg blur" src="/assets/images/services/hospital.jpg" alt="" loading="lazy" />
       <div className="shade sh-std"></div>
       <div className="wrap">
-        <div className="head">
-          <p className="eyebrow">{L(locale, "Trajetória", "Career")}</p>
-          <h2 className="h2">{L(locale, "Do Hospital das Clínicas ao único hospital 6 estrelas do país.", "From Hospital das Clínicas to the only 6-star hospital in Brazil.")}</h2>
+        <div className="dr-tl-head">
+          <div className="head">
+            <p className="eyebrow">{L(locale, "Trajetória", "Career")}</p>
+            <h2 className="h2">{L(locale, "Do Hospital das Clínicas ao único hospital 6 estrelas do país.", "From Hospital das Clínicas to the only 6-star hospital in Brazil.")}</h2>
+          </div>
+          <p className="body">{L(locale, "Formação no Brasil e na Alemanha, residência em Munique e aperfeiçoamento com cirurgiões renomados no Brasil e nos EUA. Hoje, toda essa experiência está a serviço de uma agenda cirúrgica diária em São Paulo.", "Training in Brazil and Germany, residency in Munich and further training with renowned surgeons in Brazil and the USA. Today, all of that experience serves a daily surgical schedule in São Paulo.")}</p>
         </div>
-        <ol className="tlh">
+        <ol className="tlh dr-tlh">
           {TIMELINE.map((s, n) => (
             <li key={n}>
               <span className="tl-dot"></span>
               <div className="soft card tl-card"><p className="tl-k">{s.k[i]}</p><h3>{s.h[i]}</h3><p>{s.p[i]}</p></div>
             </li>
           ))}
-          <li>
-            <span className="tl-dot on"></span>
-            <div className="soft card tl-card dr-tl-now">
-              <div className="dr-tl-img"><img src="/assets/images/services/hospital.jpg" alt="Hospital Vila Nova Star" loading="lazy" /></div>
-              <div style={{ padding: "12px 8px 6px" }}>
-                <p className="tl-k">{L(locale, "Hoje", "Today")}</p>
-                <h3>Vila Nova Star</h3>
-                <p>{L(locale, "Opera de segunda a sábado, sete cirurgias por semana, no único hospital 6 estrelas do Brasil.", "Operates Monday to Saturday, seven surgeries a week, at the only 6-star hospital in Brazil.")}</p>
-              </div>
-            </div>
-          </li>
         </ol>
+        <div className="soft card dr-now">
+          <div className="dr-now-img"><img src="/assets/images/services/hospital.jpg" alt="Hospital Vila Nova Star" loading="lazy" /></div>
+          <div className="dr-now-txt">
+            <p className="tl-k">{L(locale, "Hoje", "Today")}</p>
+            <h3>Vila Nova Star</h3>
+            <p className="body">{L(locale, "Opera de segunda a sábado, sete cirurgias por semana, no único hospital 6 estrelas do Brasil.", "Operates Monday to Saturday, seven surgeries a week, at the only 6-star hospital in Brazil.")}</p>
+            <div style={{ marginTop: 22 }}><ScheduleButton /></div>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -209,7 +210,7 @@ export function DoctorHospitals({ locale }) {
 }
 
 // "Liderança no Brasil" (Serviceabout): lista que avança sozinha com a foto ao lado.
-export function DoctorCare() {
+export function DoctorCare({ locale }) {
   const t = useTranslations("Serviceabout");
   const imgs = [
     ["/assets/images/services/hospital.jpg", "Recepção do Hospital Vila Nova Star"],
@@ -220,7 +221,7 @@ export function DoctorCare() {
   const items = [1, 2, 3, 4].map((n, i) => ({
     kicker: t(`item${n}`), title: t(`servtitle${n}`), text: t(`servp${n}`), img: imgs[i][0], alt: imgs[i][1],
   }));
-  return <DoctorStories id="services" left eyebrow={t("h2")} title={t("atext")} lead={t("p")} items={items} />;
+  return <SafetyStories id="services" left eyebrow={t("h2")} title={t("atext")} lead={t("p")} items={items} locale={locale} />;
 }
 
 export function DoctorNumbers() {

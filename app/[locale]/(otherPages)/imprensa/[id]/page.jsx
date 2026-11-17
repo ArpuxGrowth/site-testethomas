@@ -5,7 +5,6 @@ import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { getTranslations } from 'next-intl/server';
 import CtaBand from "@/components/tb/CtaBand";
-import { pressExcerpt } from "@/components/tb/content/pressText";
 import { ArrowLeft, External } from "@/components/tb/Icons";
 import "@/app/styles/content.css";
 
@@ -52,7 +51,7 @@ export default function PressNewsPage1({ params }) {
   const translatedArticle = t.raw(`PressItems.${pressId}.article`, { defaultValue: pressNews.article });
   const isArticle = [1, 2, 3, 8, 12].includes(pressNews.id); // Matérias em texto; as demais são vídeos
   const en = params.locale === "en";
-  const excerpt = isArticle ? pressExcerpt(translatedArticle) : (en ? "Watch the feature with Dr. Thomas Benson." : "Assista à matéria com o Dr. Thomas Benson.");
+  const excerpt = isArticle ? "" : (en ? "Watch the feature with Dr. Thomas Benson." : "Assista à matéria com o Dr. Thomas Benson.");
 
   return (
     <main id="main" className="tb-content">
@@ -69,7 +68,9 @@ export default function PressNewsPage1({ params }) {
             </nav>
             <p className="eyebrow">{isArticle ? (en ? "Article" : "Matéria") : (en ? "Video" : "Vídeo")}</p>
             <h1>{translatedTitle}</h1>
-            {excerpt && <p className="body press-lead">{excerpt}</p>}
+            {isArticle
+              ? <div className="prose press-full" dangerouslySetInnerHTML={{ __html: translatedArticle }} />
+              : excerpt && <p className="body press-lead">{excerpt}</p>}
             <div className="press-actions">
               {isArticle && pressNews.externalLink ? (
                 <a href={pressNews.externalLink} target="_blank" rel="noopener noreferrer" className="btn gold">{t('a')} <External width={16} height={16} /></a>
@@ -82,13 +83,9 @@ export default function PressNewsPage1({ params }) {
         </div>
       </section>
 
-      <section className="sec tight press-body" id="materia">
-        <div className="wrap narrow">
-          {isArticle ? (
-            <article className="card soft box press-article">
-              <div className="prose" dangerouslySetInnerHTML={{ __html: translatedArticle }} />
-            </article>
-          ) : (
+      {!isArticle && (
+        <section className="sec tight press-body" id="materia">
+          <div className="wrap narrow">
             <div className="press-video card soft">
               <iframe
                 src={pressNews.video}
@@ -98,9 +95,9 @@ export default function PressNewsPage1({ params }) {
                 allowFullScreen
               />
             </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
       <CtaBand text={t('p')} trackingLocation="content" />
     </main>
