@@ -10,7 +10,27 @@ export const SCHEDULE_CONSULTATION_EVENT = "schedule_consultation_clicked";
  */
 export const trackScheduleConsultationClick = (location) => {
   posthog.capture(SCHEDULE_CONSULTATION_EVENT, { location });
+  enviarEventosGA4(location);
 };
+
+// Eventos do GA4 que o GTM esperava por texto de link ("Agendar Consulta", "Marque a sua consulta",
+// "Ir para o WhatsApp"). Como os botões do site são <button>, os gatilhos por clique em link nunca disparavam.
+// O GTM já repassa qualquer evento do dataLayer ao GA4 com o mesmo nome, então mandamos os eventos daqui.
+function enviarEventosGA4(location) {
+  try {
+    window.dataLayer = window.dataLayer || [];
+    if (location === "whatsapp_button") {
+      window.dataLayer.push({ event: "click_botao_wpp_", location });
+      return;
+    }
+    window.dataLayer.push({ event: "click_botao_agendar_consulta", location });
+    if (location === "navbar" || location === "navbar_mobile") {
+      window.dataLayer.push({ event: "click_botao_marque_sua_consulta", location });
+    }
+  } catch {
+    // o rastreamento nunca pode impedir o clique
+  }
+}
 
 // Evento do PostHog disparado quando o formulário do HubSpot é enviado
 export const LEAD_FORM_SUBMITTED_EVENT = "lead_form_submitted";
