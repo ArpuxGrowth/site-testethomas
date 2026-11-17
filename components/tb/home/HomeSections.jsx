@@ -4,6 +4,7 @@ import ScheduleButton from "../ScheduleButton";
 import VideoButton from "../VideoButton";
 import Faq from "../Faq";
 import ReadMore from "../ReadMore";
+import CareerChapters from "./CareerChapters";
 import SafetyStories from "./SafetyStories";
 import { Check, Arrow, Play, Phone, Pin, Star } from "../Icons";
 import { PHONES } from "../site";
@@ -74,8 +75,9 @@ export function HomeAbout({ locale }) {
         <div>
           <p className="eyebrow">{locale === "en" ? "Career" : "Trajetória"}</p>
           <h2 className="h2" style={{ marginTop: 14 }}>{t("abouth2")}</h2>
-          <div style={{ marginTop: 24 }}>
-            <ReadMore html={t.raw("aboutp")} keep={1} style={{ fontSize: 16.5 }}
+          <CareerChapters locale={locale} />
+          <div style={{ marginTop: 6 }}>
+            <ReadMore html={t.raw("aboutp")} keep={0} style={{ fontSize: 16 }}
               more={locale === "en" ? "Read the full story" : "Ler a história completa"} less={locale === "en" ? "Show less" : "Mostrar menos"} />
           </div>
           <div style={{ marginTop: 18, display: "flex", gap: 12, flexWrap: "wrap" }}>

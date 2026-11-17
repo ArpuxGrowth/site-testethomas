@@ -26,8 +26,8 @@ export default async function Home({ params: { locale } }) {
       <HomeVideos />
       <HomeSafety locale={locale} />
       <HomeClinic locale={locale} />
-      <HomeNumbers />
       <HomePress locale={locale} />
+      <HomeNumbers />
       <HomeBook />
       <HomeHospital />
       <HomeFaq />
