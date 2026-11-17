@@ -72,11 +72,10 @@ export default function PressNewsPage1({ params }) {
               ? <div className="prose press-full" dangerouslySetInnerHTML={{ __html: translatedArticle }} />
               : excerpt && <p className="body press-lead">{excerpt}</p>}
             <div className="press-actions">
-              {isArticle && pressNews.externalLink ? (
+              {isArticle && pressNews.externalLink && (
                 <a href={pressNews.externalLink} target="_blank" rel="noopener noreferrer" className="btn gold">{t('a')} <External width={16} height={16} /></a>
-              ) : (
-                <a href="#materia" className="btn gold">{en ? "Watch" : "Assistir"}</a>
               )}
+              {!isArticle && <a href="#materia" className="btn gold">{en ? "Watch" : "Assistir"}</a>}
               <Link href="/imprensa" className="btn clear"><ArrowLeft width={16} height={16} /> {t('i')}</Link>
             </div>
           </div>
