@@ -196,8 +196,12 @@ export function DoctorHospitals({ locale }) {
             <figcaption><p>Hospital</p><b>Sírio-Libanês</b></figcaption>
             <small className="dr-credit">Foto: Sturm, CC BY-SA 4.0</small>
           </figure>
-          {/* Moriah: sem foto com licença livre; entra quando a clínica enviar uma */}
-          <div className="soft card hosp dr-wide"><p>Hospital</p><b>Moriah</b></div>
+          {/* Moriah: foto institucional do próprio hospital (hospitalmoriah.com.br), com crédito */}
+          <figure className="soft card dr-hosp-ph dr-wide">
+            <img src="/assets/images/hospitais/moriah.jpg" alt="Átrio principal do Hospital Moriah, em São Paulo" loading="lazy" style={{ objectPosition: "60% 50%" }} />
+            <figcaption><p>Hospital</p><b>Moriah</b></figcaption>
+            <small className="dr-credit">Foto: Hospital Moriah</small>
+          </figure>
         </div>
       </div>
     </section>
