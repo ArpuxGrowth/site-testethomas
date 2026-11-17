@@ -30,3 +30,20 @@ redirects 301 do blog, Prismic, PostHog, GTM e WhatsApp continuam os mesmos.
 ## Fora do código
 - Uma tag do TikTok no Google Tag Manager escreve o próprio ID ("D3P91T3C77U816ES14E0") como texto
   no fim do `<body>`. Acontece também no site atual; corrigir a tag no GTM.
+
+## Rastreamento (conferido em 17/11/2026)
+- PostHog: mesmos eventos do site antigo (`$pageview`, `schedule_consultation_clicked`, `whatsapp_clicked`,
+  `lead_form_submitted`) e mesmo campo `ph_session_id` no formulário do HubSpot. O projeto "Dr. Thomas Benson"
+  não tem ações por seletor nem insights que dependam do layout.
+- A propriedade `location` ganhou valores mais detalhados (antes: navbar, hero, whatsapp_button, content).
+  Novos: navbar_mobile, home_cta, about_cta, benefits, contact, testimonials, results_case, results_story, serie.
+  Os scripts do mini (atribuição, relatório de leads, CAPI da Meta) só registram o valor, não filtram por ele.
+- GTM (GTM-5TTZF69D): dataLayer igual (`whatsappClick`, `hubspotFormSubmit`, `videoModalOpen`), GA4, Meta,
+  rolagem e cliques nos links das cirurgias seguem funcionando.
+- Fora do código, para ajustar no GTM: (1) a tag HTML personalizada que contém só o ID do TikTok
+  ("D3P91T3C77U816ES14E0") escreve esse texto no fim de todas as páginas; (2) os gatilhos por texto de link
+  "Agendar Consulta", "Marque a sua consulta" e "Ir para o WhatsApp" não disparam (os botões são <button>,
+  já no site atual); o clique no WhatsApp já chega ao GA4 pelo evento `whatsappClick`.
+
+## Tema
+- O site abre sempre no tema claro; o escuro só vale para quem clica no botão (fica guardado no navegador).

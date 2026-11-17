@@ -13,10 +13,10 @@ const playfair = Playfair_Display({ subsets: ["latin"], weight: ["500"], style: 
 const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "500"], style: ["italic"], variable: "--font-cormorant", display: "swap" });
 const bodoni = Bodoni_Moda({ subsets: ["latin"], weight: ["500"], variable: "--font-bodoni", display: "swap" });
 
-// Aplica o tema (claro/escuro) antes da pintura, sem piscar
-const THEME_SCRIPT = `(function(){var t;try{t=localStorage.getItem("tb-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t)})();`;
+// Tema: o site abre sempre no claro; o escuro só vale se a pessoa escolheu no botão (guardado no navegador)
+const THEME_SCRIPT = `(function(){var t;try{t=localStorage.getItem("tb-theme")}catch(e){}document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light")})();`;
 
-export const viewport = { themeColor: "#13213d" };
+export const viewport = { themeColor: "#f5f2ec" };
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -41,6 +41,7 @@ export default async function RootLayout({ children, params: { locale } }) {
   return (
     <html
       lang={locale === "pt" ? "pt-BR" : "en"}
+      data-theme="light"
       className={`${inter.variable} ${playfair.variable} ${cormorant.variable} ${bodoni.variable}`}
       suppressHydrationWarning
     >
