@@ -1,19 +1,11 @@
 import { pageMetadata } from "@/lib/seo";
-import Footer1 from "@/components/footers/Footer1";
-
-const onePage = false;
-import ParallaxContainer from "@/components/common/ParallaxContainer";
-
-import Header1Multipage from "@/components/headers/Header1Multipage";
-import AnimatedText from "@/components/common/AnimatedText";
-import Image from "next/image";
 import { progressData } from "@/data/skills";
-import { menuItems2 } from "@/data/menu";
-import Testimonials from "@/components/homes/home-10/Testimonials";
-import Brands from "@/components/homes/home-1-1/Brands";
-import ScheduleButton from "@/components/buttons/ScheduleButton";
 import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
+import ScheduleButton from "@/components/tb/ScheduleButton";
+import CtaBand from "@/components/tb/CtaBand";
+import { PeopleHero, CheckList, PatientQuotes, Certifications } from "@/components/tb/people/PeopleSections";
+import "@/app/styles/people.css";
 
 export async function generateMetadata({ params: { locale } }) {
   const tr = await getTranslations({ locale, namespace: "patientsAbroad.metadata" });
@@ -25,261 +17,106 @@ export async function generateMetadata({ params: { locale } }) {
     description: tr("description"),
   });
 }
-export default function PatientsAbroadPage() {
-  const t = useTranslations('patientsAbroad');
+
+// "Brazil (procedimentos cirúrgicos realizados) 70" -> ["Brazil (procedimentos cirúrgicos realizados)", "70"]
+function splitLabel(label) {
+  const m = String(label).match(/^(.*?)\s*(\d+)\s*$/);
+  return m ? [m[1], m[2]] : [label, ""];
+}
+
+export default function PatientsAbroadPage({ params: { locale } }) {
+  const t = useTranslations("patientsAbroad");
+  const tt = useTranslations("Team");
+  const en = locale === "en";
   return (
-    <>
-      <div className="theme-main">
-        <div className="page" id="top">
-          <nav className="main-nav dark light-after-scroll transparent stick-fixed wow-menubar">
-            <Header1Multipage links={menuItems2} />
-          </nav>
-          <main id="main">
-            <section className="page-section pt-0 pb-0" id="home">
-              <ParallaxContainer
-                className="page-section bg-dark-1 bg-dark-alpha-80 light-content parallax-5"
-                style={{
-                  backgroundImage:
-                    "url(/assets/images/full-width-images/page-patientsab-bg-7.jpg)",
-                }}
-              >
-                <div className="container position-relative pt-50">
-                  {/* Section Content */}
-                  <div className="text-center">
-                    <div className="row">
-                      {/* Page Title */}
-                      <div className="col-md-8 offset-md-2">
-                        <h2
-                          className="section-caption-border mb-30 mb-xs-20 wow fadeInUp"
-                          data-wow-duration="1.2s"
-                        >
-                          {t('h2')}
-                        </h2>
-                        <h1 className="hs-title-1 mb-40">
-                          <span
-                            className="wow charsAnimIn"
-                            data-splitting="chars"
-                          >
-                            <AnimatedText text={t('atext')} />
-                          </span>
-                        </h1>
-                        {/* Feature List */}
-                        <div
-                          className="mt-n10 wow fadeInUp"
-                          data-wow-delay="0.6s"
-                          data-wow-duration="1.2s"
-                        >
-                          {/* Features List Item */}
-                          <div className="d-inline-flex mt-10 mx-3">
-                            <div className="features-list-icon">
-                              <i className="mi-check" />
-                            </div>
-                            <div className="features-list-text">
-                              Based in São Paulo
-                            </div>
-                          </div>
-                          {/* End Features List Item */}
-                          {/* Features List Item */}
-                          <div className="d-inline-flex mt-10 mx-3">
-                            <div className="features-list-icon">
-                              <i className="mi-check" />
-                            </div>
-                            <div className="features-list-text">
-                              20+ Years Experience
-                            </div>
-                          </div>
-                          {/* End Features List Item */}
-                          {/* Features List Item */}
-                          <div className="d-inline-flex mt-10 mx-3">
-                            <div className="features-list-icon">
-                              <i className="mi-check" />
-                            </div>
-                            <div className="features-list-text">
-                              5700+ Surgeries Performed
-                            </div>
-                          </div>
-                          {/* End Features List Item */}
-                        </div>
-                        {/* End Feature List */}
-                      </div>
-                      {/* End Page Title */}
-                    </div>
-                  </div>
-                  {/* End Section Content */}
-                </div>
-              </ParallaxContainer>
-            </section>
-            <section className="page-section">
-              <div className="container">
-                <div className="row">
-                  <div className="col-sm-5 mb-xs-50">
-                    <div className="call-action-3-images">
-                      <div className="call-action-3-image-1">
-                        <Image
-                          src="/assets/images/demo-strong/section-image-6.jpg"
-                          alt="Dr. Thomas Benson é fenômeno global"
-                          width={672}
-                          height={659}
-                          className="wow scaleOutIn"
-                          data-wow-duration="1.2s"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-sm-7 col-xl-6 offset-xl-1 mt-n10">
-                    <div className="wow linesAnimIn" data-splitting="lines">
-                      <p className="lead mt-0 mb-40">
-                        {t('p1')}
-                      </p>
-                      <p className="text-gray mb-40">
-                        {t('p2')}
-                      </p>
-                    </div>
-                    <div
-                      className="local-scroll wow fadeInUp"
-                      data-wow-offset={0}
-                    >
-                      <ScheduleButton />
-                    </div>
+    <main id="main" className="ppl">
+      <PeopleHero eyebrow={t("h2")} title={t("atext")} image="/assets/images/full-width-images/page-patientsab-bg-7.jpg" imagePos="40% 50%">
+        <CheckList items={["Based in São Paulo", "20+ Years Experience", "5700+ Surgeries Performed"]} />
+      </PeopleHero>
+
+      {/* Fenômeno global */}
+      <section className="sec" id="about">
+        <div className="wrap cols">
+          <figure className="card soft ppl-fig">
+            <img src="/assets/images/demo-strong/section-image-6.jpg" alt="Dr. Thomas Benson é fenômeno global" width="672" height="659" loading="lazy" />
+          </figure>
+          <div className="head">
+            <p className="eyebrow">{en ? "Medical tourism" : "Turismo médico"}</p>
+            <p className="ppl-lead">{t("p1")}</p>
+            <p className="body">{t("p2")}</p>
+            <div style={{ marginTop: 14 }}>
+              <ScheduleButton />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Depoimentos */}
+      <section className="sec" id="depoimentos">
+        <div className="wrap">
+          <div className="head">
+            <p className="eyebrow">{en ? "Testimonials" : "Depoimentos"}</p>
+            <p className="h2">{tt("h2_2")}</p>
+          </div>
+          <PatientQuotes />
+        </div>
+      </section>
+
+      {/* Concierge */}
+      <section className="sec" id="concierge">
+        <div className="wrap">
+          <div className="cols" style={{ alignItems: "start" }}>
+            <div className="head">
+              <p className="eyebrow">Concierge</p>
+              <p className="h2">{t("div")}</p>
+            </div>
+            <p className="body" style={{ fontSize: 18 }}>{t("p3")}</p>
+          </div>
+          <div className="g2 mt-l keep2 ppl-concierge">
+            <figure className="card soft">
+              <img src="/assets/images/portfolio/hospedagem.jpg" alt="Hospedagem" width="397" height="529" loading="lazy" />
+              <figcaption>{en ? "Accommodation" : "Hospedagem"}</figcaption>
+            </figure>
+            <figure className="card soft">
+              <img src="/assets/images/portfolio/transfer.jpg" alt="Transfer" width="397" height="529" loading="lazy" />
+              <figcaption>Transfer</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      {/* Certificações */}
+      <section className="sec" id="titulos">
+        <div className="wrap">
+          <Certifications locale={locale} />
+        </div>
+      </section>
+
+      {/* Experiência cirúrgica global */}
+      <section className="sec" id="experiencia">
+        <div className="wrap cols">
+          <div className="head">
+            <p className="eyebrow">{en ? "Surgical experience" : "Experiência cirúrgica"}</p>
+            <h3 className="h2">{t("h3")}</h3>
+            <p className="body">{t("p4")}</p>
+          </div>
+          <div className="card soft ppl-bars">
+            {progressData.map((elm, i) => {
+              const [name, value] = splitLabel(t(`progressData.${i}.label`));
+              return (
+                <div key={i}>
+                  <div className="bar-h"><span>{name}</span><b>{value}%</b></div>
+                  <div className="bar-t" role="progressbar" aria-valuenow={elm.value} aria-valuemin={0} aria-valuemax={100} aria-label={name}>
+                    <i style={{ width: `${elm.value}%` }}></i>
                   </div>
                 </div>
-              </div>
-            </section>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-            {/* Testimonials Section */}
-            <section className="page-section bg-gray-light-2 overflow-hidden">
-              <div className="container">
-                {/* Testimonials Carousel */}
-                <Testimonials />
-                {/* End Testimonials Carousel */}
-              </div>
-            </section>
-            {/* End Testimonials Section */}
-
-            <section className="page-section">
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-4 mb-md-50 mb-xs-30">
-                    <div
-                      className="lead-alt wow linesAnimIn"
-                      data-wow-offset={0}
-                      data-splitting="lines"
-                    >
-                      {t('div')}
-                    </div>
-                  </div>
-                  <div
-                    className="col-lg-8 wow linesAnimIn"
-                    data-wow-offset={0}
-                    data-splitting="lines"
-                  >
-                    <p className="mb-0">
-                      {t('p3')}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Images */}
-                <section className="page-section">
-                  <div className="container d-flex justify-content-center">
-                    <div className="row">
-                      {/* Primeira Imagem */}
-                      <div className="col-md-6">
-                        <Image
-                          width={397}
-                          height={529}
-                          src="/assets/images/portfolio/hospedagem.jpg"
-                          className="img-fluid wow scaleOutIn"
-                          alt="Hospedagem"
-                          style={{
-                            maxWidth: "100%",
-                            height: "auto",
-                            objectFit: "cover",
-                          }}
-                        />
-                      </div>
-
-                      {/* Segunda Imagem */}
-                      <div className="col-md-6">
-                        <Image
-                          width={397}
-                          height={529}
-                          src="/assets/images/portfolio/transfer.jpg"
-                          className="img-fluid wow scaleOutIn"
-                          alt="Transfer"
-                          style={{
-                            maxWidth: "100%",
-                            height: "auto",
-                            objectFit: "cover",
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </section>
-                {/* End Images */}
-              </div>
-            </section>
-            {/* Titles Section*/}
-            <section className="page-section bg-gray-light-2">
-              <Brands />
-            </section>
-            {/* End Titles Section*/}
-            {/* Skills Section */}
-            <section className="page-section z-index-1">
-              <div className="container position-relative">
-                <div className="row position-relative">
-                  <div className="col-md-6 col-lg-5 mb-md-50 mb-sm-30">
-                    <h3 className="section-title mb-30">
-                      {t('h3')}
-                    </h3>
-                    <p className="text-gray mb-0">
-                      {t('p4')}
-                    </p>
-                  </div>
-                  <div className="col-md-6 offset-lg-1 pt-10 pt-sm-0">
-                    {/* Bar Item */}
-                    {progressData.map((elm, i) => (
-                      <div key={i} className="progress tpl-progress">
-                        <div
-                          className="progress-bar"
-                          role="progressbar"
-                          style={{ width: `${elm.value}%` }}
-                        >
-                          <div>{t(`progressData.${i}.label`)}%</div>
-                          <span> </span>
-                        </div>
-                      </div>
-                    ))}
-                    {/* End Bar Item */}
-
-                    {/* End Bar Item */}
-                  </div>
-                </div>
-              </div>
-            </section>
-            {/* End Skill Section */}
-            {/* Divider */}
-            <hr className="mt-0 mb-0" />
-            <section
-              className="page-section">
-              <div className="container position-relative">
-                <div className="row text-center wow fadeInUp">
-                  <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                    <p className="section-descr mb-50 mb-sm-30">
-                      {t('p5')}
-                    </p>
-                    <div className="local-scroll">
-                      <ScheduleButton />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </main>
-          <Footer1 />
-        </div>{" "}
-      </div>
-    </>
+      <CtaBand text={t("p5")} />
+    </main>
   );
 }

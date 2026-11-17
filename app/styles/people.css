@@ -1,0 +1,61 @@
+/* Grupo "people": /equipe e /pacientes-no-exterior */
+
+/* topo */
+.ppl-hero h1{font-size:64px;line-height:1.04}
+.ppl-checks{list-style:none;margin:30px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.ppl-checks li{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:24px;font-size:14px;font-weight:500}
+.ppl-checks .round{width:30px;height:30px;cursor:default}
+
+/* equipe */
+.ppl-tm-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.ppl .tm-av{width:72px;height:72px;background:rgba(255,255,255,.06)}
+.ppl .tm-av img{object-position:50% 18%}
+
+/* hospital: galeria com rolagem (sem JavaScript) */
+.ppl-hp{padding:12px;border-radius:32px}
+.ppl-hp-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;border-radius:24px;scrollbar-width:none;aspect-ratio:4/3}
+.ppl-hp-track::-webkit-scrollbar{display:none}
+.ppl-hp-track:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.ppl-hp-track figure{flex:0 0 100%;margin:0;position:relative;scroll-snap-align:start}
+.ppl-hp-track img{width:100%;height:100%;object-fit:cover;display:block}
+.ppl-hp-track figcaption{position:absolute;left:12px;right:12px;bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 16px;border-radius:18px;background:rgba(12,22,44,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-family:var(--f-display);font-size:19px}
+.ppl-hp-track figcaption small{font-family:var(--f-body,inherit);font-size:12px;opacity:.8;font-variant-numeric:tabular-nums}
+.ppl-hp-hint{font-size:12.5px;color:var(--ink-3);padding:12px 10px 4px}
+
+/* selos */
+.ppl-seals .seal{height:110px}
+
+/* depoimentos */
+.ppl .quote p{font-size:18px}
+.ppl-author{display:flex;align-items:center;gap:10px}
+.ppl-author img{width:32px;height:32px;border-radius:50%;object-fit:cover}
+.ppl-author small{display:block;font-weight:400;color:var(--ink-3);font-size:12px}
+
+/* dúvidas */
+.ppl-pull{font-size:22px;line-height:1.45;color:var(--gold-hi,var(--gold));margin-top:8px}
+
+/* pacientes no exterior */
+.ppl-fig{margin:0;padding:10px;border-radius:34px}
+.ppl-fig img{width:100%;aspect-ratio:672/659;object-fit:cover;border-radius:26px;display:block}
+.ppl-lead{font-family:var(--f-display);font-size:30px;line-height:1.25;font-weight:500}
+.ppl-concierge figure{margin:0;padding:10px;border-radius:30px}
+.ppl-concierge img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:22px;display:block}
+.ppl-concierge figcaption{padding:14px 10px 6px;font-family:var(--f-display);font-size:20px}
+.ppl-bars{padding:30px;border-radius:30px;display:flex;flex-direction:column;gap:22px}
+.ppl-bars .bar-h{gap:16px;align-items:flex-end}
+.ppl-bars .bar-h span{color:var(--ink-2)}
+
+[data-theme="light"] .ppl-hp-track figcaption{background:rgba(255,255,255,.75);color:var(--ink)}
+[data-theme="light"] .ppl .tm-av{background:rgba(21,35,63,.06)}
+[data-theme="light"] .ppl-pull{color:#8a6a2e}
+
+@media (max-width:900px){
+  .ppl-hero h1{font-size:46px}
+  .ppl-lead{font-size:24px}
+}
+@media (max-width:600px){
+  .ppl-hero h1{font-size:38px}
+  .ppl-concierge.keep2{grid-template-columns:1fr}
+  .ppl-concierge img{aspect-ratio:3/4}
+  .ppl-pull{font-size:19px}
+}

@@ -1,18 +1,13 @@
 import { pageMetadata } from "@/lib/seo";
-import Footer1 from "@/components/footers/Footer1";
-
-
-import ParallaxContainer from "@/components/common/ParallaxContainer";
-
-import Header1Multipage from "@/components/headers/Header1Multipage";
-import AnimatedText from "@/components/common/AnimatedText";
-import { menuItems2 } from "@/data/menu";
-import BeforeAfterMassonry from "@/components/portfolio/BeforeAfterMassonry";
-import VideoTestimonials2 from "@/components/homes/home-1-1/VideoTestimonials";
-import Team from "@/components/homes/home-1/Team";
-import ScheduleButton from "@/components/buttons/ScheduleButton";
 import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
+import ScheduleButton from "@/components/tb/ScheduleButton";
+import { HomeVideos } from "@/components/tb/home/HomeSections";
+import ResultsStories from "@/components/tb/results/ResultsStories";
+import { CASES_PT, AVATAR, PAGE_BG } from "@/components/tb/results/cases";
+import { toEnglish } from "@/components/tb/results/casesEn";
+import { PageBg, ScarsSection } from "@/components/tb/results/ResultsSections";
+import "@/app/styles/results.css";
 
 export async function generateMetadata({ params: { locale } }) {
   const tr = await getTranslations({ locale, namespace: "BeforeAfter.metadata" });
@@ -24,97 +19,48 @@ export async function generateMetadata({ params: { locale } }) {
     description: tr("description"),
   });
 }
-export default function BeforeAfterPage() {
-  const t = useTranslations('BeforeAfter');
-  return (
-    <>
-      <div className="theme-main">
-        <div className="page" id="top">
-          <nav className="main-nav transparent stick-fixed wow-menubar">
-            <Header1Multipage links={menuItems2} defaultButtonColor="black" />
-          </nav>
-          <main id="main">
-            <section className="page-section pt-0 pb-0" id="home">
-              <ParallaxContainer
-                className="page-section bg-gray-light-1 bg-light-alpha-60 parallax-5"
-                style={{
-                  backgroundImage:
-                    "url(/assets/images/full-width-images/thomas-bg-1.jpg)",
-                }}
-              >
-                <div className="container position-relative pt-30 pt-sm-50">
-                  {/* Section Content */}
-                  <div className="text-center">
-                    <div className="row">
-                      {/* Page Title */}
-                      <div className="col-md-8 offset-md-2">
-                        <h2
-                          className="section-caption-border mb-30 mb-xs-20 wow fadeInUp"
-                          data-wow-duration="1.2s"
-                        >
-                          {t('h2')}
-                        </h2>
-                        <h1 className="hs-title-1 mb-0">
-                          <span
-                            className="wow charsAnimIn"
-                            data-splitting="chars"
-                          >
-                            <AnimatedText text={t('atext')} />
-                          </span>
-                        </h1>
-                      </div>
-                      {/* End Page Title */}
-                    </div>
-                  </div>
-                  {/* End Section Content */}
-                </div>
-              </ParallaxContainer>
-            </section>
-            <>
-              <section
-                className="page-section  scrollSpysection"
-                id="Videotestimonial"
-              >
-                <VideoTestimonials2 />
-              </section>
-              
-              {/* Section */}
-              <section id="results" className="page-section">
-                <BeforeAfterMassonry />
-              </section>
-              {/* End Section */}
-            </>
+export default function BeforeAfterPage({ params }) {
+  const en = params?.locale === "en";
+  const t = useTranslations("BeforeAfter");
 
-            <section
-              className="page-section  scrollSpysection dark-content bg-gray-light-1"
-              id="team"
-            >
-              <Team />
-            </section>
-            
-            {/* Divider */}
-            <hr className="mt-0 mb-80 mb-sm-40" />
-            {/* End Divider */}
-      
-            <section
-              className="page-section">
-              <div className="container position-relative">
-                <div className="row text-center wow fadeInUp">
-                  <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                    <p className="section-descr mb-50 mb-sm-30">
-                      {t('p')}
-                    </p>
-                    <div className="local-scroll">
-                      <ScheduleButton />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </main>
-          <Footer1 />
-        </div>{" "}
-      </div>
-    </>
+  // Só os casos do Instagram (os 5 casos antigos saíram a pedido do Arthur; continuam nas páginas /resultado/7 a 11,
+  // que seguem linkadas pela página Dr. Thomas e entre si)
+  const ig = CASES_PT.filter((c) => c.ig);
+  const cases = en ? ig.map(toEnglish) : ig;
+
+  const cats = en
+    ? [["todos", "All"], ["deep-plane", "Deep Plane"], ["deep-neck", "Deep Neck"], ["blefaro", "Blepharoplasty"], ["masculino", "Men"], ["cicatrizes", "Scars"]]
+    : [["todos", "Todos"], ["deep-plane", "Deep Plane"], ["deep-neck", "Deep Neck"], ["blefaro", "Blefaroplastia"], ["masculino", "Masculino"], ["cicatrizes", "Cicatrizes"]];
+
+  const L = en
+    ? { onIg: "posted on Instagram", prev: "Previous", next: "Next", like: "Like", ask: "Ask about this case on WhatsApp", save: "Save", more: "more", full: "See full case", seeIg: "See the Instagram post", stories: "Patient stories", seeStory: "See story", filter: "Filter by category", story: "Patient story", close: "Close story" }
+    : { onIg: "publicado no Instagram", prev: "Anterior", next: "Próximo", like: "Curtir", ask: "Perguntar sobre este caso no WhatsApp", save: "Salvar", more: "mais", full: "Ver o caso completo", seeIg: "Ver a publicação no Instagram", stories: "Histórias das pacientes", seeStory: "Ver história", filter: "Filtrar por categoria", story: "História da paciente", close: "Fechar história" };
+
+  return (
+    <main id="main" className="rpage">
+      <PageBg src={PAGE_BG} />
+      <section className="sec" id="results" style={{ paddingTop: 150 }}>
+        <div className="wrap">
+          <div className="head">
+            <h2 className="eyebrow">{t("h2")}</h2>
+            <h1 className="h2" style={{ fontSize: 52 }}>{t("atext")}</h1>
+            <p className="body">{en ? "Tap a patient to see the full story, from before to after." : "Clique em uma paciente para ver a história completa, do antes ao depois."}</p>
+          </div>
+          <ResultsStories cases={cases} cats={cats} avatar={AVATAR} L={{ ...L, en }} />
+          <div className="cta">
+            <div>
+              <p style={{ fontFamily: "var(--f-display)", fontSize: 28, lineHeight: 1.25 }}>{en ? "Want to know what is possible for your face?" : "Quer saber o que é possível para o seu rosto?"}</p>
+              <p style={{ fontSize: 15, marginTop: 8 }} className="body">{t("p")}</p>
+              <p style={{ fontSize: 12, lineHeight: 1.5, color: "var(--ink-3)", marginTop: 10 }}>{en ? "Results vary from patient to patient. Photos published with authorization, following CFM rules." : "Resultados variam de paciente para paciente. Fotos publicadas com autorização, conforme as normas do CFM."}</p>
+            </div>
+            <ScheduleButton trackingLocation="content" />
+          </div>
+        </div>
+      </section>
+
+      <HomeVideos />
+
+      <ScarsSection />
+    </main>
   );
 }

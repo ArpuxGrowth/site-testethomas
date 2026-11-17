@@ -1,18 +1,12 @@
 import { pageMetadata } from "@/lib/seo";
-import Footer1 from "@/components/footers/Footer1";
-
-import ParallaxContainer from "@/components/common/ParallaxContainer";
-
-import AnimatedText from "@/components/common/AnimatedText";
-
 import React from "react";
-
-import Gallery2 from "@/components/gallery/Gallery2";
-import { menuItems2 } from "@/data/menu";
-import Header1Multipage from "@/components/headers/Header1Multipage";
-import ScheduleButton from "@/components/buttons/ScheduleButton";
 import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
+import PageHero from "@/components/tb/PageHero";
+import CtaBand from "@/components/tb/CtaBand";
+import PressGrid from "@/components/tb/content/PressGrid";
+import "@/app/styles/content.css";
+
 export async function generateMetadata({ params: { locale } }) {
   const tr = await getTranslations({ locale, namespace: "pagePress.metadata" });
 
@@ -23,87 +17,26 @@ export async function generateMetadata({ params: { locale } }) {
     description: tr("description"),
   });
 }
-export default function PressPage() {
+export default function PressPage({ params }) {
   const t = useTranslations('pagePress');
+  const en = params?.locale === "en";
   return (
-    <>
-      <div className="theme-main">
-        <div className="page" id="top">
-          <nav className="main-nav transparent stick-fixed wow-menubar">
-            <Header1Multipage links={menuItems2} defaultButtonColor="black" />
-          </nav>
-          <main id="main">
-            <section className="page-section pt-0 pb-0" id="home">
-              <ParallaxContainer
-                className="page-section bg-gray-light-1 bg-light-alpha-70 parallax-5"
-                style={{
-                  backgroundImage:
-                    "url(/assets/images/full-width-images/thomas-bg-5.jpg)",
-                }}
-              >
-                <>
-                  <div className="position-absolute top-0 bottom-0 start-0 end-0 bg-gradient-white" />
-                  <div className="container position-relative pt-50">
-                    {/* Section Content */}
-                    <div className="text-center">
-                      <div className="row">
-                        {/* Page Title */}
-                        <div className="col-md-8 offset-md-2">
-                          <h2
-                            className="section-caption-border mb-30 mb-xs-20 wow fadeInUp"
-                            data-wow-duration="1.2s"
-                          >
-                            {t('h2')}
-                          </h2>
-                          <h1 className="hs-title-1 mb-0">
-                            <span
-                              className="wow charsAnimIn"
-                              data-splitting="chars"
-                            >
-                              <AnimatedText text={t('atext')} />
-                            </span>
-                          </h1>
-                        </div>
-                        {/* End Page Title */}
-                      </div>
-                    </div>
-                    {/* End Section Content */}
-                  </div>
-                </>
-              </ParallaxContainer>
-            </section>
-            <>
-              <>
-                {/* Section */}
-                <section className="page-section pt-0">
-                  <Gallery2 parantClass="col-md-4" />
-                </section>
-                {/* End Section */}
-                {/* Divider */}
-                <hr className="mt-0 mb-0" />
-              </>
-
-              {/* End Divider */}
-              {/* Call Action Section */}
-              <section className="page-section">
-                <div className="container position-relative">
-                  <div className="row wow fadeInUp">
-                    <div className="col-md-6 offset-md-1 col-lg-5 offset-lg-2 text-md-start mb-sm-30">
-                      <p dangerouslySetInnerHTML={{ __html: t.raw('p') }} className="section-descr mb-0" />
-                    </div>
-                    <div className="col-md-4 col-lg-3 text-md-end">
-                      <div className="local-scroll">
-                        <ScheduleButton />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </>
-          </main>
-          <Footer1 />
-        </div>{" "}
-      </div>
-    </>
+    <main id="main" className="tb-content">
+      <PageHero
+        center
+        crumbs={[{ href: "/", label: en ? "Home" : "Início" }, { label: t('h2') }]}
+        eyebrow={<span role="heading" aria-level={2}>{t('h2')}</span>}
+        title={t('atext')}
+      />
+      <section className="sec tight press-sec">
+        <div className="wrap">
+          <PressGrid />
+        </div>
+      </section>
+      <CtaBand
+        text={<span dangerouslySetInnerHTML={{ __html: t.raw('p') }} />}
+        trackingLocation="content"
+      />
+    </main>
   );
 }

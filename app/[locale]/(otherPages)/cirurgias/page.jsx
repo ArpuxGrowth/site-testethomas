@@ -1,16 +1,11 @@
 import { pageMetadata } from "@/lib/seo";
-import Footer1 from "@/components/footers/Footer1";
-
-
-import ParallaxContainer from "@/components/common/ParallaxContainer";
-
-import AnimatedText from "@/components/common/AnimatedText";
-import { menuItems2 } from "@/data/menu";
-import SurgeriesPortfolio from "@/components/portfolio/SurgeriesPortfolio";
-import Header1Multipage from "@/components/headers/Header1Multipage";
-import ScheduleButton from "@/components/buttons/ScheduleButton";
+import { surgeriesItems } from "@/data/surgeries";
 import { getTranslations } from "next-intl/server";
-import { useTranslations } from "next-intl";
+import PageHero from "@/components/tb/PageHero";
+import CtaBand from "@/components/tb/CtaBand";
+import SurgeriesFilter from "@/components/tb/surgeries/SurgeriesFilter";
+import SurgeryCard from "@/components/tb/surgeries/SurgeryCard";
+import "@/app/styles/surgeries.css";
 
 export async function generateMetadata({ params: { locale } }) {
   const tr = await getTranslations({ locale, namespace: "Surgeries.metadata" });
@@ -22,93 +17,50 @@ export async function generateMetadata({ params: { locale } }) {
     description: tr("description"),
   });
 }
-export default function SurgeriesPage() {
-  const t = useTranslations('Surgeries');
+export default async function SurgeriesPage({ params: { locale } }) {
+  const t = await getTranslations({ locale, namespace: "Surgeries" });
+  const tf = await getTranslations({ locale, namespace: "SurgeriesPortfolio" });
+  const ts = await getTranslations({ locale, namespace: "surgeriesItems" });
+  const en = locale === "en";
+
+  const count = (c) => (c === "all" ? surgeriesItems.length : surgeriesItems.filter((i) => i.mix === c).length);
+  const filters = ["all", "facials", "others"].map((category) => ({
+    category,
+    name: tf(`filters.${category}`),
+    count: count(category),
+  }));
+
   return (
-    <>
-      <div className="theme-main">
-        <div className="page" id="top">
+    <main id="main">
+      <PageHero
+        image="/assets/images/full-width-images/surgeries-bg-1.jpg"
+        imagePos="55% 40%"
+        eyebrow={t("h2")}
+        title={t("atext")}
+        crumbs={[{ href: "/", label: en ? "Home" : "Início" }, { label: t("h2") }]}
+      />
 
-          {/* Menu */}
-          <nav className="main-nav transparent stick-fixed wow-menubar">
-            <Header1Multipage links={menuItems2} defaultButtonColor="black" />
-          </nav>
-          {/* End Menu */}
+      <section className="sec sg-sec" aria-label={t("h2")}>
+        <div className="wrap">
+          <div className="head">
+            <p className="eyebrow">{en ? "Procedures" : "Procedimentos"}</p>
+            <h2 className="h2">{en ? "Learn about each surgery." : "Conheça cada cirurgia."}</h2>
+          </div>
+          <SurgeriesFilter filters={filters} label={en ? "Filter surgeries" : "Filtrar cirurgias"}>
+            {surgeriesItems.map((item) => (
+              <SurgeryCard
+                key={item.url}
+                item={item}
+                locale={locale}
+                title={ts(`${item.id}.title`)}
+                descr={ts(`${item.id}.descr`)}
+              />
+            ))}
+          </SurgeriesFilter>
+        </div>
+      </section>
 
-          <main id="main">
-
-            <section className="page-section pt-0 pb-0" id="home">
-              <ParallaxContainer
-                className="page-section bg-gray-light-1 bg-light-alpha-60 parallax-5"
-                style={{
-                  backgroundImage:
-                    "url(/assets/images/full-width-images/surgeries-bg-1.jpg)",
-                }}
-              >
-                <div className="container position-relative pt-30 pt-sm-50">
-                  {/* Section Content */}
-                  <div className="text-center">
-                    <div className="row">
-                      {/* Page Title */}
-                      <div className="col-md-8 offset-md-2">
-                        <h2
-                          className="section-caption-border mb-30 mb-xs-20 wow fadeInUp"
-                          data-wow-duration="1.2s"
-                        >
-                          {t('h2')}
-                        </h2>
-                        <h1 className="hs-title-1 mb-0">
-                          <span
-                            className="wow charsAnimIn"
-                            data-splitting="chars"
-                          >
-                            <AnimatedText text={t('atext')} />
-                          </span>
-                        </h1>
-                      </div>
-                      {/* End Page Title */}
-                    </div>
-                  </div>
-                  {/* End Section Content */}
-                </div>
-              </ParallaxContainer>
-            </section>
-
-            <>
-
-              {/* Section */}
-              <section className="page-section">
-                <SurgeriesPortfolio />
-              </section>
-              {/* End Section */
-              }
-            </>
-
-            {/* Divider */}
-            <hr className="mt-0 mb-0" />
-
-            <section
-              className="page-section">
-              <div className="container position-relative">
-                <div className="row text-center wow fadeInUp">
-                  <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                    <p className="section-descr mb-50 mb-sm-30">
-                      {t('p')}
-                    </p>
-                    <div className="local-scroll">
-                      <ScheduleButton />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-          </main>
-
-          <Footer1 />
-
-        </div>{" "}
-      </div>
-    </>
+      <CtaBand text={t("p")} />
+    </main>
   );
 }

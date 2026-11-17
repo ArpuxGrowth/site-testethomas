@@ -108,7 +108,7 @@ export const pressItems = [
     title: "PORTAL ETC - Dr Thomas Benson: o melhor cirurgião plástico da face da América Latina.",
     href: "/assets/images/press/news-8.jpg",
     src: "/assets/images/press/news-8.jpg",
-    externalLink: "https://portaletc.com/dr-thomas-benson-o-melhor-cirurgiao-plastico-da-face-da-america-latina.html",
+    externalLink: "", // portaletc.com saiu do ar (sem cópia no Web Archive); a matéria completa fica na própria página
     alt: "Dr Thomas Benson: o melhor cirurgião plástico da face da América Latina",
     video: " ",
     article: `<p>O cirurgião plástico paulistano, Dr Thomas Benson, é especialista em face. Ele é o único brasileiro 
@@ -159,7 +159,7 @@ export const pressItems = [
     title: "Plástica com know-how internacional em Alphaville - Revista Vero.",
     href: "/assets/images/press/news-12.jpg",
     src: "/assets/images/press/news-12.jpg",
-    externalLink: "http://issuu.com/veroalphaville3/docs/vr185/64",
+    externalLink: "https://web.archive.org/web/20250316202404/https://issuu.com/veroalphaville3/docs/vr185/64", // a revista saiu do Issuu; cópia no Web Archive
     alt: "Dr. Thomas Benson para a revista 'Vero'",
     video: " ",
     article: `<p>Às vezes, a gente até esquece. Mas, muitas vezes, os benefícios da cirurgia plástica estão diretamente 
