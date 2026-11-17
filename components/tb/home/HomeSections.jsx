@@ -3,7 +3,6 @@ import { Link } from "@/i18n/routing";
 import ScheduleButton from "../ScheduleButton";
 import VideoButton from "../VideoButton";
 import Faq from "../Faq";
-import ReadMore from "../ReadMore";
 import CareerChapters from "./CareerChapters";
 import SafetyStories from "./SafetyStories";
 import { Check, Arrow, Play, Phone, Pin, Star } from "../Icons";
@@ -76,11 +75,7 @@ export function HomeAbout({ locale }) {
           <p className="eyebrow">{locale === "en" ? "Career" : "Trajetória"}</p>
           <h2 className="h2" style={{ marginTop: 14 }}>{t("abouth2")}</h2>
           <CareerChapters locale={locale} />
-          <div style={{ marginTop: 6 }}>
-            <ReadMore html={t.raw("aboutp")} keep={0} style={{ fontSize: 16 }}
-              more={locale === "en" ? "Read the full story" : "Ler a história completa"} less={locale === "en" ? "Show less" : "Mostrar menos"} />
-          </div>
-          <div style={{ marginTop: 18, display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <div style={{ marginTop: 22, display: "flex", gap: 12, flexWrap: "wrap" }}>
             <ScheduleButton />
             <Link className="btn clear" href="/dr-thomas">{locale === "en" ? "About Dr. Thomas" : "Conheça o Dr. Thomas"} <Arrow width={16} height={16} /></Link>
           </div>
