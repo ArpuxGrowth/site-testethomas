@@ -1,4 +1,5 @@
 import posthog from "posthog-js";
+import { conversaoGoogleAds } from "./googleAds";
 
 // Experimento (11/2026): os botões "Agendar consulta" e o botão flutuante do WhatsApp levam direto
 // para o WhatsApp da clínica, sem abrir o formulário do HubSpot. Para voltar ao formulário, troque para false.
@@ -49,6 +50,7 @@ export function abrirWhatsapp(location) {
     posthog.capture(WHATSAPP_CLICKED_EVENT, { location }, { send_instantly: true });
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: "whatsappClick", location });
+    conversaoGoogleAds("whatsapp");
   } catch {
     // o rastreamento nunca pode impedir a pessoa de chegar ao WhatsApp
   }

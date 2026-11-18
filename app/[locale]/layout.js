@@ -1,4 +1,5 @@
 import Script from "next/script";
+import { GOOGLE_ADS_ID, GOOGLE_ADS_SCRIPT } from "@/utlis/googleAds";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { Inter, Playfair_Display, Cormorant_Garamond, Bodoni_Moda } from "next/font/google";
@@ -59,6 +60,9 @@ export default async function RootLayout({ children, params: { locale } }) {
              })(window,document,'script','dataLayer','GTM-5TTZF69D');`,
           }}
         />
+        {/* Google Ads: conversões de WhatsApp e formulário (utlis/googleAds.js) */}
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`} strategy="afterInteractive" />
+        <Script id="google-ads" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: GOOGLE_ADS_SCRIPT }} />
       </head>
       <body>
         <JsonLd data={physicianJsonLd} />

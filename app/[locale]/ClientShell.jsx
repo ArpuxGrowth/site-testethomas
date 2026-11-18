@@ -5,6 +5,7 @@ import { PHProvider } from "../providers";
 import PostHogPageView from "../PostHogPageView";
 import { hubspotFormPostHogCallbacks, trackScheduleConsultationClick } from "@/utlis/analytics";
 import { AGENDAR_PELO_WHATSAPP, abrirWhatsapp } from "@/utlis/whatsapp";
+import { conversaoGoogleAds } from "@/utlis/googleAds";
 import Header from "@/components/tb/Header";
 import Footer from "@/components/tb/Footer";
 import { Whatsapp, Close } from "@/components/tb/Icons";
@@ -62,6 +63,7 @@ export default function ClientShell({ children, locale, messages }) {
         onFormSubmit: () => {
           window.dataLayer = window.dataLayer || [];
           window.dataLayer.push({ event: "hubspotFormSubmit", formId: "d1ae94a9-fc3d-4747-9fbd-01519b8f7d7b" });
+          conversaoGoogleAds("formulario");
         },
       });
     };
