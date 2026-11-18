@@ -9,6 +9,7 @@ import { conversaoGoogleAds } from "@/utlis/googleAds";
 import Header from "@/components/tb/Header";
 import Footer from "@/components/tb/Footer";
 import { Whatsapp, Close } from "@/components/tb/Icons";
+import LeadForm from "@/components/tb/LeadForm";
 
 // Parte do layout que roda no navegador. O layout em si é server component para poder
 // exportar metadados e entregar o HTML completo (H1, textos) já renderizado para o Google.
@@ -85,6 +86,8 @@ export default function ClientShell({ children, locale, messages }) {
         <div id="conteudo">{children}</div>
         <Footer />
       </NextIntlClientProvider>
+
+      <LeadForm locale={locale} />
 
       <button type="button" className="wa-fix" onClick={handleWhatsappClick} aria-label={locale === "en" ? "Talk on WhatsApp" : "Falar no WhatsApp"}>
         <Whatsapp />

@@ -5,6 +5,18 @@ import { conversaoGoogleAds } from "./googleAds";
 // para o WhatsApp da clínica, sem abrir o formulário do HubSpot. Para voltar ao formulário, troque para false.
 export const AGENDAR_PELO_WHATSAPP = true;
 
+// Teste (18/11/2026): os botões "Agendar consulta" abrem o formulário do site (components/tb/LeadForm.jsx), que manda o lead
+// ao CRM do portal Arpux e leva à página /obrigado. O botão flutuante continua indo direto ao WhatsApp.
+// Para voltar ao WhatsApp direto nos botões, troque para false.
+export const AGENDAR_PELO_FORMULARIO = true;
+
+// Abre o formulário do site (ou o WhatsApp, se o teste estiver desligado)
+export function agendar(location) {
+  if (AGENDAR_PELO_FORMULARIO) window.dispatchEvent(new CustomEvent("tb:agendar", { detail: { location } }));
+  else if (AGENDAR_PELO_WHATSAPP) abrirWhatsapp(location);
+  else window.dispatchEvent(new Event("tb:form"));
+}
+
 // WhatsApp da clínica do Dr. Thomas (o mesmo do rodapé)
 export const WHATSAPP_CLINICA = "5511972415960";
 
@@ -30,9 +42,10 @@ function campanhaDaVisita() {
   }
 }
 
-export function whatsappUrl() {
+export function whatsappUrl(procedimento) {
   const idioma = (document.documentElement.lang || window.location.pathname.split("/")[1] || "pt").slice(0, 2);
   let texto = MENSAGENS[idioma] || MENSAGENS.pt;
+  if (procedimento) texto += idioma === "en" ? ` I'm interested in: ${procedimento}.` : ` Tenho interesse em: ${procedimento}.`;
   const campanha = campanhaDaVisita();
   if (campanha) texto += ` (ref: ${campanha})`;
   return `https://wa.me/${WHATSAPP_CLINICA}?text=${encodeURIComponent(texto)}`;
@@ -44,8 +57,8 @@ export function whatsappUrl() {
  *
  * @param {string} location - Onde fica o botão (ex.: "navbar", "hero", "whatsapp_button")
  */
-export function abrirWhatsapp(location) {
-  const url = whatsappUrl();
+export function abrirWhatsapp(location, procedimento) {
+  const url = whatsappUrl(procedimento);
   try {
     posthog.capture(WHATSAPP_CLICKED_EVENT, { location }, { send_instantly: true });
     window.dataLayer = window.dataLayer || [];
