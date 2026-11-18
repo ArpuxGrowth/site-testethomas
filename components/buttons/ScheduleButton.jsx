@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { hubspotFormPostHogCallbacks, trackScheduleConsultationClick } from "@/utlis/analytics";
-import { AGENDAR_PELO_WHATSAPP, abrirWhatsapp } from "@/utlis/whatsapp";
+import { AGENDAR_PELO_FORMULARIO, AGENDAR_PELO_WHATSAPP, agendar } from "@/utlis/whatsapp";
 
 // trackingLocation identifica no PostHog onde está o botão (ex.: "hero"); sem ele, vale "content"
 export default function ScheduleButton({ buttonText, formPortalId, formId, className = "", trackingLocation = "content" }) {
@@ -41,7 +41,7 @@ export default function ScheduleButton({ buttonText, formPortalId, formId, class
         className={`btn btn-mod btn-large btn-round btn-hover-anim align-middle ${className}`}
         onClick={() => {
           trackScheduleConsultationClick(trackingLocation);
-          if (AGENDAR_PELO_WHATSAPP) abrirWhatsapp(trackingLocation);
+          if (AGENDAR_PELO_FORMULARIO || AGENDAR_PELO_WHATSAPP) agendar(trackingLocation);
           else setIsModalOpen(true);
         }}
       >
