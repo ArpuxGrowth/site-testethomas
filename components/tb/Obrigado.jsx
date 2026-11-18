@@ -2,14 +2,13 @@
 import { useEffect, useState } from "react";
 import { abrirWhatsapp } from "@/utlis/whatsapp";
 
-// Conteúdo da página /obrigado: confirma o pedido e oferece adiantar a conversa no WhatsApp,
-// com o procedimento escolhido no formulário já escrito na mensagem.
+// Conteúdo da página /obrigado: confirma o pedido e oferece adiantar a conversa no WhatsApp.
 export default function Obrigado({ locale = "pt" }) {
   const en = locale === "en";
-  const [dados, setDados] = useState({ p: "", n: "" });
+  const [dados, setDados] = useState({ n: "" });
   useEffect(() => {
     const q = new URLSearchParams(location.search);
-    setDados({ p: (q.get("p") || "").slice(0, 60), n: (q.get("n") || "").slice(0, 30) });
+    setDados({ n: (q.get("n") || "").slice(0, 30) });
   }, []);
   return (
     <section className="ob">
@@ -22,7 +21,7 @@ export default function Obrigado({ locale = "pt" }) {
             ? "Dr. Thomas's team will message you on WhatsApp during business hours to find the best time for your consultation. If you prefer, start the conversation now."
             : "A equipe do Dr. Thomas vai chamar você no WhatsApp em horário comercial para combinar o melhor horário da sua consulta. Se preferir, já pode começar a conversa agora."}
         </p>
-        <button className="btn wa lf-enviar" type="button" onClick={() => abrirWhatsapp("obrigado", dados.p)}>
+        <button className="btn wa lf-enviar" type="button" onClick={() => abrirWhatsapp("obrigado")}>
           {en ? "MESSAGE ON WHATSAPP" : "CHAMAR NO WHATSAPP"}
         </button>
         <a className="lf-voltar" href={`/${locale}`}>{en ? "Back to the website" : "Voltar ao site"}</a>
