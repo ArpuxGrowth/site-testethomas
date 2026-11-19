@@ -6,7 +6,7 @@ import { conversaoGoogleAds } from "./googleAds";
 export const AGENDAR_PELO_WHATSAPP = true;
 
 // Teste (18/11/2026): os botões "Agendar consulta" abrem o formulário do site (components/tb/LeadForm.jsx), que manda o lead
-// ao CRM do portal Arpux e leva à página /obrigado. O botão flutuante continua indo direto ao WhatsApp.
+// ao CRM do portal Arpux e leva à página /obrigado. Desde 19/11/2026 o botão flutuante do WhatsApp também abre o formulário.
 // Para voltar ao WhatsApp direto nos botões, troque para false.
 export const AGENDAR_PELO_FORMULARIO = true;
 

@@ -4,7 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { PHProvider } from "../providers";
 import PostHogPageView from "../PostHogPageView";
 import { hubspotFormPostHogCallbacks, trackScheduleConsultationClick } from "@/utlis/analytics";
-import { AGENDAR_PELO_WHATSAPP, abrirWhatsapp } from "@/utlis/whatsapp";
+import { AGENDAR_PELO_FORMULARIO, AGENDAR_PELO_WHATSAPP, abrirWhatsapp, agendar } from "@/utlis/whatsapp";
 import { conversaoGoogleAds } from "@/utlis/googleAds";
 import Header from "@/components/tb/Header";
 import Footer from "@/components/tb/Footer";
@@ -16,11 +16,12 @@ import LeadForm from "@/components/tb/LeadForm";
 export default function ClientShell({ children, locale, messages }) {
   const [isFormVisible, setIsFormVisible] = useState(false);
 
-  // Botão do WhatsApp: registra o clique no PostHog e abre o WhatsApp da clínica
-  // (ou o formulário do HubSpot, se o experimento AGENDAR_PELO_WHATSAPP estiver desligado)
+  // Botão do WhatsApp: registra o clique e abre o formulário do site, como os botões Agendar consulta
+  // (com o teste AGENDAR_PELO_FORMULARIO desligado, vai direto ao WhatsApp da clínica)
   const handleWhatsappClick = () => {
     if (!isFormVisible) trackScheduleConsultationClick("whatsapp_button");
-    if (AGENDAR_PELO_WHATSAPP) abrirWhatsapp("whatsapp_button");
+    if (AGENDAR_PELO_FORMULARIO) agendar("whatsapp_button");
+    else if (AGENDAR_PELO_WHATSAPP) abrirWhatsapp("whatsapp_button");
     else setIsFormVisible((v) => !v);
   };
 

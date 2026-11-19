@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "@/i18n/routing";
 import ScheduleButton from "../ScheduleButton";
-import { abrirWhatsapp } from "@/utlis/whatsapp";
+import { agendar } from "@/utlis/whatsapp";
 
 // Página Resultados no formato do protótipo: stories, filtros, feed estilo Instagram e visualizador de stories.
 // Todo o conteúdo dos casos é renderizado no servidor (o Google lê); só a interação depende de JS.
@@ -51,7 +51,7 @@ function Post({ c, i, L, avatar, onStory }) {
         <button className={`ib${liked ? " liked" : ""}`} type="button" aria-label={L.like} aria-pressed={liked} onClick={() => setLiked((v) => !v)}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z" /></svg>
         </button>
-        <button className="ib" type="button" aria-label={L.ask} onClick={() => abrirWhatsapp("results_case")}>
+        <button className="ib" type="button" aria-label={L.ask} onClick={() => agendar("results_case")}>
           <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12z" /></svg>
         </button>
         <div className="dots">{n > 1 && c.photos.map((_, k) => <i key={k} className={k === pos ? "on" : ""}></i>)}</div>
