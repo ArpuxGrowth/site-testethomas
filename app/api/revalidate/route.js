@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 
-// Chamada pelo webhook do Prismic quando um post é publicado.
+// Chamada pelo portal da Arpux quando um artigo é publicado (antes, pelo webhook do Prismic).
 // Se REVALIDATE_SECRET estiver configurada na Vercel, exige o mesmo valor no campo "secret" do webhook
 // (ou em ?secret=). Sem a variável, segue aberta como antes, para não interromper a atualização do blog.
 export async function POST(request) {
