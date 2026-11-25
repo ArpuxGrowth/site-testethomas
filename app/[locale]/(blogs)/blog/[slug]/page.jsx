@@ -25,12 +25,12 @@ import {
 } from "@/lib/seo";
 
 // Nenhum artigo é gerado no build: cada um é gerado no primeiro acesso e fica em cache
-// (atualizado quando o Prismic chama /api/revalidate)
+// (atualizado quando o portal da Arpux chama /api/revalidate ao publicar)
 export function generateStaticParams() {
   return [];
 }
 
-// O Prismic lança erro quando o UID não existe: nesse caso a página vira 404
+// O cliente do blog lança erro quando o UID não existe: nesse caso a página vira 404
 async function getPost(slug) {
   return createClient()
     .getByUID("blog_post", slug)

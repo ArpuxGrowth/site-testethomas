@@ -25,6 +25,8 @@ const nextConfig = {
     },
     images: {
       remotePatterns: [
+        // Imagens dos artigos do blog (portal da Arpux, Cloudflare R2)
+        { protocol: 'https', hostname: 'blog.arpux.com.br', port: '', pathname: '/**' },
         {
         protocol: 'https',
         hostname: 'images.prismic.io',
